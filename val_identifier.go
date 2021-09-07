@@ -8,13 +8,13 @@ type identifierValue struct {
 
 func Identifier(name string) *identifierValue {
 	return &identifierValue{
-		declaration: QualName("", name),
+		declaration: qualName("", name),
 	}
 }
 
 func QualIdentifier(alias, name string) *identifierValue {
 	return &identifierValue{
-		declaration: QualName(alias, name),
+		declaration: qualName(alias, name),
 	}
 }
 

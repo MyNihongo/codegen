@@ -11,7 +11,7 @@ func TestQualNameFull(t *testing.T) {
 	const want = `alias.type`
 
 	var sb strings.Builder
-	QualName("alias", "type").writeValue(&sb)
+	qualName("alias", "type").writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -20,7 +20,7 @@ func TestQualName(t *testing.T) {
 	const want = `type`
 
 	var sb strings.Builder
-	QualName("", "type").writeValue(&sb)
+	qualName("", "type").writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }

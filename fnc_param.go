@@ -8,11 +8,11 @@ type paramVal struct {
 }
 
 func Param(name, typeName string) *paramVal {
-	return &paramVal{name: name, typeName: QualName("", typeName)}
+	return &paramVal{name: name, typeName: qualName("", typeName)}
 }
 
 func QualParam(name, alias, typeName string) *paramVal {
-	return &paramVal{name: name, typeName: QualName(alias, typeName)}
+	return &paramVal{name: name, typeName: qualName(alias, typeName)}
 }
 
 func (p *paramVal) Pointer() *paramVal {

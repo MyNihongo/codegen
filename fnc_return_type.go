@@ -7,11 +7,11 @@ type returnType struct {
 }
 
 func ReturnType(name string) *returnType {
-	return &returnType{name: QualName("", name)}
+	return &returnType{name: qualName("", name)}
 }
 
 func QualReturnType(alias, name string) *returnType {
-	return &returnType{name: QualName(alias, name)}
+	return &returnType{name: qualName(alias, name)}
 }
 
 func ReturnTypeError() *returnType {

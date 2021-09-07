@@ -8,9 +8,7 @@ type qualNameVal struct {
 	isPointer  bool
 }
 
-// TODO: public???
-
-func QualName(alias, identifier string) *qualNameVal {
+func qualName(alias, identifier string) *qualNameVal {
 	return &qualNameVal{alias: alias, identifier: identifier}
 }
 
