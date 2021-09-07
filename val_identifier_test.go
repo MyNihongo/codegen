@@ -94,3 +94,13 @@ func TestIdentifierNotNil(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierAssign(t *testing.T) {
+	const want = `a=alias.GetMyValue()`
+
+	var sb strings.Builder
+	Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

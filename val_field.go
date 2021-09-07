@@ -11,6 +11,10 @@ func (f *fieldValue) Field(fieldName string) *fieldValue {
 	return newField(f, fieldName)
 }
 
+func (f *fieldValue) Assign(val value) *assignStmt {
+	return newAssignment(f, val)
+}
+
 func newField(val value, name string) *fieldValue {
 	return &fieldValue{
 		val:  val,

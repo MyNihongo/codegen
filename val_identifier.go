@@ -27,6 +27,10 @@ func (i *identifierValue) Field(fieldName string) *fieldValue {
 	return newField(i, fieldName)
 }
 
+func (i *identifierValue) Assign(val value) *assignStmt {
+	return newAssignment(i, val)
+}
+
 func (i *identifierValue) Equals(value value) *equalsValue {
 	return newEquals(i, value, true)
 }
