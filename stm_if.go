@@ -6,14 +6,16 @@ type ifStmt struct {
 	declaration *declarationStmt
 	value       value
 	stmts       []stmt
-	next        *ifStmt
+	prev        *ifStmt
+	isFinal     bool
 }
 
 func IfDeclr(declare *declarationStmt, val value) *ifStmt {
-	return &ifStmt{
-		declaration: declare,
-		value:       val,
-	}
+	return newIf(nil, declare, val)
+}
+
+func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val value) *ifStmt {
+	return newIf(i, declare, val)
 }
 
 func (i *ifStmt) Block(stmts ...stmt) *ifStmt {
@@ -21,7 +23,25 @@ func (i *ifStmt) Block(stmts ...stmt) *ifStmt {
 	return i
 }
 
+func newIf(prev *ifStmt, declare *declarationStmt, val value) *ifStmt {
+	if prev != nil {
+		prev.isFinal = false
+	}
+
+	return &ifStmt{
+		declaration: declare,
+		value:       val,
+		prev:        prev,
+		isFinal:     true,
+	}
+}
+
 func (i *ifStmt) writeStmt(sb *strings.Builder) {
+	if i.prev != nil {
+		i.prev.writeStmt(sb)
+		sb.WriteString(" else ")
+	}
+
 	if i.value != nil {
 		sb.WriteString("if ")
 
@@ -33,12 +53,5 @@ func (i *ifStmt) writeStmt(sb *strings.Builder) {
 		i.value.writeValue(sb)
 	}
 
-	writeStmts(sb, i.stmts, false)
-
-	if i.next != nil {
-		sb.WriteString(" else ")
-		i.next.writeStmt(sb)
-	} else {
-		newLine(sb)
-	}
+	writeStmts(sb, i.stmts, i.isFinal)
 }
