@@ -27,6 +27,22 @@ func (i *identifierValue) Field(fieldName string) *fieldValue {
 	return newField(i, fieldName)
 }
 
+func (i *identifierValue) Equals(value value) *equalsValue {
+	return newEquals(i, value, true)
+}
+
+func (i *identifierValue) NotEquals(value value) *equalsValue {
+	return newEquals(i, value, false)
+}
+
+func (i *identifierValue) Nil() *equalsValue {
+	return newEquals(i, Nil(), true)
+}
+
+func (i *identifierValue) NotNil() *equalsValue {
+	return newEquals(i, Nil(), false)
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	i.declaration.writeValue(sb)
 }

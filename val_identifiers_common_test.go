@@ -15,3 +15,12 @@ func TestErr(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestNil(t *testing.T) {
+	const want = `nil`
+
+	var sb strings.Builder
+	Nil().writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
