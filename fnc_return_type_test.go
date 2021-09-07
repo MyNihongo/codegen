@@ -16,6 +16,15 @@ func TestFuncReturnType(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestReturnTypeError(t *testing.T) {
+	const want = `error`
+
+	var sb strings.Builder
+	NewReturnTypeError().wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestFuncReturnTypePointer(t *testing.T) {
 	const want = `*type`
 

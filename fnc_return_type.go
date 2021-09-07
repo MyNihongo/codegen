@@ -15,6 +15,10 @@ func NewQualReturnType(alias, name string) *returnType {
 	return &returnType{name: NewQualName(alias, name)}
 }
 
+func NewReturnTypeError() *returnType {
+	return NewReturnType("error")
+}
+
 func (r *returnType) Pointer() *returnType {
 	r.isPointer = true
 	return r
