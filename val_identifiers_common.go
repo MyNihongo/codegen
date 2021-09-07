@@ -13,3 +13,7 @@ func Nil() *identifierValue {
 func String(strValue string) *identifierValue {
 	return Identifier(fmt.Sprintf("\"%s\"", strValue))
 }
+
+func Int(intVal int) *identifierValue {
+	return Identifier(fmt.Sprintf("%d", intVal))
+}

@@ -2,44 +2,44 @@ package codegen
 
 import "strings"
 
-type qualNameFunc struct {
+type qualNameFuncValue struct {
 	alias string
 	name  string
 	args  []value
 }
 
-func FuncCall(name string) *qualNameFunc {
+func FuncCall(name string) *qualNameFuncValue {
 	return newFuncCall("", name)
 }
 
-func QualFuncCall(alias, name string) *qualNameFunc {
+func QualFuncCall(alias, name string) *qualNameFuncValue {
 	return newFuncCall(alias, name)
 }
 
-func (q *qualNameFunc) Args(args ...value) *qualNameFunc {
+func (q *qualNameFuncValue) Args(args ...value) *qualNameFuncValue {
 	q.args = args
 	return q
 }
 
-func (q *qualNameFunc) Field(fieldName string) *fieldValue {
+func (q *qualNameFuncValue) Field(fieldName string) *fieldValue {
 	return newField(q, fieldName)
 }
 
-func newFuncCall(alias, name string) *qualNameFunc {
-	return &qualNameFunc{
+func newFuncCall(alias, name string) *qualNameFuncValue {
+	return &qualNameFuncValue{
 		name:  name,
 		alias: alias,
 		args:  make([]value, 0),
 	}
 }
 
-func (q *qualNameFunc) writeValue(sb *strings.Builder) {
+func (q *qualNameFuncValue) writeValue(sb *strings.Builder) {
 	writeAlias(sb, q.alias)
 	writeF(sb, "%s(", q.name)
 	writeValues(sb, q.args)
 	sb.WriteByte(')')
 }
 
-func (q *qualNameFunc) isPointer() bool {
+func (q *qualNameFuncValue) isPointer() bool {
 	return false
 }

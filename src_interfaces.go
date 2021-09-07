@@ -11,6 +11,6 @@ type stmt interface {
 }
 
 type value interface {
-	isPointer() bool
 	writeValue(sb *strings.Builder)
+	isPointer() bool
 }

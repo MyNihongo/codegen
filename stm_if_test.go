@@ -26,7 +26,7 @@ return val
 func TestIfDeclarationIf(t *testing.T) {
 	const want = `if val!=nil{
 return val
-} else if val,varr:=alias.Func();varr==nil{
+} else if val,varr:=alias.Func();len(varr)!=0{
 val=varr
 }
 `
@@ -38,7 +38,7 @@ val=varr
 		Return(Identifier("val")),
 	).ElseIfDeclr(
 		Declare("val", "varr").Values(QualFuncCall("alias", "Func")),
-		Identifier("varr").Nil(),
+		Identifier("varr").NotEmpty(),
 	).Block(
 		Identifier("val").Assign(Identifier("varr")),
 	).writeStmt(&sb)

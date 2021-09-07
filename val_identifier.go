@@ -47,6 +47,10 @@ func (i *identifierValue) NotNil() *equalsValue {
 	return newEquals(i, Nil(), false)
 }
 
+func (i *identifierValue) NotEmpty() *equalsValue {
+	return Len(i).NotEquals(Int(0))
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	i.declaration.writeValue(sb)
 }
