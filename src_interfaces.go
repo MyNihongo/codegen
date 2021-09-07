@@ -7,5 +7,5 @@ type stmt interface {
 }
 
 type value interface {
-	getValue(sb *strings.Builder)
+	writeValue(sb *strings.Builder)
 }

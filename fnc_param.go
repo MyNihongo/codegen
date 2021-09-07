@@ -21,12 +21,26 @@ func (p *paramStmt) Pointer() *paramStmt {
 	return p
 }
 
-func (p *paramStmt) getValue(sb *strings.Builder) {
+func (p *paramStmt) writeValue(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
 
 	if p.isPointer {
 		sb.WriteByte('*')
 	}
 
-	p.typeName.getValue(sb)
+	p.typeName.writeValue(sb)
+}
+
+func writeParams(sb *strings.Builder, params []*paramStmt) {
+	sb.WriteByte('(')
+
+	for i, p := range params {
+		if i != 0 {
+			sb.WriteByte(',')
+		}
+
+		p.writeValue(sb)
+	}
+
+	sb.WriteByte(')')
 }
