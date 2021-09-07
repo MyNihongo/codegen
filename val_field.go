@@ -7,6 +7,10 @@ type fieldValue struct {
 	name string
 }
 
+func (f *fieldValue) Field(fieldName string) *fieldValue {
+	return newField(f, fieldName)
+}
+
 func newField(val value, name string) *fieldValue {
 	return &fieldValue{
 		val:  val,
@@ -31,8 +35,4 @@ func (f *fieldValue) writeValue(sb *strings.Builder) {
 
 func (f *fieldValue) isPointer() bool {
 	return false
-}
-
-func (f *fieldValue) Field(fieldName string) value {
-	return newField(f, fieldName)
 }

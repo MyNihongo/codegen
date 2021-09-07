@@ -21,6 +21,10 @@ func (q *qualNameFunc) Args(args ...value) *qualNameFunc {
 	return q
 }
 
+func (q *qualNameFunc) Field(fieldName string) *fieldValue {
+	return newField(q, fieldName)
+}
+
 func newFuncCall(alias, name string) *qualNameFunc {
 	return &qualNameFunc{
 		name:  name,
@@ -38,8 +42,4 @@ func (q *qualNameFunc) writeValue(sb *strings.Builder) {
 
 func (q *qualNameFunc) isPointer() bool {
 	return false
-}
-
-func (q *qualNameFunc) Field(fieldName string) value {
-	return newField(q, fieldName)
 }

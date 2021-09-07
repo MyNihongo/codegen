@@ -23,14 +23,14 @@ func (i *identifierValue) Pointer() *identifierValue {
 	return i
 }
 
+func (i *identifierValue) Field(fieldName string) *fieldValue {
+	return newField(i, fieldName)
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	i.declaration.writeValue(sb)
 }
 
 func (i *identifierValue) isPointer() bool {
 	return i.declaration.isPointer
-}
-
-func (i *identifierValue) Field(fieldName string) value {
-	return newField(i, fieldName)
 }
