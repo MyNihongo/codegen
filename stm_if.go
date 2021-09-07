@@ -18,6 +18,13 @@ func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val value) *ifStmt {
 	return newIf(i, declare, val)
 }
 
+func (i *ifStmt) Else(stmts ...stmt) *ifStmt {
+	stmt := newIf(i, nil, nil)
+	stmt.stmts = stmts
+
+	return stmt
+}
+
 func (i *ifStmt) Block(stmts ...stmt) *ifStmt {
 	i.stmts = stmts
 	return i
