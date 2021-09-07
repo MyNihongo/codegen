@@ -7,8 +7,8 @@ type methodBlock struct {
 	*funcBlock
 }
 
-// NewMethod creates a new method block
-func (f *file) NewMethod(this *thisVal, name string) *methodBlock {
+// Method creates a new method block
+func (f *file) Method(this *thisVal, name string) *methodBlock {
 	method := newMethod(this, name)
 	f.append(method)
 

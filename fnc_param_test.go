@@ -11,7 +11,7 @@ func TestFuncParam(t *testing.T) {
 	const want = `name type`
 
 	var sb strings.Builder
-	NewParam("name", "type").writeValue(&sb)
+	Param("name", "type").writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -20,7 +20,7 @@ func TestFuncParamPointer(t *testing.T) {
 	const want = `name *type`
 
 	var sb strings.Builder
-	NewParam("name", "type").Pointer().
+	Param("name", "type").Pointer().
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -30,7 +30,7 @@ func TestFuncQualParam(t *testing.T) {
 	const want = `name alias.type`
 
 	var sb strings.Builder
-	NewQualParam("name", "alias", "type").writeValue(&sb)
+	QualParam("name", "alias", "type").writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -39,7 +39,7 @@ func TestFuncQualParamPointer(t *testing.T) {
 	const want = `name *alias.type`
 
 	var sb strings.Builder
-	NewQualParam("name", "alias", "type").Pointer().
+	QualParam("name", "alias", "type").Pointer().
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -60,7 +60,7 @@ func TestFuncParamsOne(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*paramVal{
-		NewParam("name1", "type"),
+		Param("name1", "type"),
 	}
 	writeParams(&sb, params)
 
@@ -72,10 +72,10 @@ func TestFuncParams(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*paramVal{
-		NewParam("name1", "type"),
-		NewQualParam("name2", "alias", "type"),
-		NewParam("name3", "type").Pointer(),
-		NewQualParam("name4", "alias", "type").Pointer(),
+		Param("name1", "type"),
+		QualParam("name2", "alias", "type"),
+		Param("name3", "type").Pointer(),
+		QualParam("name4", "alias", "type").Pointer(),
 	}
 	writeParams(&sb, params)
 

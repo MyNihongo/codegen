@@ -7,11 +7,11 @@ type paramVal struct {
 	typeName *qualNameVal
 }
 
-func NewParam(name, typeName string) *paramVal {
+func Param(name, typeName string) *paramVal {
 	return &paramVal{name: name, typeName: NewQualName("", typeName)}
 }
 
-func NewQualParam(name, alias, typeName string) *paramVal {
+func QualParam(name, alias, typeName string) *paramVal {
 	return &paramVal{name: name, typeName: NewQualName(alias, typeName)}
 }
 

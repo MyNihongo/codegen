@@ -6,16 +6,16 @@ type returnType struct {
 	name *qualNameVal
 }
 
-func NewReturnType(name string) *returnType {
+func ReturnType(name string) *returnType {
 	return &returnType{name: NewQualName("", name)}
 }
 
-func NewQualReturnType(alias, name string) *returnType {
+func QualReturnType(alias, name string) *returnType {
 	return &returnType{name: NewQualName(alias, name)}
 }
 
-func NewReturnTypeError() *returnType {
-	return NewReturnType("error")
+func ReturnTypeError() *returnType {
+	return ReturnType("error")
 }
 
 func (r *returnType) Pointer() *returnType {

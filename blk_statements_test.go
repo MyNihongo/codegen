@@ -12,7 +12,7 @@ func TestStatementOne(t *testing.T) {
 return val
 }`
 	stmts := []stmt{
-		NewReturn(NewIdentifier("val")),
+		Return(Identifier("val")),
 	}
 
 	var sb strings.Builder
@@ -27,7 +27,7 @@ return val
 }
 `
 	stmts := []stmt{
-		NewReturn(NewIdentifier("val")),
+		Return(Identifier("val")),
 	}
 
 	var sb strings.Builder

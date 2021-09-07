@@ -11,7 +11,7 @@ func TestFieldIdentifier(t *testing.T) {
 	const want = `val.field`
 
 	var sb strings.Builder
-	NewIdentifier("val").Field("field").
+	Identifier("val").Field("field").
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -21,7 +21,7 @@ func TestFieldIdentifierPointer(t *testing.T) {
 	const want = `(*val).field`
 
 	var sb strings.Builder
-	NewIdentifier("val").Pointer().
+	Identifier("val").Pointer().
 		Field("field").
 		writeValue(&sb)
 
@@ -32,7 +32,7 @@ func TestFieldQualIdentifier(t *testing.T) {
 	const want = `alias.val.field`
 
 	var sb strings.Builder
-	NewQualIdentifier("alias", "val").Field("field").
+	QualIdentifier("alias", "val").Field("field").
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -42,7 +42,7 @@ func TestFieldQualIdentifierPointer(t *testing.T) {
 	const want = `(*alias.val).field`
 
 	var sb strings.Builder
-	NewQualIdentifier("alias", "val").Pointer().
+	QualIdentifier("alias", "val").Pointer().
 		Field("field").
 		writeValue(&sb)
 
@@ -53,7 +53,7 @@ func TestNestedField(t *testing.T) {
 	const want = `obj.field1.field2`
 
 	var sb strings.Builder
-	NewIdentifier("obj").
+	Identifier("obj").
 		Field("field1").Field("field2").
 		writeValue(&sb)
 

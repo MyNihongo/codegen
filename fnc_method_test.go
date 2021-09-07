@@ -12,7 +12,7 @@ func TestMethodThis(t *testing.T) {
 }
 `
 	var sb strings.Builder
-	this := NewThis("type")
+	this := This("type")
 
 	newMethod(this, "funcName").write(&sb)
 	assert.Equal(t, want, sb.String())
@@ -23,7 +23,7 @@ func TestMethodThisPointer(t *testing.T) {
 }
 `
 	var sb strings.Builder
-	this := NewThis("type").Pointer()
+	this := This("type").Pointer()
 
 	newMethod(this, "funcName").write(&sb)
 	assert.Equal(t, want, sb.String())
@@ -34,7 +34,7 @@ func TestMethodThisAlias(t *testing.T) {
 }
 `
 	var sb strings.Builder
-	this := NewQualThis("alias", "type")
+	this := QualThis("alias", "type")
 
 	newMethod(this, "funcName").write(&sb)
 	assert.Equal(t, want, sb.String())
@@ -45,7 +45,7 @@ func TestMethodThisAliasPointer(t *testing.T) {
 }
 `
 	var sb strings.Builder
-	this := NewQualThis("alias", "type").Pointer()
+	this := QualThis("alias", "type").Pointer()
 
 	newMethod(this, "funcName").write(&sb)
 
@@ -56,9 +56,9 @@ func TestMethodWithParams(t *testing.T) {
 	const want = `func (t type) funcName(name typeName,name2 *alias.typeName){
 }
 `
-	this := NewThis("type")
-	param1, param2 := NewParam("name", "typeName"),
-		NewQualParam("name2", "alias", "typeName").Pointer()
+	this := This("type")
+	param1, param2 := Param("name", "typeName"),
+		QualParam("name2", "alias", "typeName").Pointer()
 
 	var sb strings.Builder
 	newMethod(this, "funcName").
@@ -72,7 +72,7 @@ func TestMethodWithReturnType(t *testing.T) {
 	const want = `func (t type) funcName()type{
 }
 `
-	this, retType := NewThis("type"), NewReturnType("type")
+	this, retType := This("type"), ReturnType("type")
 
 	var sb strings.Builder
 	newMethod(this, "funcName").
@@ -86,9 +86,9 @@ func TestMethodWithReturnTypes(t *testing.T) {
 	const want = `func (t type) funcName()(type,*alias.type){
 }
 `
-	this := NewThis("type")
-	retType1, retType2 := NewReturnType("type"),
-		NewQualReturnType("alias", "type").Pointer()
+	this := This("type")
+	retType1, retType2 := ReturnType("type"),
+		QualReturnType("alias", "type").Pointer()
 
 	var sb strings.Builder
 	newMethod(this, "funcName").

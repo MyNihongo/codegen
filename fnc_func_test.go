@@ -21,8 +21,8 @@ func TestFuncWithParams(t *testing.T) {
 	const want = `func funcName(name typeName,name2 *alias.typeName){
 }
 `
-	param1, param2 := NewParam("name", "typeName"),
-		NewQualParam("name2", "alias", "typeName").Pointer()
+	param1, param2 := Param("name", "typeName"),
+		QualParam("name2", "alias", "typeName").Pointer()
 
 	var sb strings.Builder
 	newFunc("funcName").
@@ -36,7 +36,7 @@ func TestFuncWithReturnType(t *testing.T) {
 	const want = `func funcName()type{
 }
 `
-	retType := NewReturnType("type")
+	retType := ReturnType("type")
 
 	var sb strings.Builder
 	newFunc("funcName").
@@ -50,8 +50,8 @@ func TestFuncWithReturnTypes(t *testing.T) {
 	const want = `func funcName()(type,*alias.type){
 }
 `
-	retType1, retType2 := NewReturnType("type"),
-		NewQualReturnType("alias", "type").Pointer()
+	retType1, retType2 := ReturnType("type"),
+		QualReturnType("alias", "type").Pointer()
 
 	var sb strings.Builder
 	newFunc("funcName").

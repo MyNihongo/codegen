@@ -6,18 +6,18 @@ type thisVal struct {
 	*paramVal
 }
 
-func NewThis(typeName string) *thisVal {
+func This(typeName string) *thisVal {
 	name := createThisName(typeName)
 	return &thisVal{
-		paramVal: NewParam(name, typeName),
+		paramVal: Param(name, typeName),
 	}
 }
 
-func NewQualThis(alias, typeName string) *thisVal {
+func QualThis(alias, typeName string) *thisVal {
 	name := createThisName(typeName)
 
 	return &thisVal{
-		paramVal: NewQualParam(name, alias, typeName),
+		paramVal: QualParam(name, alias, typeName),
 	}
 }
 

@@ -81,9 +81,9 @@ package packageName
 func funcName(param1 *alias.typeName,param2 string){
 }
 `
-	param1, param2 := NewQualParam("param1", "alias", "typeName").Pointer(), NewParam("param2", "string")
+	param1, param2 := QualParam("param1", "alias", "typeName").Pointer(), Param("param2", "string")
 	f := NewFile(packageName, codeGen)
-	f.NewFunc("funcName").Params(param1, param2)
+	f.Func("funcName").Params(param1, param2)
 
 	got := f.generate()
 
@@ -97,14 +97,14 @@ func (m *MyType) funcName()int{
 return m.field
 }
 `
-	this, retType := NewThis("MyType").Pointer(), NewReturnType("int")
+	this, retType := This("MyType").Pointer(), ReturnType("int")
 
 	f := NewFile(packageName, codeGen)
-	f.NewMethod(this, "funcName").
+	f.Method(this, "funcName").
 		ReturnTypes(retType).
 		Block(
-			NewReturn(
-				NewIdentifier("m").Field("field"),
+			Return(
+				Identifier("m").Field("field"),
 			),
 		)
 

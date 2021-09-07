@@ -11,7 +11,7 @@ func TestFuncReturnType(t *testing.T) {
 	const want = `type`
 
 	var sb strings.Builder
-	NewReturnType("type").wr(&sb)
+	ReturnType("type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -20,7 +20,7 @@ func TestReturnTypeError(t *testing.T) {
 	const want = `error`
 
 	var sb strings.Builder
-	NewReturnTypeError().wr(&sb)
+	ReturnTypeError().wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -29,7 +29,7 @@ func TestFuncReturnTypePointer(t *testing.T) {
 	const want = `*type`
 
 	var sb strings.Builder
-	NewReturnType("type").Pointer().
+	ReturnType("type").Pointer().
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -39,7 +39,7 @@ func TestFuncQualReturnType(t *testing.T) {
 	const want = `alias.type`
 
 	var sb strings.Builder
-	NewQualReturnType("alias", "type").wr(&sb)
+	QualReturnType("alias", "type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -48,7 +48,7 @@ func TestFuncQualReturnTypePointer(t *testing.T) {
 	const want = `*alias.type`
 
 	var sb strings.Builder
-	NewQualReturnType("alias", "type").Pointer().
+	QualReturnType("alias", "type").Pointer().
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -67,7 +67,7 @@ func TestFuncReturnTypesOne(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*returnType{
-		NewReturnType("type1"),
+		ReturnType("type1"),
 	}
 	writeReturnTypes(&sb, params)
 
@@ -79,10 +79,10 @@ func TestFuncReturnTypes(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*returnType{
-		NewReturnType("type1"),
-		NewQualReturnType("alias", "type2"),
-		NewReturnType("type3").Pointer(),
-		NewQualReturnType("alias", "type4").Pointer(),
+		ReturnType("type1"),
+		QualReturnType("alias", "type2"),
+		ReturnType("type3").Pointer(),
+		QualReturnType("alias", "type4").Pointer(),
 	}
 	writeReturnTypes(&sb, params)
 

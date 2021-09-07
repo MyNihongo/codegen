@@ -6,13 +6,13 @@ type identifierValue struct {
 	declaration *qualNameVal
 }
 
-func NewIdentifier(name string) *identifierValue {
+func Identifier(name string) *identifierValue {
 	return &identifierValue{
 		declaration: NewQualName("", name),
 	}
 }
 
-func NewQualIdentifier(alias, name string) *identifierValue {
+func QualIdentifier(alias, name string) *identifierValue {
 	return &identifierValue{
 		declaration: NewQualName(alias, name),
 	}

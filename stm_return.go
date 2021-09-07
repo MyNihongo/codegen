@@ -6,7 +6,7 @@ type returnStmt struct {
 	values []value
 }
 
-func NewReturn(values ...value) stmt {
+func Return(values ...value) stmt {
 	return &returnStmt{
 		values: values,
 	}

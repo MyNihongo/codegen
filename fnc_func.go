@@ -9,8 +9,8 @@ type funcBlock struct {
 	stmts    []stmt
 }
 
-// NewFunc creates a new function code block
-func (f *file) NewFunc(name string) *funcBlock {
+// Func creates a new function code block
+func (f *file) Func(name string) *funcBlock {
 	fnc := newFunc(name)
 	f.append(fnc)
 
