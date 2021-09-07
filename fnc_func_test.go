@@ -22,7 +22,7 @@ func TestFuncWithParams(t *testing.T) {
 }
 `
 	param1, param2 := NewParam("name", "typeName"),
-		NewQualParam("name2", NewQualName("alias", "typeName")).Pointer()
+		NewQualParam("name2", "alias", "typeName").Pointer()
 
 	var sb strings.Builder
 	newFunc("funcName").

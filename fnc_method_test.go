@@ -58,7 +58,7 @@ func TestMethodWithParams(t *testing.T) {
 `
 	this := NewThis("type")
 	param1, param2 := NewParam("name", "typeName"),
-		NewQualParam("name2", NewQualName("alias", "typeName")).Pointer()
+		NewQualParam("name2", "alias", "typeName").Pointer()
 
 	var sb strings.Builder
 	newMethod(this, "funcName").

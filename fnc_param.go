@@ -12,8 +12,8 @@ func NewParam(name, typeName string) *paramVal {
 	return &paramVal{name: name, typeName: NewQualName("", typeName)}
 }
 
-func NewQualParam(name string, qualName *qualNameVal) *paramVal {
-	return &paramVal{name: name, typeName: qualName}
+func NewQualParam(name, alias, typeName string) *paramVal {
+	return &paramVal{name: name, typeName: NewQualName(alias, typeName)}
 }
 
 func (p *paramVal) Pointer() *paramVal {

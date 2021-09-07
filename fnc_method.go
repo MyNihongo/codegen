@@ -24,7 +24,7 @@ func (m *methodBlock) Params(params ...*paramVal) *methodBlock {
 	return m
 }
 
-// ReturnTypes appends method return parameters
+// ReturnTypes appends function return parameters
 func (m *methodBlock) ReturnTypes(returnTypes ...*returnType) *methodBlock {
 	m.funcBlock.ReturnTypes(returnTypes...)
 	return m

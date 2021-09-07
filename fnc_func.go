@@ -31,6 +31,10 @@ func (f *funcBlock) ReturnTypes(returnTypes ...*returnType) *funcBlock {
 	return f
 }
 
+// Block appends the function block
+func (f *funcBlock) Block() {
+}
+
 func newFunc(name string) *funcBlock {
 	return &funcBlock{
 		name:     name,

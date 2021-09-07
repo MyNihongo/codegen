@@ -15,10 +15,9 @@ func NewThis(typeName string) *thisVal {
 
 func NewQualThis(alias, typeName string) *thisVal {
 	name := createThisName(typeName)
-	qualName := NewQualName(alias, typeName)
 
 	return &thisVal{
-		paramVal: NewQualParam(name, qualName),
+		paramVal: NewQualParam(name, alias, typeName),
 	}
 }
 
