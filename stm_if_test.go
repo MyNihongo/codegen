@@ -10,7 +10,8 @@ import (
 func TestIfDeclaration(t *testing.T) {
 	const want = `if val,err:=strconv.Atoi(os.Getenv("ENV_VAR"));err==nil{
 config.myVar=val
-}`
+}
+`
 	var sb strings.Builder
 
 	IfDeclr(
