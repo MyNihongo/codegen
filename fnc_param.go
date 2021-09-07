@@ -2,26 +2,26 @@ package codegen
 
 import "strings"
 
-type paramStmt struct {
+type paramVal struct {
 	name      string
 	typeName  *qualNameVal
 	isPointer bool
 }
 
-func NewParam(name, typeName string) *paramStmt {
-	return &paramStmt{name: name, typeName: NewQualName("", typeName)}
+func NewParam(name, typeName string) *paramVal {
+	return &paramVal{name: name, typeName: NewQualName("", typeName)}
 }
 
-func NewQualParam(name string, qualName *qualNameVal) *paramStmt {
-	return &paramStmt{name: name, typeName: qualName}
+func NewQualParam(name string, qualName *qualNameVal) *paramVal {
+	return &paramVal{name: name, typeName: qualName}
 }
 
-func (p *paramStmt) Pointer() *paramStmt {
+func (p *paramVal) Pointer() *paramVal {
 	p.isPointer = true
 	return p
 }
 
-func (p *paramStmt) writeValue(sb *strings.Builder) {
+func (p *paramVal) writeValue(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
 
 	if p.isPointer {
@@ -31,7 +31,7 @@ func (p *paramStmt) writeValue(sb *strings.Builder) {
 	p.typeName.writeValue(sb)
 }
 
-func writeParams(sb *strings.Builder, params []*paramStmt) {
+func writeParams(sb *strings.Builder, params []*paramVal) {
 	sb.WriteByte('(')
 
 	for i, p := range params {

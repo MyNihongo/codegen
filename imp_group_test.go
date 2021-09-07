@@ -21,7 +21,7 @@ func TestImportGroup(t *testing.T) {
 `
 	var sb strings.Builder
 	fixture := importGroup()
-	fixture.append(&importStmt{path: "path"})
+	fixture.append(&importBlock{path: "path"})
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -34,7 +34,7 @@ alias "path"
 `
 	var sb strings.Builder
 	fixture := importGroup()
-	fixture.append(&importStmt{path: "path", alias: "alias"})
+	fixture.append(&importBlock{path: "path", alias: "alias"})
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -48,8 +48,8 @@ alias "path"
 `
 	var sb strings.Builder
 	fixture := importGroup()
-	fixture.append(&importStmt{path: "path", alias: "alias"})
-	fixture.append(&importStmt{path: "path2"})
+	fixture.append(&importBlock{path: "path", alias: "alias"})
+	fixture.append(&importBlock{path: "path2"})
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())

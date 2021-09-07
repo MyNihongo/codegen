@@ -10,9 +10,8 @@ import (
 func TestPackage(t *testing.T) {
 	const want = `package packageName
 `
-
 	var sb strings.Builder
-	(&packageStmt{pkgName: "packageName"}).write(&sb)
+	(&packageBlock{pkgName: "packageName"}).write(&sb)
 
 	assert.Equal(t, want, sb.String())
 }

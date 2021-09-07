@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-type commentStmt struct {
+type commentBlock struct {
 	value string
 }
 
@@ -15,17 +15,17 @@ func (f *file) CommentF(format string, args ...interface{}) {
 }
 
 // commentF creates a new comment statement according to a format
-func commentF(format string, args ...interface{}) *stmt {
+func commentF(format string, args ...interface{}) *block {
 	return comment(fmt.Sprintf(format, args...))
 }
 
 // comment creates a new comment statement
-func comment(value string) *stmt {
-	prt := new(stmt)
-	*prt = &commentStmt{value: value}
+func comment(value string) *block {
+	prt := new(block)
+	*prt = &commentBlock{value: value}
 	return prt
 }
 
-func (c *commentStmt) write(sb *strings.Builder) {
+func (c *commentBlock) write(sb *strings.Builder) {
 	writeNewLineF(sb, "// %s", c.value)
 }

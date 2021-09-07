@@ -4,17 +4,17 @@ import (
 	"strings"
 )
 
-type packageStmt struct {
+type packageBlock struct {
 	pkgName string
 }
 
-func (p *packageStmt) write(sb *strings.Builder) {
+func (p *packageBlock) write(sb *strings.Builder) {
 	writeNewLineF(sb, "package %s", p.pkgName)
 }
 
 // pkg creates a package declaration statement
-func pkg(pkgName string) *stmt {
-	ptr := new(stmt)
-	*ptr = &packageStmt{pkgName: pkgName}
+func pkg(pkgName string) *block {
+	ptr := new(block)
+	*ptr = &packageBlock{pkgName: pkgName}
 	return ptr
 }

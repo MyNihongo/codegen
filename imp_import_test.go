@@ -12,7 +12,7 @@ func TestWritePath(t *testing.T) {
 `
 
 	var sb strings.Builder
-	(&importStmt{path: "path"}).write(&sb)
+	(&importBlock{path: "path"}).write(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -22,7 +22,7 @@ func TestWritePathAlias(t *testing.T) {
 `
 
 	var sb strings.Builder
-	(&importStmt{path: "path", alias: "alias"}).write(&sb)
+	(&importBlock{path: "path", alias: "alias"}).write(&sb)
 
 	assert.Equal(t, want, sb.String())
 }

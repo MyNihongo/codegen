@@ -2,7 +2,7 @@ package codegen
 
 import "strings"
 
-type stmt interface {
+type block interface {
 	write(sb *strings.Builder)
 }
 
