@@ -10,6 +10,10 @@ type ifStmt struct {
 	isFinal     bool
 }
 
+func If(val value) *ifStmt {
+	return newIf(nil, nil, val)
+}
+
 func IfDeclr(declare *declarationStmt, val value) *ifStmt {
 	return newIf(nil, declare, val)
 }

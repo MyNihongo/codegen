@@ -7,6 +7,65 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestIf(t *testing.T) {
+	const want = `if val!=nil{
+return val
+}
+`
+	var sb strings.Builder
+
+	If(
+		Identifier("val").NotNil(),
+	).Block(
+		Return(Identifier("val")),
+	).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIfDeclarationIf(t *testing.T) {
+	const want = `if val!=nil{
+return val
+} else if val,varr:=alias.Func();varr==nil{
+val=varr
+}
+`
+	var sb strings.Builder
+
+	If(
+		Identifier("val").NotNil(),
+	).Block(
+		Return(Identifier("val")),
+	).ElseIfDeclr(
+		Declare("val", "varr").Values(QualFuncCall("alias", "Func")),
+		Identifier("varr").Nil(),
+	).Block(
+		Identifier("val").Assign(Identifier("varr")),
+	).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIfElse(t *testing.T) {
+	const want = `if val!=nil{
+return val
+} else {
+return nil
+}
+`
+	var sb strings.Builder
+
+	If(
+		Identifier("val").NotNil(),
+	).Block(
+		Return(Identifier("val")),
+	).Else(
+		Return(Nil()),
+	).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestIfDeclaration(t *testing.T) {
 	const want = `if val,err:=strconv.Atoi(os.Getenv("ENV_VAR"));err==nil{
 config.myVar=val
