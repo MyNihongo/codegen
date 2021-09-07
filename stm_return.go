@@ -17,13 +17,6 @@ func (r *returnStmt) writeStmt(sb *strings.Builder) {
 
 	if len(r.values) != 0 {
 		sb.WriteByte(' ')
-
-		for i, v := range r.values {
-			if i != 0 {
-				sb.WriteByte(',')
-			}
-
-			v.writeValue(sb)
-		}
+		writeValues(sb, r.values)
 	}
 }
