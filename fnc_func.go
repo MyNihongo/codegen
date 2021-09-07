@@ -6,16 +6,14 @@ type funcBlock struct {
 	name     string
 	params   []*paramVal
 	retTypes []*returnType
-	stmts    []*stmt
+	stmts    []stmt
 }
 
 // NewFunc creates a new function code block
 func (f *file) NewFunc(name string) *funcBlock {
 	fnc := newFunc(name)
-	ptr := new(block)
-	*ptr = fnc
+	f.append(fnc)
 
-	f.append(ptr)
 	return fnc
 }
 
@@ -40,7 +38,7 @@ func newFunc(name string) *funcBlock {
 		name:     name,
 		params:   make([]*paramVal, 0),
 		retTypes: make([]*returnType, 0),
-		stmts:    make([]*stmt, 0),
+		stmts:    make([]stmt, 0),
 	}
 }
 

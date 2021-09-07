@@ -11,5 +11,7 @@ type stmt interface {
 }
 
 type value interface {
+	Field(fieldName string) value
+
 	writeValue(sb *strings.Builder)
 }

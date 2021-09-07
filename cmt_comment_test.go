@@ -12,7 +12,7 @@ func TestCommentF(t *testing.T) {
 `
 
 	var sb strings.Builder
-	(*commentF("this is a %s - %d", "comment", 123)).write(&sb)
+	commentF("this is a %s - %d", "comment", 123).write(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -22,7 +22,7 @@ func TestComment(t *testing.T) {
 `
 
 	var sb strings.Builder
-	(*comment("this is a comment")).write(&sb)
+	comment("this is a comment").write(&sb)
 
 	assert.Equal(t, want, sb.String())
 }

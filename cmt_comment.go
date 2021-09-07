@@ -16,15 +16,13 @@ func (f *file) CommentF(format string, args ...interface{}) *file {
 }
 
 // commentF creates a new comment statement according to a format
-func commentF(format string, args ...interface{}) *block {
+func commentF(format string, args ...interface{}) block {
 	return comment(fmt.Sprintf(format, args...))
 }
 
 // comment creates a new comment statement
-func comment(value string) *block {
-	prt := new(block)
-	*prt = &commentBlock{value: value}
-	return prt
+func comment(value string) block {
+	return &commentBlock{value: value}
 }
 
 func (c *commentBlock) write(sb *strings.Builder) {

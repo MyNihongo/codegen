@@ -3,19 +3,19 @@ package codegen
 import "strings"
 
 type importGroupBlock struct {
-	imports []importBlock
+	imports []*importBlock
 }
 
 // importGroup creates an empty group with imports
 func importGroup() *importGroupBlock {
 	return &importGroupBlock{
-		imports: make([]importBlock, 0),
+		imports: make([]*importBlock, 0),
 	}
 }
 
 // append adds a new import statement to the group
 func (i *importGroupBlock) append(stmt *importBlock) {
-	i.imports = append(i.imports, *stmt)
+	i.imports = append(i.imports, stmt)
 }
 
 func (i *importGroupBlock) write(sb *strings.Builder) {

@@ -13,8 +13,6 @@ func (p *packageBlock) write(sb *strings.Builder) {
 }
 
 // pkg creates a package declaration statement
-func pkg(pkgName string) *block {
-	ptr := new(block)
-	*ptr = &packageBlock{pkgName: pkgName}
-	return ptr
+func pkg(pkgName string) block {
+	return &packageBlock{pkgName: pkgName}
 }

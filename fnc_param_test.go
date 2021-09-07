@@ -55,6 +55,18 @@ func TestFuncParamsEmpty(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestFuncParamsOne(t *testing.T) {
+	const want = `(name1 type)`
+
+	var sb strings.Builder
+	params := []*paramVal{
+		NewParam("name1", "type"),
+	}
+	writeParams(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestFuncParams(t *testing.T) {
 	const want = `(name1 type,name2 alias.type,name3 *type,name4 *alias.type)`
 

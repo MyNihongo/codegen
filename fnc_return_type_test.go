@@ -62,6 +62,18 @@ func TestFuncReturnTypesEmpty(t *testing.T) {
 	assert.Empty(t, sb.String())
 }
 
+func TestFuncReturnTypesOne(t *testing.T) {
+	const want = `type1`
+
+	var sb strings.Builder
+	params := []*returnType{
+		NewReturnType("type1"),
+	}
+	writeReturnTypes(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestFuncReturnTypes(t *testing.T) {
 	const want = `(type1,alias.type2,*type3,*alias.type4)`
 

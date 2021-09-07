@@ -10,10 +10,7 @@ type methodBlock struct {
 // NewMethod creates a new method block
 func (f *file) NewMethod(this *thisVal, name string) *methodBlock {
 	method := newMethod(this, name)
-
-	ptr := new(block)
-	*ptr = method
-	f.append(ptr)
+	f.append(method)
 
 	return method
 }
