@@ -23,9 +23,6 @@ func (q *qualNameVal) writeValue(sb *strings.Builder) {
 		sb.WriteByte('*')
 	}
 
-	if len(q.alias) != 0 {
-		writeF(sb, "%s.", q.alias)
-	}
-
+	writeAlias(sb, q.alias)
 	sb.WriteString(q.identifier)
 }

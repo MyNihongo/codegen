@@ -11,3 +11,9 @@ func writeValues(sb *strings.Builder, vals []value) {
 		v.writeValue(sb)
 	}
 }
+
+func writeAlias(sb *strings.Builder, alias string) {
+	if len(alias) != 0 {
+		writeF(sb, "%s.", alias)
+	}
+}

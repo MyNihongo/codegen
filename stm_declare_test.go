@@ -26,3 +26,13 @@ func TestDeclareMultipleVariables(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestDeclareFunc(t *testing.T) {
+	const want = `varr,err:=execFunc(anotherVar)`
+
+	var sb strings.Builder
+	Declare("varr", "err").Values(FuncCall("execFunc").Args(Identifier("anotherVar"))).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
