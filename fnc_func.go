@@ -2,7 +2,7 @@ package codegen
 
 import "strings"
 
-type funcStmt struct {
+type funcBlock struct {
 	name     string
 	params   []*paramVal
 	retTypes []*returnType
@@ -10,9 +10,9 @@ type funcStmt struct {
 }
 
 // NewFunc creates a new function code block
-func (f *file) NewFunc(name string) *funcStmt {
-	ptr := new(block)
+func (f *file) NewFunc(name string) *funcBlock {
 	fnc := newFunc(name)
+	ptr := new(block)
 	*ptr = fnc
 
 	f.append(ptr)
@@ -20,19 +20,19 @@ func (f *file) NewFunc(name string) *funcStmt {
 }
 
 // Params appends function parameters
-func (f *funcStmt) Params(params ...*paramVal) *funcStmt {
+func (f *funcBlock) Params(params ...*paramVal) *funcBlock {
 	f.params = params
 	return f
 }
 
 // ReturnTypes appends function return parameters
-func (f *funcStmt) ReturnTypes(returnTypes ...*returnType) *funcStmt {
+func (f *funcBlock) ReturnTypes(returnTypes ...*returnType) *funcBlock {
 	f.retTypes = returnTypes
 	return f
 }
 
-func newFunc(name string) *funcStmt {
-	return &funcStmt{
+func newFunc(name string) *funcBlock {
+	return &funcBlock{
 		name:     name,
 		params:   make([]*paramVal, 0),
 		retTypes: make([]*returnType, 0),
@@ -40,7 +40,7 @@ func newFunc(name string) *funcStmt {
 	}
 }
 
-func (f *funcStmt) write(sb *strings.Builder) {
+func (f *funcBlock) write(sb *strings.Builder) {
 	writeF(sb, "func %s", f.name)
 	writeParams(sb, f.params)
 	writeReturnTypes(sb, f.retTypes)
