@@ -30,7 +30,8 @@ func (f *funcBlock) ReturnTypes(returnTypes ...*returnType) *funcBlock {
 }
 
 // Block appends the function block
-func (f *funcBlock) Block() {
+func (f *funcBlock) Block(stmts ...stmt) {
+	f.stmts = stmts
 }
 
 func newFunc(name string) *funcBlock {
