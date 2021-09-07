@@ -15,8 +15,22 @@ func newField(val value, name string) *fieldValue {
 }
 
 func (f *fieldValue) writeValue(sb *strings.Builder) {
+	isPointer := f.val.isPointer()
+	if isPointer {
+		sb.WriteByte('(')
+	}
+
 	f.val.writeValue(sb)
+
+	if isPointer {
+		sb.WriteByte(')')
+	}
+
 	writeF(sb, ".%s", f.name)
+}
+
+func (f *fieldValue) isPointer() bool {
+	return false
 }
 
 func (f *fieldValue) Field(fieldName string) value {

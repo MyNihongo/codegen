@@ -3,9 +3,8 @@ package codegen
 import "strings"
 
 type paramVal struct {
-	name      string
-	typeName  *qualNameVal
-	isPointer bool
+	name     string
+	typeName *qualNameVal
 }
 
 func NewParam(name, typeName string) *paramVal {
@@ -17,17 +16,12 @@ func NewQualParam(name, alias, typeName string) *paramVal {
 }
 
 func (p *paramVal) Pointer() *paramVal {
-	p.isPointer = true
+	p.typeName.pointer()
 	return p
 }
 
 func (p *paramVal) writeValue(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
-
-	if p.isPointer {
-		sb.WriteByte('*')
-	}
-
 	p.typeName.writeValue(sb)
 }
 

@@ -3,8 +3,7 @@ package codegen
 import "strings"
 
 type returnType struct {
-	name      *qualNameVal
-	isPointer bool
+	name *qualNameVal
 }
 
 func NewReturnType(name string) *returnType {
@@ -20,15 +19,11 @@ func NewReturnTypeError() *returnType {
 }
 
 func (r *returnType) Pointer() *returnType {
-	r.isPointer = true
+	r.name.pointer()
 	return r
 }
 
 func (r *returnType) wr(sb *strings.Builder) {
-	if r.isPointer {
-		sb.WriteByte('*')
-	}
-
 	r.name.writeValue(sb)
 }
 

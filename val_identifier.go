@@ -4,7 +4,6 @@ import "strings"
 
 type identifierValue struct {
 	declaration *qualNameVal
-	isPointer   bool
 }
 
 func NewIdentifier(name string) *identifierValue {
@@ -20,12 +19,16 @@ func NewQualIdentifier(alias, name string) *identifierValue {
 }
 
 func (i *identifierValue) Pointer() *identifierValue {
-	i.isPointer = true
+	i.declaration.pointer()
 	return i
 }
 
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	i.declaration.writeValue(sb)
+}
+
+func (i *identifierValue) isPointer() bool {
+	return i.declaration.isPointer
 }
 
 func (i *identifierValue) Field(fieldName string) value {

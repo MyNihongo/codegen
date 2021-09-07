@@ -13,5 +13,6 @@ type stmt interface {
 type value interface {
 	Field(fieldName string) value
 
+	isPointer() bool
 	writeValue(sb *strings.Builder)
 }
