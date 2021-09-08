@@ -6,7 +6,10 @@
 	],
 	"settings": {
 		"cSpell.words": [
-			"stmts"
+			"curr",
+			"Declr",
+			"stmts",
+			"vals"
 		]
 	}
 }
