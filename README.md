@@ -47,6 +47,7 @@ I have used [Jennifer](https://github.com/dave/jennifer) for code generation (do
 With this library I aim to provide high-level functions with will resemble the actual Go code and will not require to write low-level statements.
 
 - `gofmt` is used for formatting
+- auto-generation comment is added automatically
 
 ## Documentation
 #### Declare / assign variables
@@ -192,5 +193,17 @@ IfDeclr(
 )
 // if val, err := strconv.Atoi(os.Getenv("ENV_VAR")); err == nil {
 //	config.myVar = val
+// }
+```
+### Utility methods
+```go
+import "gen "github.com/MyNihongo/codegen/utils"
+```
+#### Generate a getter
+```go
+f := gen.NewFile("cool", "my-generator").
+f.GenerateGetter(gen.This("TypeName").Pointer(), "myField", gen.ReturnType("int"))
+// func (t *TypeName) MyField() int {
+//	return t.myField
 // }
 ```
