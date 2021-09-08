@@ -13,10 +13,10 @@ func (c *callValue) Args(args ...value) *callValue {
 	return c
 }
 
-func newCallValue(val value, name string) *callValue {
+func newCallValue(val value, funcName string) *callValue {
 	return &callValue{
 		val:  val,
-		name: name,
+		name: funcName,
 		args: make([]value, 0),
 	}
 }

@@ -42,7 +42,7 @@ func TestWriteValuesMultiple(t *testing.T) {
 }
 
 func TestWritePointerAccessNoPointer(t *testing.T) {
-	const want = ``
+	const want = `myFunc(a)`
 
 	val := FuncCall("myFunc").Args(Identifier("a"))
 
@@ -53,9 +53,9 @@ func TestWritePointerAccessNoPointer(t *testing.T) {
 }
 
 func TestWritePointerAccessPointer(t *testing.T) {
-	const want = ``
+	const want = `(*myFunc(a))`
 
-	val := FuncCall("myFunc").Args(Identifier("a"))
+	val := FuncCall("myFunc").Args(Identifier("a")).Pointer()
 
 	var sb strings.Builder
 	writePointerValueAccess(&sb, val)

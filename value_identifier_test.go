@@ -145,7 +145,7 @@ func TestIdentifierFieldAssign(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierCallEmpty(t *testing.T) {
+func TestIdentifierFieldCallEmpty(t *testing.T) {
 	const want = `obj.field.myFunc()`
 
 	var sb strings.Builder
@@ -156,7 +156,7 @@ func TestIdentifierCallEmpty(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierCallArgSingle(t *testing.T) {
+func TestIdentifierFieldCallArgSingle(t *testing.T) {
 	const want = `obj.field.myFunc(a)`
 
 	var sb strings.Builder
@@ -167,12 +167,45 @@ func TestIdentifierCallArgSingle(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierCallArgs(t *testing.T) {
+func TestIdentifierFieldCallArgs(t *testing.T) {
 	const want = `obj.field.myFunc(a,anotherFunc(b))`
 
 	var sb strings.Builder
 	Identifier("obj").
 		Field("field").Call("myFunc").Args(Identifier("a"), FuncCall("anotherFunc").Args(Identifier("b"))).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallEmpty(t *testing.T) {
+	const want = `obj.myFunc()`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Call("myFunc").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallArgSingle(t *testing.T) {
+	const want = `obj.myFunc(a)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Call("myFunc").Args(Identifier("a")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallArgs(t *testing.T) {
+	const want = `obj.myFunc(a,anotherFunc(b))`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Call("myFunc").Args(Identifier("a"), FuncCall("anotherFunc").Args(Identifier("b"))).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())

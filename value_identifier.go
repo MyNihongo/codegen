@@ -46,6 +46,10 @@ func (i *identifierValue) Field(fieldName string) *fieldValue {
 	return newField(i, fieldName)
 }
 
+func (i *identifierValue) Call(funcName string) *callValue {
+	return newCallValue(i, funcName)
+}
+
 func (i *identifierValue) Assign(val value) *assignStmt {
 	return newAssignment(i, val)
 }
