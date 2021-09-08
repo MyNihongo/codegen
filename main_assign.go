@@ -14,8 +14,10 @@ func newAssignment(valRight value, valLeft value) *assignStmt {
 	}
 }
 
-func (a *assignStmt) writeStmt(sb *strings.Builder) {
+func (a *assignStmt) writeStmt(sb *strings.Builder) bool {
 	a.valRight.writeValue(sb)
 	sb.WriteByte('=')
 	a.valLeft.writeValue(sb)
+
+	return true
 }

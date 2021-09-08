@@ -87,9 +87,7 @@ return val.myField,nil
 } else {
 return nil,err
 }
-
 }
-
 }
 `
 	f := NewFile(packageName, codeGen)

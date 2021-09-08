@@ -47,7 +47,7 @@ func newIf(prev *ifStmt, declare *declarationStmt, val value) *ifStmt {
 	}
 }
 
-func (i *ifStmt) writeStmt(sb *strings.Builder) {
+func (i *ifStmt) writeStmt(sb *strings.Builder) bool {
 	if i.prev != nil {
 		i.prev.writeStmt(sb)
 		sb.WriteString(" else ")
@@ -65,4 +65,5 @@ func (i *ifStmt) writeStmt(sb *strings.Builder) {
 	}
 
 	writeStmts(sb, i.stmts, i.isFinal)
+	return !i.isFinal
 }

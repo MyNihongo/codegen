@@ -6,8 +6,9 @@ func writeStmts(sb *strings.Builder, stmts []stmt, appendNewLine bool) {
 	writeByteNewLine(sb, '{')
 
 	for _, stmt := range stmts {
-		stmt.writeStmt(sb)
-		newLine(sb)
+		if stmt.writeStmt(sb) {
+			newLine(sb)
+		}
 	}
 
 	sb.WriteByte('}')

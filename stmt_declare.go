@@ -34,7 +34,7 @@ func (v *declarationValues) Values(values ...value) *declarationStmt {
 	}
 }
 
-func (d *declarationStmt) writeStmt(sb *strings.Builder) {
+func (d *declarationStmt) writeStmt(sb *strings.Builder) bool {
 	for i, v := range d.varVal.vars {
 		if i != 0 {
 			sb.WriteByte(',')
@@ -50,4 +50,5 @@ func (d *declarationStmt) writeStmt(sb *strings.Builder) {
 	}
 
 	writeValues(sb, d.values)
+	return true
 }

@@ -7,7 +7,8 @@ type block interface {
 }
 
 type stmt interface {
-	writeStmt(sb *strings.Builder)
+	// writeStmt writes a new statement. Returns True if a new line should be appended after it. Returns false otherwise.
+	writeStmt(sb *strings.Builder) bool
 }
 
 type value interface {
