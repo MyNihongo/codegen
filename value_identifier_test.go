@@ -81,6 +81,103 @@ func TestIdentifierInt(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestIdentifierField(t *testing.T) {
+	const want = `val.field`
+
+	var sb strings.Builder
+	Identifier("val").Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierFieldPointer(t *testing.T) {
+	const want = `(*val).field`
+
+	var sb strings.Builder
+	Identifier("val").Pointer().
+		Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualIdentifierField(t *testing.T) {
+	const want = `alias.val.field`
+
+	var sb strings.Builder
+	QualIdentifier("alias", "val").Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualIdentifierFieldPointer(t *testing.T) {
+	const want = `(*alias.val).field`
+
+	var sb strings.Builder
+	QualIdentifier("alias", "val").Pointer().
+		Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierNestedField(t *testing.T) {
+	const want = `obj.field1.field2`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field1").Field("field2").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierFieldAssign(t *testing.T) {
+	const want = `obj.field1=myFunc(a,b)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field1").Assign(FuncCall("myFunc").Args(Identifier("a"), Identifier("b"))).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallEmpty(t *testing.T) {
+	const want = `obj.field.myFunc()`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Call("myFunc").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallArgSingle(t *testing.T) {
+	const want = `obj.field.myFunc(a)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Call("myFunc").Args(Identifier("a")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCallArgs(t *testing.T) {
+	const want = `obj.field.myFunc(a,anotherFunc(b))`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Call("myFunc").Args(Identifier("a"), FuncCall("anotherFunc").Args(Identifier("b"))).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestIdentifierAssign(t *testing.T) {
 	const want = `a=alias.GetMyValue()`
 

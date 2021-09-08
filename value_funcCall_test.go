@@ -25,6 +25,26 @@ func TestQualFuncCallEmpty(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestFuncCallPointer(t *testing.T) {
+	const want = `*myFunc()`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Pointer().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualFuncCallPointer(t *testing.T) {
+	const want = `*alias.MyFunc()`
+
+	var sb strings.Builder
+	QualFuncCall("alias", "MyFunc").Pointer().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestFuncCallOneArg(t *testing.T) {
 	const want = `myFunc(someFunc())`
 

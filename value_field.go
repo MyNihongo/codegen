@@ -11,6 +11,10 @@ func (f *fieldValue) Field(fieldName string) *fieldValue {
 	return newField(f, fieldName)
 }
 
+func (f *fieldValue) Call(name string) *callValue {
+	return newCallValue(f, name)
+}
+
 func (f *fieldValue) Assign(val value) *assignStmt {
 	return newAssignment(f, val)
 }
@@ -23,17 +27,7 @@ func newField(val value, name string) *fieldValue {
 }
 
 func (f *fieldValue) writeValue(sb *strings.Builder) {
-	isPointer := f.val.isPointer()
-	if isPointer {
-		sb.WriteByte('(')
-	}
-
-	f.val.writeValue(sb)
-
-	if isPointer {
-		sb.WriteByte(')')
-	}
-
+	writePointerValueAccess(sb, f.val)
 	writeF(sb, ".%s", f.name)
 }
 

@@ -7,22 +7,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestWriteAlias(t *testing.T) {
-	const want = `alias.`
-
-	var sb strings.Builder
-	writeAlias(&sb, "alias")
-
-	assert.Equal(t, want, sb.String())
-}
-
-func TestWriteAliasEmpty(t *testing.T) {
-	var sb strings.Builder
-	writeAlias(&sb, "")
-
-	assert.Empty(t, sb.String())
-}
-
 func TestWriteValuesEmpty(t *testing.T) {
 	var sb strings.Builder
 	writeValues(&sb, make([]value, 0))
@@ -55,4 +39,42 @@ func TestWriteValuesMultiple(t *testing.T) {
 	writeValues(&sb, vals)
 
 	assert.Equal(t, want, sb.String())
+}
+
+func TestWritePointerAccessNoPointer(t *testing.T) {
+	const want = ``
+
+	val := FuncCall("myFunc").Args(Identifier("a"))
+
+	var sb strings.Builder
+	writePointerValueAccess(&sb, val)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestWritePointerAccessPointer(t *testing.T) {
+	const want = ``
+
+	val := FuncCall("myFunc").Args(Identifier("a"))
+
+	var sb strings.Builder
+	writePointerValueAccess(&sb, val)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestWriteAlias(t *testing.T) {
+	const want = `alias.`
+
+	var sb strings.Builder
+	writeAlias(&sb, "alias")
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestWriteAliasEmpty(t *testing.T) {
+	var sb strings.Builder
+	writeAlias(&sb, "")
+
+	assert.Empty(t, sb.String())
 }
