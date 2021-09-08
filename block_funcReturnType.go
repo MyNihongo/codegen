@@ -3,7 +3,7 @@ package codegen
 import "strings"
 
 type returnType struct {
-	name *qualNameVal
+	name *nameValue
 }
 
 func ReturnType(name string) *returnType {

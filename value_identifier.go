@@ -1,9 +1,12 @@
 package codegen
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type identifierValue struct {
-	declaration *qualNameVal
+	declaration *nameValue
 }
 
 func Identifier(name string) *identifierValue {
@@ -37,6 +40,22 @@ func (i *identifierValue) Equals(value value) *equalsValue {
 
 func (i *identifierValue) NotEquals(value value) *equalsValue {
 	return newEquals(i, value, false)
+}
+
+func Err() *identifierValue {
+	return Identifier("err")
+}
+
+func Nil() *identifierValue {
+	return Identifier("nil")
+}
+
+func String(strValue string) *identifierValue {
+	return Identifier(fmt.Sprintf("\"%s\"", strValue))
+}
+
+func Int(intVal int) *identifierValue {
+	return Identifier(fmt.Sprintf("%d", intVal))
 }
 
 func (i *identifierValue) Nil() *equalsValue {

@@ -2,28 +2,28 @@ package codegen
 
 import "strings"
 
-type varsVal struct {
+type declarationValues struct {
 	vars    []string
 	declare bool
 }
 
 type declarationStmt struct {
-	varVal *varsVal
+	varVal *declarationValues
 	values []value
 }
 
-func Declare(vars ...string) *varsVal {
+func Declare(vars ...string) *declarationValues {
 	if len(vars) == 0 {
 		panic("no variables are passed for declaration")
 	}
 
-	return &varsVal{
+	return &declarationValues{
 		vars:    vars,
 		declare: true,
 	}
 }
 
-func (v *varsVal) Values(values ...value) *declarationStmt {
+func (v *declarationValues) Values(values ...value) *declarationStmt {
 	if len(values) == 0 {
 		panic("no values are provided for variable declaration")
 	}

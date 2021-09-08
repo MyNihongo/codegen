@@ -49,7 +49,7 @@ func TestFuncParamsEmpty(t *testing.T) {
 	const want = `()`
 
 	var sb strings.Builder
-	params := make([]*paramVal, 0)
+	params := make([]*paramValue, 0)
 	writeParams(&sb, params)
 
 	assert.Equal(t, want, sb.String())
@@ -59,7 +59,7 @@ func TestFuncParamsOne(t *testing.T) {
 	const want = `(name1 type)`
 
 	var sb strings.Builder
-	params := []*paramVal{
+	params := []*paramValue{
 		Param("name1", "type"),
 	}
 	writeParams(&sb, params)
@@ -71,7 +71,7 @@ func TestFuncParams(t *testing.T) {
 	const want = `(name1 type,name2 alias.type,name3 *type,name4 *alias.type)`
 
 	var sb strings.Builder
-	params := []*paramVal{
+	params := []*paramValue{
 		Param("name1", "type"),
 		QualParam("name2", "alias", "type"),
 		Param("name3", "type").Pointer(),
