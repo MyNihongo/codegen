@@ -43,6 +43,11 @@ func newFuncCall(alias, name string) *qualNameFuncValue {
 	}
 }
 
+func (q *qualNameFuncValue) writeStmt(sb *strings.Builder) bool {
+	q.writeValue(sb)
+	return true
+}
+
 func (q *qualNameFuncValue) writeValue(sb *strings.Builder) {
 	if q.isPtr {
 		sb.WriteByte('*')
