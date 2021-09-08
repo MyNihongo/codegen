@@ -21,6 +21,22 @@ func QualIdentifier(alias, name string) *identifierValue {
 	}
 }
 
+func Err() *identifierValue {
+	return Identifier("err")
+}
+
+func Nil() *identifierValue {
+	return Identifier("nil")
+}
+
+func String(strValue string) *identifierValue {
+	return Identifier(fmt.Sprintf("\"%s\"", strValue))
+}
+
+func Int(intVal int) *identifierValue {
+	return Identifier(fmt.Sprintf("%d", intVal))
+}
+
 func (i *identifierValue) Pointer() *identifierValue {
 	i.declaration.pointer()
 	return i
@@ -42,31 +58,15 @@ func (i *identifierValue) NotEquals(value value) *equalsValue {
 	return newEquals(i, value, false)
 }
 
-func Err() *identifierValue {
-	return Identifier("err")
-}
-
-func Nil() *identifierValue {
-	return Identifier("nil")
-}
-
-func String(strValue string) *identifierValue {
-	return Identifier(fmt.Sprintf("\"%s\"", strValue))
-}
-
-func Int(intVal int) *identifierValue {
-	return Identifier(fmt.Sprintf("%d", intVal))
-}
-
-func (i *identifierValue) Nil() *equalsValue {
+func (i *identifierValue) IsNil() *equalsValue {
 	return newEquals(i, Nil(), true)
 }
 
-func (i *identifierValue) NotNil() *equalsValue {
+func (i *identifierValue) IsNotNil() *equalsValue {
 	return newEquals(i, Nil(), false)
 }
 
-func (i *identifierValue) NotEmpty() *equalsValue {
+func (i *identifierValue) IsNotEmpty() *equalsValue {
 	return Len(i).NotEquals(Int(0))
 }
 

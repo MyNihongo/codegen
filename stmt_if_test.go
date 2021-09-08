@@ -15,7 +15,7 @@ return val
 	var sb strings.Builder
 
 	If(
-		Identifier("val").NotNil(),
+		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
 	).writeStmt(&sb)
@@ -33,12 +33,12 @@ val=varr
 	var sb strings.Builder
 
 	If(
-		Identifier("val").NotNil(),
+		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
 	).ElseIfDeclr(
 		Declare("val", "varr").Values(QualFuncCall("alias", "Func")),
-		Identifier("varr").NotEmpty(),
+		Identifier("varr").IsNotEmpty(),
 	).Block(
 		Identifier("val").Assign(Identifier("varr")),
 	).writeStmt(&sb)
@@ -56,7 +56,7 @@ return nil
 	var sb strings.Builder
 
 	If(
-		Identifier("val").NotNil(),
+		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
 	).Else(
@@ -75,7 +75,7 @@ config.myVar=val
 
 	IfDeclr(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
-		Err().Nil(),
+		Err().IsNil(),
 	).Block(
 		Identifier("config").Field("myVar").Assign(Identifier("val")),
 	).writeStmt(&sb)
@@ -94,12 +94,12 @@ abc=val
 
 	IfDeclr(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
-		Err().NotNil(),
+		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
 	).ElseIfDeclr(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
-		Err().NotNil(),
+		Err().IsNotNil(),
 	).Block(
 		Identifier("abc").Assign(Identifier("val")),
 	).writeStmt(&sb)
@@ -118,7 +118,7 @@ return nil,err
 
 	IfDeclr(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
-		Err().Nil(),
+		Err().IsNil(),
 	).Block(
 		Identifier("config").Field("myVar").Assign(Identifier("val")),
 	).Else(
@@ -141,12 +141,12 @@ return val,nil
 
 	IfDeclr(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
-		Err().NotNil(),
+		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
 	).ElseIfDeclr(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
-		Err().NotNil(),
+		Err().IsNotNil(),
 	).Block(
 		Identifier("abc").Assign(Identifier("val")),
 	).Else(

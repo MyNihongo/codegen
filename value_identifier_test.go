@@ -45,6 +45,52 @@ func TestQualIdentifierPointer(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestIdentifierErr(t *testing.T) {
+	const want = `err`
+
+	var sb strings.Builder
+	Err().writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierNil(t *testing.T) {
+	const want = `nil`
+
+	var sb strings.Builder
+	Nil().writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierString(t *testing.T) {
+	const want = `"my string value"`
+
+	var sb strings.Builder
+	String("my string value").writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierInt(t *testing.T) {
+	const want = `123`
+
+	var sb strings.Builder
+	Int(123).writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierAssign(t *testing.T) {
+	const want = `a=alias.GetMyValue()`
+
+	var sb strings.Builder
+	Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestIdentifierEquals(t *testing.T) {
 	const want = `a==myFunc()`
 
@@ -75,50 +121,32 @@ func TestIdentifierNotEquals(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierNil(t *testing.T) {
+func TestIdentifierIsNil(t *testing.T) {
 	const want = `a==nil`
 
 	var sb strings.Builder
-	Identifier("a").Nil().
+	Identifier("a").IsNil().
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierNotNil(t *testing.T) {
+func TestIdentifierIsNotNil(t *testing.T) {
 	const want = `a!=nil`
 
 	var sb strings.Builder
-	Identifier("a").NotNil().
+	Identifier("a").IsNotNil().
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestIdentifierAssign(t *testing.T) {
-	const want = `a=alias.GetMyValue()`
+func TestIdentifierIsNotEmpty(t *testing.T) {
+	const want = `len(a)!=0`
 
 	var sb strings.Builder
-	Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
-		writeStmt(&sb)
-
-	assert.Equal(t, want, sb.String())
-}
-
-func TestErr(t *testing.T) {
-	const want = `err`
-
-	var sb strings.Builder
-	Err().writeValue(&sb)
-
-	assert.Equal(t, want, sb.String())
-}
-
-func TestNil(t *testing.T) {
-	const want = `nil`
-
-	var sb strings.Builder
-	Nil().writeValue(&sb)
+	Identifier("a").IsNotEmpty().
+		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
