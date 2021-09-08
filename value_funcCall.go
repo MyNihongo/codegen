@@ -31,6 +31,10 @@ func (q *qualNameFuncValue) Field(fieldName string) *fieldValue {
 	return newField(q, fieldName)
 }
 
+func (q *qualNameFuncValue) Call(funcName string) *callValue {
+	return newCallValue(q, funcName)
+}
+
 func newFuncCall(alias, name string) *qualNameFuncValue {
 	return &qualNameFuncValue{
 		name:  name,

@@ -84,3 +84,69 @@ func TestQualFuncCallArgs(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFuncCallField(t *testing.T) {
+	const want = `myFunc(alias.a,b).field`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualFuncCallField(t *testing.T) {
+	const want = `alias.MyFunc(alias.a,b).field`
+
+	var sb strings.Builder
+	QualFuncCall("alias", "MyFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Field("field").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallCallEmpty(t *testing.T) {
+	const want = `myFunc(alias.a,b).myFunc()`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Call("myFunc").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualFuncCallCallEmpty(t *testing.T) {
+	const want = `alias.MyFunc(alias.a,b).myFunc()`
+
+	var sb strings.Builder
+	QualFuncCall("alias", "MyFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Call("myFunc").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallCallArgs(t *testing.T) {
+	const want = `myFunc(alias.a,b).myFunc(this)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Call("myFunc").Args(Identifier("this")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualFuncCallCallArgs(t *testing.T) {
+	const want = `alias.MyFunc(alias.a,b).myFunc(alias.AnotherFunc())`
+
+	var sb strings.Builder
+	QualFuncCall("alias", "MyFunc").Args(QualIdentifier("alias", "a"), Identifier("b")).
+		Call("myFunc").Args(QualFuncCall("alias", "AnotherFunc")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
