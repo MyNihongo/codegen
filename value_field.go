@@ -3,7 +3,7 @@ package codegen
 import "strings"
 
 type fieldValue struct {
-	val  value
+	val  Value
 	name string
 }
 
@@ -18,11 +18,11 @@ func (f *fieldValue) Call(name string) *callValue {
 }
 
 // Assign assigns a value to the field
-func (f *fieldValue) Assign(val value) *assignStmt {
+func (f *fieldValue) Assign(val Value) *assignStmt {
 	return newAssignment(f, val)
 }
 
-func newField(val value, name string) *fieldValue {
+func newField(val Value, name string) *fieldValue {
 	return &fieldValue{
 		val:  val,
 		name: name,

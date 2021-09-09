@@ -9,7 +9,7 @@ import (
 
 func TestWriteValuesEmpty(t *testing.T) {
 	var sb strings.Builder
-	writeValues(&sb, make([]value, 0))
+	writeValues(&sb, make([]Value, 0))
 
 	assert.Empty(t, sb.String())
 }
@@ -17,7 +17,7 @@ func TestWriteValuesEmpty(t *testing.T) {
 func TestWriteValuesSingle(t *testing.T) {
 	const want = `name.field`
 
-	vals := []value{
+	vals := []Value{
 		Identifier("name").Field("field"),
 	}
 
@@ -30,7 +30,7 @@ func TestWriteValuesSingle(t *testing.T) {
 func TestWriteValuesMultiple(t *testing.T) {
 	const want = `name.field,alias.myFunc(a,b)`
 
-	vals := []value{
+	vals := []Value{
 		Identifier("name").Field("field"),
 		QualFuncCall("alias", "myFunc").Args(Identifier("a"), Identifier("b")),
 	}

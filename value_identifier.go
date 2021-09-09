@@ -60,17 +60,17 @@ func (i *identifierValue) Call(funcName string) *callValue {
 }
 
 // Assign assigns a value to the identifier
-func (i *identifierValue) Assign(val value) *assignStmt {
+func (i *identifierValue) Assign(val Value) *assignStmt {
 	return newAssignment(i, val)
 }
 
 // Equals compares a value of the identifier for equality
-func (i *identifierValue) Equals(value value) *equalsValue {
+func (i *identifierValue) Equals(value Value) *equalsValue {
 	return newEquals(i, value, true)
 }
 
 // Equals compares a value of the identifier for not being equal
-func (i *identifierValue) NotEquals(value value) *equalsValue {
+func (i *identifierValue) NotEquals(value Value) *equalsValue {
 	return newEquals(i, value, false)
 }
 

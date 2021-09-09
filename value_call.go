@@ -3,13 +3,13 @@ package codegen
 import "strings"
 
 type callValue struct {
-	val  value
+	val  Value
 	name string
-	args []value
+	args []Value
 }
 
 // Args creates a new argument value for a function call
-func (c *callValue) Args(args ...value) *callValue {
+func (c *callValue) Args(args ...Value) *callValue {
 	c.args = args
 	return c
 }
@@ -24,11 +24,11 @@ func (c *callValue) Call(funcName string) *callValue {
 	return newCallValue(c, funcName)
 }
 
-func newCallValue(val value, funcName string) *callValue {
+func newCallValue(val Value, funcName string) *callValue {
 	return &callValue{
 		val:  val,
 		name: funcName,
-		args: make([]value, 0),
+		args: make([]Value, 0),
 	}
 }
 

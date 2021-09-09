@@ -6,7 +6,7 @@ type funcBlock struct {
 	name     string
 	params   []*paramValue
 	retTypes []*returnType
-	stmts    []stmt
+	stmts    []Stmt
 }
 
 // Func creates a new function code block
@@ -30,7 +30,7 @@ func (f *funcBlock) ReturnTypes(returnTypes ...*returnType) *funcBlock {
 }
 
 // Block appends the function block
-func (f *funcBlock) Block(stmts ...stmt) {
+func (f *funcBlock) Block(stmts ...Stmt) {
 	f.stmts = stmts
 }
 
@@ -39,7 +39,7 @@ func newFunc(name string) *funcBlock {
 		name:     name,
 		params:   make([]*paramValue, 0),
 		retTypes: make([]*returnType, 0),
-		stmts:    make([]stmt, 0),
+		stmts:    make([]Stmt, 0),
 	}
 }
 

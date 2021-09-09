@@ -15,11 +15,11 @@ func (f *File) CommentF(format string, args ...interface{}) *File {
 	return f
 }
 
-func newCommentF(format string, args ...interface{}) block {
+func newCommentF(format string, args ...interface{}) Block {
 	return newComment(fmt.Sprintf(format, args...))
 }
 
-func newComment(value string) block {
+func newComment(value string) Block {
 	return &commentBlock{value: value}
 }
 

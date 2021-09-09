@@ -2,7 +2,7 @@ package codegen
 
 import "strings"
 
-func writeStmts(sb *strings.Builder, stmts []stmt, appendNewLine bool) {
+func writeStmts(sb *strings.Builder, stmts []Stmt, appendNewLine bool) {
 	writeByteNewLine(sb, '{')
 
 	for _, stmt := range stmts {

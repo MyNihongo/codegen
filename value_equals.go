@@ -4,11 +4,11 @@ import "strings"
 
 type equalsValue struct {
 	equals   bool
-	valRight value
-	valLeft  value
+	valRight Value
+	valLeft  Value
 }
 
-func newEquals(valRight, valLeft value, equals bool) *equalsValue {
+func newEquals(valRight, valLeft Value, equals bool) *equalsValue {
 	return &equalsValue{
 		equals:   equals,
 		valRight: valRight,

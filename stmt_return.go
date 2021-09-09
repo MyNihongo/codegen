@@ -3,11 +3,11 @@ package codegen
 import "strings"
 
 type returnStmt struct {
-	values []value
+	values []Value
 }
 
 // Return creates a new return statement
-func Return(values ...value) stmt {
+func Return(values ...Value) Stmt {
 	return &returnStmt{
 		values: values,
 	}
