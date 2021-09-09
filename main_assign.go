@@ -3,11 +3,11 @@ package codegen
 import "strings"
 
 type assignStmt struct {
-	valRight value
-	valLeft  value
+	valRight Value
+	valLeft  Value
 }
 
-func newAssignment(valRight value, valLeft value) *assignStmt {
+func newAssignment(valRight Value, valLeft Value) *assignStmt {
 	return &assignStmt{
 		valRight: valRight,
 		valLeft:  valLeft,

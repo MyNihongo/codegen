@@ -2,7 +2,7 @@ package codegen
 
 import "strings"
 
-func writeValues(sb *strings.Builder, vals []value) {
+func writeValues(sb *strings.Builder, vals []Value) {
 	for i, v := range vals {
 		if i != 0 {
 			sb.WriteByte(',')
@@ -12,7 +12,7 @@ func writeValues(sb *strings.Builder, vals []value) {
 	}
 }
 
-func writePointerValueAccess(sb *strings.Builder, val value) {
+func writePointerValueAccess(sb *strings.Builder, val Value) {
 	isPointer := val.isPointer()
 	if isPointer {
 		sb.WriteByte('(')
@@ -25,7 +25,7 @@ func writePointerValueAccess(sb *strings.Builder, val value) {
 	}
 }
 
-func writeFuncCall(sb *strings.Builder, name string, vals []value) {
+func writeFuncCall(sb *strings.Builder, name string, vals []Value) {
 	writeF(sb, "%s(", name)
 	writeValues(sb, vals)
 	sb.WriteByte(')')

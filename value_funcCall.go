@@ -6,7 +6,7 @@ type qualNameFuncValue struct {
 	alias string
 	name  string
 	isPtr bool
-	args  []value
+	args  []Value
 }
 
 // FuncCall creates a new function call
@@ -26,7 +26,7 @@ func (q *qualNameFuncValue) Pointer() *qualNameFuncValue {
 }
 
 // Args appeng argument for the function call
-func (q *qualNameFuncValue) Args(args ...value) *qualNameFuncValue {
+func (q *qualNameFuncValue) Args(args ...Value) *qualNameFuncValue {
 	q.args = args
 	return q
 }
@@ -45,7 +45,7 @@ func newFuncCall(alias, name string) *qualNameFuncValue {
 	return &qualNameFuncValue{
 		name:  name,
 		alias: alias,
-		args:  make([]value, 0),
+		args:  make([]Value, 0),
 	}
 }
 

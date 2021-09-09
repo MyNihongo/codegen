@@ -4,34 +4,34 @@ import "strings"
 
 type ifStmt struct {
 	declaration *declarationStmt
-	value       value
-	stmts       []stmt
+	value       Value
+	stmts       []Stmt
 	prev        *ifStmt
 	isFinal     bool
 }
 
 // Creates a new if statement
-func If(val value) *ifStmt {
+func If(val Value) *ifStmt {
 	return newIf(nil, nil, val)
 }
 
 // Creates a new if statement with variable declaration
-func IfDeclr(declare *declarationStmt, val value) *ifStmt {
+func IfDeclr(declare *declarationStmt, val Value) *ifStmt {
 	return newIf(nil, declare, val)
 }
 
 // Appends a new else-if statement to the existing if statement
-func (i *ifStmt) ElseIf(val value) *ifStmt {
+func (i *ifStmt) ElseIf(val Value) *ifStmt {
 	return newIf(i, nil, val)
 }
 
 // Appends a new else-if statement with variable declaration to the existing if statement
-func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val value) *ifStmt {
+func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val Value) *ifStmt {
 	return newIf(i, declare, val)
 }
 
 // Appends the final else statement to the existing if statement
-func (i *ifStmt) Else(stmts ...stmt) stmt {
+func (i *ifStmt) Else(stmts ...Stmt) Stmt {
 	stmt := newIf(i, nil, nil)
 	stmt.stmts = stmts
 
@@ -39,12 +39,12 @@ func (i *ifStmt) Else(stmts ...stmt) stmt {
 }
 
 // Appends a block statement to the existing if statement
-func (i *ifStmt) Block(stmts ...stmt) *ifStmt {
+func (i *ifStmt) Block(stmts ...Stmt) *ifStmt {
 	i.stmts = stmts
 	return i
 }
 
-func newIf(prev *ifStmt, declare *declarationStmt, val value) *ifStmt {
+func newIf(prev *ifStmt, declare *declarationStmt, val Value) *ifStmt {
 	if prev != nil {
 		prev.isFinal = false
 	}

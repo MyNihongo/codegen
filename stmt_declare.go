@@ -9,7 +9,7 @@ type declarationValues struct {
 
 type declarationStmt struct {
 	varVal *declarationValues
-	values []value
+	values []Value
 }
 
 // Declare creates a new declaration statement without variable values (will not compile).
@@ -26,7 +26,7 @@ func Declare(vars ...string) *declarationValues {
 }
 
 // Completes the declaration block with values
-func (v *declarationValues) Values(values ...value) *declarationStmt {
+func (v *declarationValues) Values(values ...Value) *declarationStmt {
 	if len(values) == 0 {
 		panic("no values are provided for variable declaration")
 	}

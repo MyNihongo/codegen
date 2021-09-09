@@ -11,7 +11,7 @@ func TestStatementOne(t *testing.T) {
 	const want = `{
 return val
 }`
-	stmts := []stmt{
+	stmts := []Stmt{
 		Return(Identifier("val")),
 	}
 
@@ -26,7 +26,7 @@ func TestStatementOneNewLine(t *testing.T) {
 return val
 }
 `
-	stmts := []stmt{
+	stmts := []Stmt{
 		Return(Identifier("val")),
 	}
 
