@@ -10,7 +10,7 @@ type funcBlock struct {
 }
 
 // Func creates a new function code block
-func (f *file) Func(name string) *funcBlock {
+func (f *File) Func(name string) *funcBlock {
 	fnc := newFunc(name)
 	f.append(fnc)
 
