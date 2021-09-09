@@ -1,6 +1,7 @@
 package codegen
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -15,7 +16,7 @@ return t.myField
 `
 	f := NewFile(packageName, codeGen)
 	f.GenerateGetter(This("TypeName").Pointer(), "myField", ReturnType("int"))
-	got := f.generate()
+	got := fmt.Sprintf("%#v", f)
 
 	assert.Equal(t, want, got)
 }

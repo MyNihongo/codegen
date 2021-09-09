@@ -31,7 +31,7 @@ func (f *File) Save(filePath string) error {
 			return err
 		} else if _, err = out.Seek(0, 0); err != nil {
 			return err
-		} else if _, err = out.WriteString(f.generate()); err != nil {
+		} else if _, err = out.WriteString(f.GoString()); err != nil {
 			return err
 		}
 
@@ -40,7 +40,7 @@ func (f *File) Save(filePath string) error {
 	}
 }
 
-func (f *File) generate() string {
+func (f *File) GoString() string {
 	var sb strings.Builder
 
 	for _, stmt := range f.stmts {
