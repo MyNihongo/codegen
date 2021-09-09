@@ -1,4 +1,4 @@
-module codegen
+module github.com/MyNihongo/codegen
 
 go 1.17
 
