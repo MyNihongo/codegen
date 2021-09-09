@@ -10,7 +10,7 @@ type commentBlock struct {
 }
 
 // CommentF creates a new comment statement according to a format
-func (f *file) CommentF(format string, args ...interface{}) *file {
+func (f *File) CommentF(format string, args ...interface{}) *File {
 	f.append(newCommentF(format, args...))
 	return f
 }

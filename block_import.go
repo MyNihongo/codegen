@@ -12,7 +12,7 @@ type importsBlock struct {
 }
 
 // Imports creates a new imports block
-func (f *file) Imports(imports ...*importLine) *file {
+func (f *File) Imports(imports ...*importLine) *File {
 	f.imports.lines = imports
 	return f
 }
