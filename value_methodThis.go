@@ -6,6 +6,7 @@ type thisValue struct {
 	*paramValue
 }
 
+// This creates a new method this-parameter for a
 func This(typeName string) *thisValue {
 	name := createThisName(typeName)
 	return &thisValue{
@@ -13,6 +14,7 @@ func This(typeName string) *thisValue {
 	}
 }
 
+// QualThis creates a new this-parameter for a method with a package alias
 func QualThis(alias, typeName string) *thisValue {
 	name := createThisName(typeName)
 
@@ -21,6 +23,7 @@ func QualThis(alias, typeName string) *thisValue {
 	}
 }
 
+// Pointer turns the this-parameter to a pointer type
 func (t *thisValue) Pointer() *thisValue {
 	t.paramValue.Pointer()
 	return t

@@ -2,6 +2,7 @@ package codegen
 
 import "strings"
 
+// GenerateGetter creates a public getter method according to the field
 func (f *file) GenerateGetter(this *thisValue, fieldName string, returnType *returnType) {
 	methodName := strings.Title(fieldName)
 

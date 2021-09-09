@@ -6,6 +6,7 @@ type returnStmt struct {
 	values []value
 }
 
+// Return creates a new return statement
 func Return(values ...value) stmt {
 	return &returnStmt{
 		values: values,

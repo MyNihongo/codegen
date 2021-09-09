@@ -8,15 +8,18 @@ type callValue struct {
 	args []value
 }
 
+// Args creates a new argument value for a function call
 func (c *callValue) Args(args ...value) *callValue {
 	c.args = args
 	return c
 }
 
+// Field appends a new field getter after the function call
 func (c *callValue) Field(fieldName string) *fieldValue {
 	return newField(c, fieldName)
 }
 
+// Call appends a new function call after the function call
 func (c *callValue) Call(funcName string) *callValue {
 	return newCallValue(c, funcName)
 }
