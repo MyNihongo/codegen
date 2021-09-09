@@ -155,3 +155,26 @@ return val,nil
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIfElseIf(t *testing.T) {
+	const want = `if len(a)!=0{
+b.field=a
+} else if a==nil{
+b.field2=a
+} else {
+b.field3=a
+}
+`
+
+	var sb strings.Builder
+
+	If(Identifier("a").IsNotEmpty()).Block(
+		Identifier("b").Field("field").Assign(Identifier("a")),
+	).ElseIf(Identifier("a").IsNil()).Block(
+		Identifier("b").Field("field2").Assign(Identifier("a")),
+	).Else(
+		Identifier("b").Field("field3").Assign(Identifier("a")),
+	).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

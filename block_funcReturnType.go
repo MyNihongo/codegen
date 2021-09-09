@@ -6,18 +6,22 @@ type returnType struct {
 	name *nameValue
 }
 
+// ReturnType creates a new return type for a function
 func ReturnType(name string) *returnType {
 	return &returnType{name: qualName("", name)}
 }
 
+// QualReturnType creates a new return type with an alias of an imported package
 func QualReturnType(alias, name string) *returnType {
 	return &returnType{name: qualName(alias, name)}
 }
 
+// ReturnTypeError create a new return type of type `error`
 func ReturnTypeError() *returnType {
 	return ReturnType("error")
 }
 
+// Pointer turns the return type into a pointer value
 func (r *returnType) Pointer() *returnType {
 	r.name.pointer()
 	return r

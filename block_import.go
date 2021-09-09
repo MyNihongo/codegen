@@ -11,6 +11,7 @@ type importsBlock struct {
 	lines []*importLine
 }
 
+// Imports creates a new imports block
 func (f *file) Imports(imports ...*importLine) *file {
 	f.imports.lines = imports
 	return f

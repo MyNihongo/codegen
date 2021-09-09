@@ -11,17 +11,15 @@ type commentBlock struct {
 
 // CommentF creates a new comment statement according to a format
 func (f *file) CommentF(format string, args ...interface{}) *file {
-	f.append(commentF(format, args...))
+	f.append(newCommentF(format, args...))
 	return f
 }
 
-// commentF creates a new comment statement according to a format
-func commentF(format string, args ...interface{}) block {
-	return comment(fmt.Sprintf(format, args...))
+func newCommentF(format string, args ...interface{}) block {
+	return newComment(fmt.Sprintf(format, args...))
 }
 
-// comment creates a new comment statement
-func comment(value string) block {
+func newComment(value string) block {
 	return &commentBlock{value: value}
 }
 
