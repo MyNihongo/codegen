@@ -10,25 +10,35 @@ type ifStmt struct {
 	isFinal     bool
 }
 
+// Creates a new if statement
 func If(val value) *ifStmt {
 	return newIf(nil, nil, val)
 }
 
+// Creates a new if statement with variable declaration
 func IfDeclr(declare *declarationStmt, val value) *ifStmt {
 	return newIf(nil, declare, val)
 }
 
+// Appends a new else-if statement to the existing if statement
+func (i *ifStmt) ElseIf(val value) *ifStmt {
+	return newIf(i, nil, val)
+}
+
+// Appends a new else-if statement with variable declaration to the existing if statement
 func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val value) *ifStmt {
 	return newIf(i, declare, val)
 }
 
-func (i *ifStmt) Else(stmts ...stmt) *ifStmt {
+// Appends the final else statement to the existing if statement
+func (i *ifStmt) Else(stmts ...stmt) stmt {
 	stmt := newIf(i, nil, nil)
 	stmt.stmts = stmts
 
 	return stmt
 }
 
+// Appends a block statement to the existing if statement
 func (i *ifStmt) Block(stmts ...stmt) *ifStmt {
 	i.stmts = stmts
 	return i

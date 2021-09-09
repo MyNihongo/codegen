@@ -12,6 +12,8 @@ type declarationStmt struct {
 	values []value
 }
 
+// Declare creates a new declaration statement without variable values (will not compile).
+// In order to declare variables call `Values()`
 func Declare(vars ...string) *declarationValues {
 	if len(vars) == 0 {
 		panic("no variables are passed for declaration")
@@ -23,6 +25,7 @@ func Declare(vars ...string) *declarationValues {
 	}
 }
 
+// Completes the declaration block with values
 func (v *declarationValues) Values(values ...value) *declarationStmt {
 	if len(values) == 0 {
 		panic("no values are provided for variable declaration")

@@ -7,14 +7,17 @@ type goFuncValue struct {
 	args []value
 }
 
+// Len creates a new function call of the Go build-in function `len()`
 func Len(val value) *goFuncValue {
 	return newGoFunc("len", val)
 }
 
+// Equals compares a value of the go function for equality
 func (g *goFuncValue) Equals(val value) *equalsValue {
 	return newEquals(g, val, true)
 }
 
+// Equals compares a value of the go function for not being equal
 func (g *goFuncValue) NotEquals(val value) *equalsValue {
 	return newEquals(g, val, false)
 }

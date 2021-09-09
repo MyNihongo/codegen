@@ -9,9 +9,10 @@ import (
 )
 
 func main() {
-	f := gen.NewFile("cool", "my-generator").
-		Import("fmt").
-		ImportAlias("strings", "str")
+	f := gen.NewFile("cool", "my-generator").Imports(
+		gen.Import("fmt"),
+		gen.ImportAlias("strings", "str"),
+	)
 
 	f.Func("main").Block(
 		gen.Declare("val").Values(gen.QualFuncCall("str", "Title").Args(gen.String("hello, 世界!"))),
@@ -196,9 +197,6 @@ IfDeclr(
 // }
 ```
 ### Utility methods
-```go
-import "gen "github.com/MyNihongo/codegen/utils"
-```
 #### Generate a getter
 ```go
 f := gen.NewFile("cool", "my-generator").
