@@ -4,7 +4,7 @@ import "strings"
 
 type funcBlock struct {
 	name     string
-	params   []*paramValue
+	params   []*ParamValue
 	retTypes []*returnType
 	stmts    []Stmt
 }
@@ -18,7 +18,7 @@ func (f *File) Func(name string) *funcBlock {
 }
 
 // Params appends function parameters
-func (f *funcBlock) Params(params ...*paramValue) *funcBlock {
+func (f *funcBlock) Params(params ...*ParamValue) *funcBlock {
 	f.params = params
 	return f
 }
@@ -37,7 +37,7 @@ func (f *funcBlock) Block(stmts ...Stmt) {
 func newFunc(name string) *funcBlock {
 	return &funcBlock{
 		name:     name,
-		params:   make([]*paramValue, 0),
+		params:   make([]*ParamValue, 0),
 		retTypes: make([]*returnType, 0),
 		stmts:    make([]Stmt, 0),
 	}
