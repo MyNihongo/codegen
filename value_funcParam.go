@@ -2,33 +2,33 @@ package codegen
 
 import "strings"
 
-type paramValue struct {
+type ParamValue struct {
 	name     string
 	typeName *nameValue
 }
 
 // Param creates a new function parameter
-func Param(name, typeName string) *paramValue {
-	return &paramValue{name: name, typeName: qualName("", typeName)}
+func Param(name, typeName string) *ParamValue {
+	return &ParamValue{name: name, typeName: qualName("", typeName)}
 }
 
 // QualParam creates a new function parameter with a package alias
-func QualParam(name, alias, typeName string) *paramValue {
-	return &paramValue{name: name, typeName: qualName(alias, typeName)}
+func QualParam(name, alias, typeName string) *ParamValue {
+	return &ParamValue{name: name, typeName: qualName(alias, typeName)}
 }
 
 // Pointer turns the parameter into a pointer type
-func (p *paramValue) Pointer() *paramValue {
+func (p *ParamValue) Pointer() *ParamValue {
 	p.typeName.pointer()
 	return p
 }
 
-func (p *paramValue) writeValue(sb *strings.Builder) {
+func (p *ParamValue) writeValue(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
 	p.typeName.writeValue(sb)
 }
 
-func writeParams(sb *strings.Builder, params []*paramValue) {
+func writeParams(sb *strings.Builder, params []*ParamValue) {
 	sb.WriteByte('(')
 
 	for i, p := range params {

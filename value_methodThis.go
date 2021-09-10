@@ -3,14 +3,14 @@ package codegen
 import "strings"
 
 type thisValue struct {
-	*paramValue
+	*ParamValue
 }
 
 // This creates a new method this-parameter for a
 func This(typeName string) *thisValue {
 	name := createThisName(typeName)
 	return &thisValue{
-		paramValue: Param(name, typeName),
+		ParamValue: Param(name, typeName),
 	}
 }
 
@@ -19,13 +19,13 @@ func QualThis(alias, typeName string) *thisValue {
 	name := createThisName(typeName)
 
 	return &thisValue{
-		paramValue: QualParam(name, alias, typeName),
+		ParamValue: QualParam(name, alias, typeName),
 	}
 }
 
 // Pointer turns the this-parameter to a pointer type
 func (t *thisValue) Pointer() *thisValue {
-	t.paramValue.Pointer()
+	t.ParamValue.Pointer()
 	return t
 }
 
