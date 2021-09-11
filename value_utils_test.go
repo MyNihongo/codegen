@@ -63,6 +63,32 @@ func TestWritePointerAccessPointer(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestWritePointerAccessStructInit(t *testing.T) {
+	const want = `myStruct{prop:a.someFunc()}`
+
+	val := InitStruct("myStruct").Props(
+		PropValue("prop", Identifier("a").Call("someFunc")),
+	)
+
+	var sb strings.Builder
+	writePointerValueAccess(&sb, val)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestWritePointerAccessStructAddressInit(t *testing.T) {
+	const want = `&myStruct{prop:a.someFunc()}`
+
+	val := InitStruct("myStruct").Props(
+		PropValue("prop", Identifier("a").Call("someFunc")),
+	).Address()
+
+	var sb strings.Builder
+	writePointerValueAccess(&sb, val)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestWriteAlias(t *testing.T) {
 	const want = `alias.`
 
