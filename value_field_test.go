@@ -22,11 +22,12 @@ func TestIdentifierFieldAssign(t *testing.T) {
 	const want = `obj.field1=myFunc(a,b)`
 
 	var sb strings.Builder
-	Identifier("obj").
+	got := Identifier("obj").
 		Field("field1").Assign(FuncCall("myFunc").Args(Identifier("a"), Identifier("b"))).
 		writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }
 
 func TestIdentifierFieldCallEmpty(t *testing.T) {

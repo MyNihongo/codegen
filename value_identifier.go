@@ -7,6 +7,7 @@ import (
 
 type identifierValue struct {
 	declaration *nameValue
+	isAddress   bool
 }
 
 // Identifier creates a new identifier (variable, value, etc.)
@@ -26,6 +27,12 @@ func QualIdentifier(alias, name string) *identifierValue {
 // Pointer turns the identifier into a pointer type
 func (i *identifierValue) Pointer() *identifierValue {
 	i.declaration.pointer()
+	return i
+}
+
+// Address turns the identifier into an address type (pointer to the identifier)
+func (i *identifierValue) Address() *identifierValue {
+	i.isAddress = true
 	return i
 }
 
@@ -90,7 +97,15 @@ func (i *identifierValue) IsNotEmpty() *equalsValue {
 }
 
 func (i *identifierValue) writeValue(sb *strings.Builder) {
+	if i.isAddress {
+		sb.WriteString("&(")
+	}
+
 	i.declaration.writeValue(sb)
+
+	if i.isAddress {
+		sb.WriteByte(')')
+	}
 }
 
 func (i *identifierValue) isPointer() bool {

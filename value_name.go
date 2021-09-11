@@ -12,15 +12,22 @@ func qualName(alias, identifier string) *nameValue {
 	return &nameValue{alias: alias, identifier: identifier}
 }
 
-func (q *nameValue) pointer() {
-	q.isPointer = true
+func (n *nameValue) pointer() {
+	n.isPointer = true
 }
 
-func (q *nameValue) writeValue(sb *strings.Builder) {
-	if q.isPointer {
+func (n *nameValue) getTypeName() string {
+	var sb strings.Builder
+	n.writeValue(&sb)
+
+	return sb.String()
+}
+
+func (n *nameValue) writeValue(sb *strings.Builder) {
+	if n.isPointer {
 		sb.WriteByte('*')
 	}
 
-	writeAlias(sb, q.alias)
-	sb.WriteString(q.identifier)
+	writeAlias(sb, n.alias)
+	sb.WriteString(n.identifier)
 }

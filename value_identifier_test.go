@@ -26,6 +26,26 @@ func TestIdentifierPointer(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestIdentifierAddress(t *testing.T) {
+	const want = `&(obj)`
+
+	var sb strings.Builder
+	Identifier("obj").Address().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierPointerAddress(t *testing.T) {
+	const want = `&(*obj)`
+
+	var sb strings.Builder
+	Identifier("obj").Pointer().Address().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestQualIdentifier(t *testing.T) {
 	const want = `alias.obj`
 
@@ -40,6 +60,26 @@ func TestQualIdentifierPointer(t *testing.T) {
 
 	var sb strings.Builder
 	QualIdentifier("alias", "obj").Pointer().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualIdentifierAddress(t *testing.T) {
+	const want = `&(alias.obj)`
+
+	var sb strings.Builder
+	QualIdentifier("alias", "obj").Address().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualIdentifierPointerAddress(t *testing.T) {
+	const want = `&(*alias.obj)`
+
+	var sb strings.Builder
+	QualIdentifier("alias", "obj").Pointer().Address().
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -160,10 +200,11 @@ func TestIdentifierAssign(t *testing.T) {
 	const want = `a=alias.GetMyValue()`
 
 	var sb strings.Builder
-	Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
+	got := Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
 		writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }
 
 func TestIdentifierEquals(t *testing.T) {

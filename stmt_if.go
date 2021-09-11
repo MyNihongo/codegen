@@ -16,7 +16,7 @@ func If(val Value) *ifStmt {
 }
 
 // Creates a new if statement with variable declaration
-func IfDeclr(declare *declarationStmt, val Value) *ifStmt {
+func IfDecl(declare *declarationStmt, val Value) *ifStmt {
 	return newIf(nil, declare, val)
 }
 
@@ -26,7 +26,7 @@ func (i *ifStmt) ElseIf(val Value) *ifStmt {
 }
 
 // Appends a new else-if statement with variable declaration to the existing if statement
-func (i *ifStmt) ElseIfDeclr(declare *declarationStmt, val Value) *ifStmt {
+func (i *ifStmt) ElseIfDecl(declare *declarationStmt, val Value) *ifStmt {
 	return newIf(i, declare, val)
 }
 

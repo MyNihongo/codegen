@@ -14,13 +14,14 @@ return val
 `
 	var sb strings.Builder
 
-	If(
+	got := If(
 		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfDeclarationIf(t *testing.T) {
@@ -32,11 +33,11 @@ val=varr
 `
 	var sb strings.Builder
 
-	If(
+	got := If(
 		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "varr").Values(QualFuncCall("alias", "Func")),
 		Identifier("varr").IsNotEmpty(),
 	).Block(
@@ -44,6 +45,7 @@ val=varr
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfElse(t *testing.T) {
@@ -55,7 +57,7 @@ return nil
 `
 	var sb strings.Builder
 
-	If(
+	got := If(
 		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
@@ -64,6 +66,7 @@ return nil
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfDeclaration(t *testing.T) {
@@ -73,7 +76,7 @@ config.myVar=val
 `
 	var sb strings.Builder
 
-	IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
 		Err().IsNil(),
 	).Block(
@@ -81,6 +84,7 @@ config.myVar=val
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfDeclarationElseIfDeclaration(t *testing.T) {
@@ -92,12 +96,12 @@ abc=val
 `
 	var sb strings.Builder
 
-	IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
 		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
 		Err().IsNotNil(),
 	).Block(
@@ -105,6 +109,7 @@ abc=val
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfDeclarationElse(t *testing.T) {
@@ -116,7 +121,7 @@ return nil,err
 `
 	var sb strings.Builder
 
-	IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
 		Err().IsNil(),
 	).Block(
@@ -126,6 +131,7 @@ return nil,err
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfDeclarationElseIfDeclarationElse(t *testing.T) {
@@ -139,12 +145,12 @@ return val,nil
 `
 	var sb strings.Builder
 
-	IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
 		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
 		Err().IsNotNil(),
 	).Block(
@@ -154,6 +160,7 @@ return val,nil
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }
 
 func TestIfElseIf(t *testing.T) {
@@ -168,7 +175,7 @@ b.field3=a
 
 	var sb strings.Builder
 
-	If(Identifier("a").IsNotEmpty()).Block(
+	got := If(Identifier("a").IsNotEmpty()).Block(
 		Identifier("b").Field("field").Assign(Identifier("a")),
 	).ElseIf(Identifier("a").IsNil()).Block(
 		Identifier("b").Field("field2").Assign(Identifier("a")),
@@ -177,4 +184,5 @@ b.field3=a
 	).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
 }

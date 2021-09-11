@@ -51,18 +51,18 @@ With this library I aim to provide high-level functions with will resemble the a
 - auto-generation comment is added automatically
 
 ## Documentation
-#### Declare / assign variables
+#### Identifiers
 ```go
-gen.Declare("val").Values(gen.String("my string"))
-// val := "my string"
+gen.Identifier("a")
+// a
 
-gen.Declare("val", "err").Values(FuncCall("myFunc").Args(Identifier("a")))
-// val, err := myFunc(a)
+gen.Identifier("a").Pointer()
+// *a
 
-gen.Identifier("myVar").Assign(gen.Identifier("val"))
-// myVar = val
+gen.Identifier("a").Address()
+// &(a)
 ```
-#### Useful methods
+#### Useful identifier methods
 ```go
 gen.Identifier("a").Equals(gen.Identifier("b"))
 // a == b
@@ -78,6 +78,24 @@ gen.Err().IsNil()
 
 gen.String("my string").IsNotEmpty()
 // len("my string") != 0
+```
+#### Declare / assign variables
+```go
+gen.Declare("val").Values(gen.String("my string"))
+// val := "my string"
+
+gen.Declare("val", "err").Values(FuncCall("myFunc").Args(Identifier("a")))
+// val, err := myFunc(a)
+
+gen.DeclareVars(
+	gen.Var("val", "string"),
+	gen.QualVar("sb", "strings", "Builder"),
+)
+// var val string
+// var sb strings.Builder
+
+gen.Identifier("myVar").Assign(gen.Identifier("val"))
+// myVar = val
 ```
 #### Call functions
 ```go
@@ -186,7 +204,7 @@ gen.If(
 //	return nil
 // }
 
-IfDeclr(
+IfDecl(
 	gen.Declare("val", "err").Values(gen.QualFuncCall("strconv", "Atoi").Args(gen.QualFuncCall("os", "Getenv").Args(gen.String("ENV_VAR")))),
 	gen.Err().IsNil(),
 ).Block(

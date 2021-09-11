@@ -44,3 +44,10 @@ func TestFuncQualThisPointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestPanicEmptyTypeName(t *testing.T) {
+	assert.Panics(t, func() {
+		var sb strings.Builder
+		This("").writeValue(&sb)
+	})
+}

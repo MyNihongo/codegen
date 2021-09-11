@@ -22,7 +22,7 @@ func (m *methodBlock) Params(params ...*ParamValue) *methodBlock {
 }
 
 // ReturnTypes appends function return parameters
-func (m *methodBlock) ReturnTypes(returnTypes ...*returnType) *methodBlock {
+func (m *methodBlock) ReturnTypes(returnTypes ...*ReturnTypeDecl) *methodBlock {
 	m.funcBlock.ReturnTypes(returnTypes...)
 	return m
 }
