@@ -11,9 +11,10 @@ func TestReturnEmpty(t *testing.T) {
 	const want = `return`
 
 	var sb strings.Builder
-	Return().writeStmt(&sb)
+	got := Return().writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }
 
 func TestReturnOne(t *testing.T) {
@@ -21,9 +22,10 @@ func TestReturnOne(t *testing.T) {
 	id := Identifier("variable")
 
 	var sb strings.Builder
-	Return(id).writeStmt(&sb)
+	got := Return(id).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }
 
 func TestReturnMultiple(t *testing.T) {
@@ -31,7 +33,8 @@ func TestReturnMultiple(t *testing.T) {
 	id1, id2 := Identifier("variable"), QualIdentifier("alias", "val").Field("field")
 
 	var sb strings.Builder
-	Return(id1, id2).writeStmt(&sb)
+	got := Return(id1, id2).writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }

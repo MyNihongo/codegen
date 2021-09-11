@@ -160,10 +160,11 @@ func TestIdentifierAssign(t *testing.T) {
 	const want = `a=alias.GetMyValue()`
 
 	var sb strings.Builder
-	Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
+	got := Identifier("a").Assign(QualFuncCall("alias", "GetMyValue")).
 		writeStmt(&sb)
 
 	assert.Equal(t, want, sb.String())
+	assert.True(t, got)
 }
 
 func TestIdentifierEquals(t *testing.T) {
