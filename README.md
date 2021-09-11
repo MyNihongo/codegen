@@ -97,6 +97,18 @@ gen.DeclareVars(
 gen.Identifier("myVar").Assign(gen.Identifier("val"))
 // myVar = val
 ```
+#### Initialise structs
+```go
+gen.InitStruct("myStruct").Props(
+	gen.PropValue("prop", gen.String("string value")),
+)
+// myStruct{prop:"string value"}
+
+gen.InitStruct("myStruct").Props(
+	gen.PropValue("prop", gen.FuncCall("myFunc")),
+).Address()
+// &myStruct{prop:myFunc()}
+```
 #### Call functions
 ```go
 gen.FuncCall("myFunc")
