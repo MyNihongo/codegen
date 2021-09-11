@@ -30,7 +30,7 @@ func (i *identifierValue) Pointer() *identifierValue {
 	return i
 }
 
-//
+// Address turns the identifier into an address type (pointer to the identifier)
 func (i *identifierValue) Address() *identifierValue {
 	i.isAddress = true
 	return i
