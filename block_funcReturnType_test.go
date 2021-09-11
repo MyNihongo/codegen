@@ -56,7 +56,7 @@ func TestFuncQualReturnTypePointer(t *testing.T) {
 
 func TestFuncReturnTypesEmpty(t *testing.T) {
 	var sb strings.Builder
-	params := make([]*returnType, 0)
+	params := make([]*ReturnTypeDecl, 0)
 	writeReturnTypes(&sb, params)
 
 	assert.Empty(t, sb.String())
@@ -66,7 +66,7 @@ func TestFuncReturnTypesOne(t *testing.T) {
 	const want = `type1`
 
 	var sb strings.Builder
-	params := []*returnType{
+	params := []*ReturnTypeDecl{
 		ReturnType("type1"),
 	}
 	writeReturnTypes(&sb, params)
@@ -78,7 +78,7 @@ func TestFuncReturnTypes(t *testing.T) {
 	const want = `(type1,alias.type2,*type3,*alias.type4)`
 
 	var sb strings.Builder
-	params := []*returnType{
+	params := []*ReturnTypeDecl{
 		ReturnType("type1"),
 		QualReturnType("alias", "type2"),
 		ReturnType("type3").Pointer(),

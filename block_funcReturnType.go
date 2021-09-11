@@ -2,36 +2,36 @@ package codegen
 
 import "strings"
 
-type returnType struct {
+type ReturnTypeDecl struct {
 	name *nameValue
 }
 
 // ReturnType creates a new return type for a function
-func ReturnType(name string) *returnType {
-	return &returnType{name: qualName("", name)}
+func ReturnType(name string) *ReturnTypeDecl {
+	return &ReturnTypeDecl{name: qualName("", name)}
 }
 
 // QualReturnType creates a new return type with an alias of an imported package
-func QualReturnType(alias, name string) *returnType {
-	return &returnType{name: qualName(alias, name)}
+func QualReturnType(alias, name string) *ReturnTypeDecl {
+	return &ReturnTypeDecl{name: qualName(alias, name)}
 }
 
 // ReturnTypeError create a new return type of type `error`
-func ReturnTypeError() *returnType {
+func ReturnTypeError() *ReturnTypeDecl {
 	return ReturnType("error")
 }
 
 // Pointer turns the return type into a pointer value
-func (r *returnType) Pointer() *returnType {
+func (r *ReturnTypeDecl) Pointer() *ReturnTypeDecl {
 	r.name.pointer()
 	return r
 }
 
-func (r *returnType) wr(sb *strings.Builder) {
+func (r *ReturnTypeDecl) wr(sb *strings.Builder) {
 	r.name.writeValue(sb)
 }
 
-func writeReturnTypes(sb *strings.Builder, returnTypes []*returnType) {
+func writeReturnTypes(sb *strings.Builder, returnTypes []*ReturnTypeDecl) {
 	if count := len(returnTypes); count == 0 {
 		return
 	} else if count == 1 {
