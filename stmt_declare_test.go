@@ -36,3 +36,15 @@ func TestDeclareFunc(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestPanicNoVariables(t *testing.T) {
+	assert.Panics(t, func() {
+		Declare()
+	})
+}
+
+func TestPanicNoValues(t *testing.T) {
+	assert.Panics(t, func() {
+		Declare("varr").Values()
+	})
+}
