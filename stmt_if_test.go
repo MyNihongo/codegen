@@ -37,7 +37,7 @@ val=varr
 		Identifier("val").IsNotNil(),
 	).Block(
 		Return(Identifier("val")),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "varr").Values(QualFuncCall("alias", "Func")),
 		Identifier("varr").IsNotEmpty(),
 	).Block(
@@ -76,7 +76,7 @@ config.myVar=val
 `
 	var sb strings.Builder
 
-	got := IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
 		Err().IsNil(),
 	).Block(
@@ -96,12 +96,12 @@ abc=val
 `
 	var sb strings.Builder
 
-	got := IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
 		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
 		Err().IsNotNil(),
 	).Block(
@@ -121,7 +121,7 @@ return nil,err
 `
 	var sb strings.Builder
 
-	got := IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("strconv", "Atoi").Args(QualFuncCall("os", "Getenv").Args(String("ENV_VAR")))),
 		Err().IsNil(),
 	).Block(
@@ -145,12 +145,12 @@ return val,nil
 `
 	var sb strings.Builder
 
-	got := IfDeclr(
+	got := IfDecl(
 		Declare("val", "err").Values(QualFuncCall("alias", "myFunc")),
 		Err().IsNotNil(),
 	).Block(
 		Return(Nil(), Err()),
-	).ElseIfDeclr(
+	).ElseIfDecl(
 		Declare("val", "err").Values(FuncCall("anotherFunc").Args(Identifier("val"))),
 		Err().IsNotNil(),
 	).Block(

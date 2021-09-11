@@ -186,7 +186,7 @@ gen.If(
 //	return nil
 // }
 
-IfDeclr(
+IfDecl(
 	gen.Declare("val", "err").Values(gen.QualFuncCall("strconv", "Atoi").Args(gen.QualFuncCall("os", "Getenv").Args(gen.String("ENV_VAR")))),
 	gen.Err().IsNil(),
 ).Block(

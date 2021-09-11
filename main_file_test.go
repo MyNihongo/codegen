@@ -96,7 +96,7 @@ return nil,err
 
 	param1, param2 := QualParam("param1", "alias", "typeName").Pointer(), Param("param2", "string")
 	f.Func("funcName").Params(param1, param2).ReturnTypes(ReturnType("string"), ReturnTypeError()).Block(
-		IfDeclr(
+		IfDecl(
 			Declare("val", "err").Values(QualFuncCall("os", "Getenv").Args(String("env_var"))),
 			Err().IsNotNil(),
 		).Block(
