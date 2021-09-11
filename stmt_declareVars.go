@@ -43,6 +43,7 @@ func (v *VarValue) Pointer() *VarValue {
 func (v *varsDeclarationStmt) writeStmt(sb *strings.Builder) bool {
 	if len(v.vars) != 0 {
 		typeMap := make(map[string][]string)
+		keys := make([]string, 0)
 
 		for _, val := range v.vars {
 			typeName := val.typeName.getTypeName()
@@ -50,11 +51,14 @@ func (v *varsDeclarationStmt) writeStmt(sb *strings.Builder) bool {
 			if grouping, ok := typeMap[typeName]; ok {
 				typeMap[typeName] = append(grouping, val.name)
 			} else {
+				keys = append(keys, typeName)
 				typeMap[typeName] = []string{val.name}
 			}
 		}
 
-		for typeName, vars := range typeMap {
+		for _, typeName := range keys {
+			vars := typeMap[typeName]
+
 			sb.WriteString("var ")
 
 			for i, varName := range vars {
