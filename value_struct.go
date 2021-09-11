@@ -14,11 +14,17 @@ type StructPropertyValue struct {
 }
 
 // InitStruct creates a new struct initialisation
-func InitStruct(structName string, properties ...*StructPropertyValue) *structValue {
+func InitStruct(structName string) *structValue {
 	return &structValue{
 		name:  structName,
-		props: properties,
+		props: make([]*StructPropertyValue, 0),
 	}
+}
+
+// Props adds properties with values to the struct initialisation
+func (s *structValue) Props(properties ...*StructPropertyValue) *structValue {
+	s.props = properties
+	return s
 }
 
 // Address returns a pointer to the initialised struct
