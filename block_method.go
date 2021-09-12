@@ -3,12 +3,12 @@ package codegen
 import "strings"
 
 type methodBlock struct {
-	this *thisValue
+	this *thisDecl
 	*funcBlock
 }
 
 // Method creates a new method block
-func (f *File) Method(this *thisValue, name string) *methodBlock {
+func (f *File) Method(this *thisDecl, name string) *methodBlock {
 	method := newMethod(this, name)
 	f.append(method)
 
@@ -27,7 +27,7 @@ func (m *methodBlock) ReturnTypes(returnTypes ...*ReturnTypeDecl) *methodBlock {
 	return m
 }
 
-func newMethod(this *thisValue, name string) *methodBlock {
+func newMethod(this *thisDecl, name string) *methodBlock {
 	return &methodBlock{
 		this:      this,
 		funcBlock: newFunc(name),
