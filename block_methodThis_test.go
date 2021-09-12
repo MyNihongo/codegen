@@ -11,7 +11,7 @@ func TestFuncThis(t *testing.T) {
 	const want = `t Type`
 
 	var sb strings.Builder
-	This("Type").writeValue(&sb)
+	This("Type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -21,7 +21,7 @@ func TestFuncThisPointer(t *testing.T) {
 
 	var sb strings.Builder
 	This("Type").Pointer().
-		writeValue(&sb)
+		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -30,7 +30,7 @@ func TestFuncQualThis(t *testing.T) {
 	const want = `t alias.Type`
 
 	var sb strings.Builder
-	QualThis("alias", "Type").writeValue(&sb)
+	QualThis("alias", "Type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -40,7 +40,7 @@ func TestFuncQualThisPointer(t *testing.T) {
 
 	var sb strings.Builder
 	QualThis("alias", "Type").Pointer().
-		writeValue(&sb)
+		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -48,6 +48,6 @@ func TestFuncQualThisPointer(t *testing.T) {
 func TestPanicEmptyTypeName(t *testing.T) {
 	assert.Panics(t, func() {
 		var sb strings.Builder
-		This("").writeValue(&sb)
+		This("").wr(&sb)
 	})
 }

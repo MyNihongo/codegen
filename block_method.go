@@ -3,12 +3,12 @@ package codegen
 import "strings"
 
 type methodBlock struct {
-	this *thisValue
+	this *thisDecl
 	*funcBlock
 }
 
 // Method creates a new method block
-func (f *File) Method(this *thisValue, name string) *methodBlock {
+func (f *File) Method(this *thisDecl, name string) *methodBlock {
 	method := newMethod(this, name)
 	f.append(method)
 
@@ -16,7 +16,7 @@ func (f *File) Method(this *thisValue, name string) *methodBlock {
 }
 
 // Params appends method parameters
-func (m *methodBlock) Params(params ...*ParamValue) *methodBlock {
+func (m *methodBlock) Params(params ...*ParamDecl) *methodBlock {
 	m.funcBlock.Params(params...)
 	return m
 }
@@ -27,7 +27,7 @@ func (m *methodBlock) ReturnTypes(returnTypes ...*ReturnTypeDecl) *methodBlock {
 	return m
 }
 
-func newMethod(this *thisValue, name string) *methodBlock {
+func newMethod(this *thisDecl, name string) *methodBlock {
 	return &methodBlock{
 		this:      this,
 		funcBlock: newFunc(name),
@@ -36,7 +36,7 @@ func newMethod(this *thisValue, name string) *methodBlock {
 
 func (m *methodBlock) write(sb *strings.Builder) {
 	sb.WriteString("func (")
-	m.this.writeValue(sb)
+	m.this.wr(sb)
 	writeF(sb, ") %s", m.name)
 
 	writeParams(sb, m.params)

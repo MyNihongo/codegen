@@ -84,8 +84,14 @@ gen.String("my string").IsNotEmpty()
 gen.Declare("val").Values(gen.String("my string"))
 // val := "my string"
 
+gen.Assign("val").Values(gen.String("my string"))
+// val = "my string"
+
 gen.Declare("val", "err").Values(FuncCall("myFunc").Args(Identifier("a")))
 // val, err := myFunc(a)
+
+gen.Assign("val", "err").Values(FuncCall("myFunc").Args(Identifier("a")))
+// val, err = myFunc(a)
 
 gen.DeclareVars(
 	gen.Var("val", "string"),
