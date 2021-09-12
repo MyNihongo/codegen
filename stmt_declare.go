@@ -13,7 +13,7 @@ type declarationStmt struct {
 }
 
 // Declare creates a new declaration statement without variable values (will not compile).
-// In order to declare variables call `Values()`
+// In order to assign values call `Values()`
 func Declare(vars ...string) *declarationValues {
 	if len(vars) == 0 {
 		panic("no variables are passed for declaration")
@@ -22,6 +22,19 @@ func Declare(vars ...string) *declarationValues {
 	return &declarationValues{
 		vars:    vars,
 		declare: true,
+	}
+}
+
+// Assign creates a new assignment statement without variable values (will not compile).
+// In order to assign values call `Values()`
+func Assign(vars ...string) *declarationValues {
+	if len(vars) == 0 {
+		panic("no variables are passed for assignment")
+	}
+
+	return &declarationValues{
+		vars:    vars,
+		declare: false,
 	}
 }
 
