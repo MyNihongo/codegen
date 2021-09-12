@@ -36,7 +36,7 @@ func newMethod(this *thisValue, name string) *methodBlock {
 
 func (m *methodBlock) write(sb *strings.Builder) {
 	sb.WriteString("func (")
-	m.this.writeValue(sb)
+	m.this.wr(sb)
 	writeF(sb, ") %s", m.name)
 
 	writeParams(sb, m.params)

@@ -23,7 +23,7 @@ func (p *ParamValue) Pointer() *ParamValue {
 	return p
 }
 
-func (p *ParamValue) writeValue(sb *strings.Builder) {
+func (p *ParamValue) wr(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
 	p.typeName.writeValue(sb)
 }
@@ -36,7 +36,7 @@ func writeParams(sb *strings.Builder, params []*ParamValue) {
 			sb.WriteByte(',')
 		}
 
-		p.writeValue(sb)
+		p.wr(sb)
 	}
 
 	sb.WriteByte(')')
