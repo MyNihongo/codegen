@@ -16,7 +16,7 @@ func (f *File) Method(this *thisValue, name string) *methodBlock {
 }
 
 // Params appends method parameters
-func (m *methodBlock) Params(params ...*ParamValue) *methodBlock {
+func (m *methodBlock) Params(params ...*ParamDecl) *methodBlock {
 	m.funcBlock.Params(params...)
 	return m
 }
