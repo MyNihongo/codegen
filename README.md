@@ -222,7 +222,7 @@ gen.If(
 //	return nil
 // }
 
-IfDecl(
+gen.IfDecl(
 	gen.Declare("val", "err").Values(gen.QualFuncCall("strconv", "Atoi").Args(gen.QualFuncCall("os", "Getenv").Args(gen.String("ENV_VAR")))),
 	gen.Err().IsNil(),
 ).Block(
@@ -231,6 +231,26 @@ IfDecl(
 // if val, err := strconv.Atoi(os.Getenv("ENV_VAR")); err == nil {
 //	config.myVar = val
 // }
+```
+#### Structs and interfaces
+```go
+f := gen.NewFile("cool", "my-generator")
+f.Struct("myStruct").Props(
+	gen.Property("name", "int").Pointer(),
+)
+// type myStruct struct {
+//	name *int
+// }
+
+f.Interface("myInterface").Funcs(
+	gen.FuncDecl("myFunc").Params(gen.Param("param", "int")).ReturnTypes(gen.ReturnType("string"))
+)
+// type myInterface interface {
+//	myFunc(param int) string
+// }
+
+f.Type("myType", "int64")
+// type myType int64
 ```
 ### Utility methods
 #### Generate a getter
