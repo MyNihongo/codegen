@@ -11,18 +11,23 @@ type interfaceBlock struct {
 
 // Interface creates a new interface declaration block
 func (f *File) Interface(interfaceName string) *interfaceBlock {
-	i := &interfaceBlock{
-		name:  interfaceName,
-		funcs: make([]*FuncDeclaration, 0),
-	}
-
+	i := newInterface(interfaceName)
 	f.append(i)
+
 	return i
 }
 
 // Funcs adds function declarations to the interface
-func (i *interfaceBlock) Funcs(funcs ...*FuncDeclaration) {
+func (i *interfaceBlock) Funcs(funcs ...*FuncDeclaration) *interfaceBlock {
 	i.funcs = funcs
+	return i
+}
+
+func newInterface(name string) *interfaceBlock {
+	return &interfaceBlock{
+		name:  name,
+		funcs: make([]*FuncDeclaration, 0),
+	}
 }
 
 func (i *interfaceBlock) write(sb *strings.Builder) {
@@ -30,6 +35,7 @@ func (i *interfaceBlock) write(sb *strings.Builder) {
 
 	for _, function := range i.funcs {
 		function.wr(sb)
+		newLine(sb)
 	}
 
 	writeByteNewLine(sb, '}')
