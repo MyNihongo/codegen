@@ -37,5 +37,6 @@ func (s *structBlock) write(sb *strings.Builder) {
 		prop.wr(sb)
 		newLine(sb)
 	}
+
 	writeByteNewLine(sb, '}')
 }
