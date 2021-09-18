@@ -28,6 +28,7 @@ func EmbeddedProperty(typeName string) *PropertyDecl {
 	return Property("", typeName)
 }
 
+// QualEmbeddedProperty creates a new embedded property with a package alias
 func QualEmbeddedProperty(alias, typeName string) *PropertyDecl {
 	return QualProperty("", alias, typeName)
 }
