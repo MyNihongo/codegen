@@ -11,11 +11,17 @@ type VarValue struct {
 	typeName *nameValue
 }
 
+// DeclareVars creates a new variable declaration block
+func (f *File) DeclareVars(vars ...*VarValue) Block {
+	decl := newVars(vars)
+	f.append(decl)
+
+	return decl
+}
+
 // DeclareVars creates a new variable declaration statement
 func DeclareVars(vars ...*VarValue) Stmt {
-	return &varsDeclarationStmt{
-		vars: vars,
-	}
+	return newVars(vars)
 }
 
 // Var creates a new variable with a type name
@@ -38,6 +44,16 @@ func QualVar(varName, typeAlias, typeName string) *VarValue {
 func (v *VarValue) Pointer() *VarValue {
 	v.typeName.pointer()
 	return v
+}
+
+func newVars(vars []*VarValue) *varsDeclarationStmt {
+	return &varsDeclarationStmt{
+		vars: vars,
+	}
+}
+
+func (v *varsDeclarationStmt) write(sb *strings.Builder) {
+	v.writeStmt(sb)
 }
 
 func (v *varsDeclarationStmt) writeStmt(sb *strings.Builder) bool {
