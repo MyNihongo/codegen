@@ -18,9 +18,14 @@ func (f *File) Interface(interfaceName string) *interfaceBlock {
 }
 
 // Funcs adds function declarations to the interface
-func (i *interfaceBlock) Funcs(funcs ...*FuncDeclaration) *interfaceBlock {
-	i.funcs = funcs
+func (i *interfaceBlock) Funcs(functions ...*FuncDeclaration) *interfaceBlock {
+	i.funcs = functions
 	return i
+}
+
+// AddFunc adds a new function declaration to the interface
+func (i *interfaceBlock) AddFunc(function *FuncDeclaration) {
+	i.funcs = append(i.funcs, function)
 }
 
 func newInterface(name string) *interfaceBlock {
