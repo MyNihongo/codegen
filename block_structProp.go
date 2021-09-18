@@ -23,6 +23,15 @@ func QualProperty(propertyName, alias, typeName string) *PropertyDecl {
 	}
 }
 
+// EmbeddedProp crates a new embedded property
+func EmbeddedProperty(typeName string) *PropertyDecl {
+	return Property("", typeName)
+}
+
+func QualEmbeddedProperty(alias, typeName string) *PropertyDecl {
+	return QualProperty("", alias, typeName)
+}
+
 // Pointer turns the property into a pointer type
 func (p *PropertyDecl) Pointer() *PropertyDecl {
 	p.typeName.pointer()
@@ -30,6 +39,9 @@ func (p *PropertyDecl) Pointer() *PropertyDecl {
 }
 
 func (p *PropertyDecl) wr(sb *strings.Builder) {
-	writeF(sb, "%s ", p.name)
+	if len(p.name) != 0 {
+		writeF(sb, "%s ", p.name)
+	}
+
 	p.typeName.writeValue(sb)
 }
