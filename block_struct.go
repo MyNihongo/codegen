@@ -23,6 +23,11 @@ func (s *structBlock) Props(properties ...*PropertyDecl) *structBlock {
 	return s
 }
 
+// AddProp adds a new property declaration to the struct block
+func (s *structBlock) AddProp(property *PropertyDecl) {
+	s.props = append(s.props, property)
+}
+
 func newStruct(name string) *structBlock {
 	return &structBlock{
 		name:  name,
