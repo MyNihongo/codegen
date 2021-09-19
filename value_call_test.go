@@ -68,3 +68,14 @@ func TestCallCall(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestCallAsStmt(t *testing.T) {
+	const want = `a.myFunc()
+`
+	var sb strings.Builder
+	got := Identifier("a").Call("myFunc").
+		writeStmt(&sb)
+
+	assert.False(t, got)
+	assert.Equal(t, want, sb.String())
+}
