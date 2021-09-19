@@ -25,12 +25,6 @@ func writePointerValueAccess(sb *strings.Builder, val Value) {
 	}
 }
 
-func writeFuncCall(sb *strings.Builder, name string, vals []Value) {
-	writeF(sb, "%s(", name)
-	writeValues(sb, vals)
-	sb.WriteByte(')')
-}
-
 func writeAlias(sb *strings.Builder, alias string) {
 	if len(alias) != 0 {
 		writeF(sb, "%s.", alias)

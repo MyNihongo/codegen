@@ -3,9 +3,8 @@ package codegen
 import "strings"
 
 type callValue struct {
-	val  Value
-	name string
-	args []Value
+	val Value
+	*callHelper
 }
 
 // Args creates a new argument value for a function call
@@ -26,16 +25,15 @@ func (c *callValue) Call(funcName string) *callValue {
 
 func newCallValue(val Value, funcName string) *callValue {
 	return &callValue{
-		val:  val,
-		name: funcName,
-		args: make([]Value, 0),
+		val:        val,
+		callHelper: newCallHelper(funcName, make([]Value, 0)),
 	}
 }
 
 func (c *callValue) writeValue(sb *strings.Builder) {
 	writePointerValueAccess(sb, c.val)
 	sb.WriteByte('.')
-	writeFuncCall(sb, c.name, c.args)
+	c.callHelper.wr(sb)
 }
 
 func (c *callValue) isPointer() bool {

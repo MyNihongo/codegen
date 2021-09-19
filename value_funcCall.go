@@ -4,9 +4,8 @@ import "strings"
 
 type funcCallValue struct {
 	alias string
-	name  string
-	args  []Value
 	isPtr bool
+	*callHelper
 }
 
 // FuncCall creates a new function call
@@ -43,9 +42,8 @@ func (q *funcCallValue) Call(funcName string) *callValue {
 
 func newFuncCall(alias, name string) *funcCallValue {
 	return &funcCallValue{
-		name:  name,
-		alias: alias,
-		args:  make([]Value, 0),
+		alias:      alias,
+		callHelper: newCallHelper(name, make([]Value, 0)),
 	}
 }
 
@@ -60,7 +58,7 @@ func (q *funcCallValue) writeValue(sb *strings.Builder) {
 	}
 
 	writeAlias(sb, q.alias)
-	writeFuncCall(sb, q.name, q.args)
+	q.callHelper.wr(sb)
 }
 
 func (q *funcCallValue) isPointer() bool {
