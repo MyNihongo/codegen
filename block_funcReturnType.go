@@ -3,7 +3,7 @@ package codegen
 import "strings"
 
 type ReturnTypeDecl struct {
-	name *nameValue
+	name *nameHelper
 }
 
 // ReturnType creates a new return type for a function

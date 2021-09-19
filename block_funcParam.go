@@ -4,7 +4,7 @@ import "strings"
 
 type ParamDecl struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // Name gets the name of the parameter

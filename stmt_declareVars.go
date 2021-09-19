@@ -8,7 +8,7 @@ type varsDeclarationStmt struct {
 
 type VarValue struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // DeclareVars creates a new variable declaration block

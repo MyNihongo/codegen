@@ -4,7 +4,7 @@ import "strings"
 
 type PropertyDecl struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // Property creates a new property declaration

@@ -6,7 +6,7 @@ import (
 )
 
 type identifierValue struct {
-	declaration *nameValue
+	declaration *nameHelper
 	isAddress   bool
 }
 

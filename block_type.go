@@ -6,7 +6,7 @@ import (
 
 type typeBlock struct {
 	name     string
-	baseType *nameValue
+	baseType *nameHelper
 }
 
 // Type creates a new type block
