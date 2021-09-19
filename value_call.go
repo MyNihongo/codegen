@@ -42,7 +42,11 @@ func (c *callValue) writeStmt(sb *strings.Builder) bool {
 
 func (c *callValue) writeValue(sb *strings.Builder) {
 	writePointerValueAccess(sb, c.val)
-	sb.WriteByte('.')
+
+	if len(c.callHelper.name) != 0 {
+		sb.WriteByte('.')
+	}
+
 	c.callHelper.wr(sb)
 }
 
