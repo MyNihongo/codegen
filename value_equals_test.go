@@ -86,3 +86,10 @@ func TestNotEqualsFuncFunc(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestEqualsNoPointer(t *testing.T) {
+	got := newEquals(Identifier("a"), Identifier("b"), true).
+		isPointer()
+
+	assert.False(t, got)
+}
