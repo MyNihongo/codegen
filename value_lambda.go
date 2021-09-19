@@ -4,7 +4,6 @@ import "strings"
 
 type lambdaValue struct {
 	block *funcBlock
-	call  *callHelper
 }
 
 // Lambda creates a new lambda function value
@@ -42,10 +41,6 @@ func (l *lambdaValue) Call() *callValue {
 
 func (l *lambdaValue) writeValue(sb *strings.Builder) {
 	l.block.write(sb)
-
-	if l.call != nil {
-		l.call.wr(sb)
-	}
 }
 
 func (l *lambdaValue) isPointer() bool {
