@@ -15,3 +15,7 @@ type Value interface {
 	writeValue(sb *strings.Builder)
 	isPointer() bool
 }
+
+type caller interface {
+	getCall() Value
+}

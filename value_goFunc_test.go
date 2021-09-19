@@ -46,3 +46,9 @@ func TestGoFuncNotEquals(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestGoFuncNoPointer(t *testing.T) {
+	got := newGoFunc("len").isPointer()
+
+	assert.False(t, got)
+}

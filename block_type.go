@@ -6,7 +6,7 @@ import (
 
 type typeBlock struct {
 	name     string
-	baseType *nameValue
+	baseType *nameHelper
 }
 
 // Type creates a new type block
@@ -34,7 +34,7 @@ func (t *typeBlock) Pointer() *typeBlock {
 func newType(name, alias, baseType string) *typeBlock {
 	return &typeBlock{
 		name:     name,
-		baseType: qualName(alias, baseType),
+		baseType: newNameHelper(alias, baseType),
 	}
 }
 

@@ -4,7 +4,7 @@ import "strings"
 
 type ParamDecl struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // Name gets the name of the parameter
@@ -22,12 +22,12 @@ func (p *ParamDecl) TypeName() string {
 
 // Param creates a new function parameter
 func Param(name, typeName string) *ParamDecl {
-	return &ParamDecl{name: name, typeName: qualName("", typeName)}
+	return &ParamDecl{name: name, typeName: newNameHelper("", typeName)}
 }
 
 // QualParam creates a new function parameter with a package alias
 func QualParam(name, alias, typeName string) *ParamDecl {
-	return &ParamDecl{name: name, typeName: qualName(alias, typeName)}
+	return &ParamDecl{name: name, typeName: newNameHelper(alias, typeName)}
 }
 
 // Pointer turns the parameter into a pointer type

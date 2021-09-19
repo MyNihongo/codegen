@@ -4,14 +4,14 @@ import "strings"
 
 type PropertyDecl struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // Property creates a new property declaration
 func Property(propertyName, typeName string) *PropertyDecl {
 	return &PropertyDecl{
 		name:     propertyName,
-		typeName: qualName("", typeName),
+		typeName: newNameHelper("", typeName),
 	}
 }
 
@@ -19,7 +19,7 @@ func Property(propertyName, typeName string) *PropertyDecl {
 func QualProperty(propertyName, alias, typeName string) *PropertyDecl {
 	return &PropertyDecl{
 		name:     propertyName,
-		typeName: qualName(alias, typeName),
+		typeName: newNameHelper(alias, typeName),
 	}
 }
 

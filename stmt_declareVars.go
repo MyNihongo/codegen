@@ -8,7 +8,7 @@ type varsDeclarationStmt struct {
 
 type VarValue struct {
 	name     string
-	typeName *nameValue
+	typeName *nameHelper
 }
 
 // DeclareVars creates a new variable declaration block
@@ -28,7 +28,7 @@ func DeclareVars(vars ...*VarValue) Stmt {
 func Var(varName, typeName string) *VarValue {
 	return &VarValue{
 		name:     varName,
-		typeName: qualName("", typeName),
+		typeName: newNameHelper("", typeName),
 	}
 }
 
@@ -36,7 +36,7 @@ func Var(varName, typeName string) *VarValue {
 func QualVar(varName, typeAlias, typeName string) *VarValue {
 	return &VarValue{
 		name:     varName,
-		typeName: qualName(typeAlias, typeName),
+		typeName: newNameHelper(typeAlias, typeName),
 	}
 }
 

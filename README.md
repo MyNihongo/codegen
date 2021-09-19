@@ -130,6 +130,12 @@ gen.QualFuncCall("fmt", "Println").Args(
 	gen.String("string value")
 )
 // fmt.Println("string value")
+
+gen.Defer(gen.FuncCall("myFunc"))
+// defer myFunc()
+
+gen.Defer(gen.Identifier("a").Call("MyFunc"))
+// defer a.MyFunc()
 ```
 #### Call go functions
 ```go

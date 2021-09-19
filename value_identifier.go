@@ -6,21 +6,21 @@ import (
 )
 
 type identifierValue struct {
-	declaration *nameValue
+	declaration *nameHelper
 	isAddress   bool
 }
 
 // Identifier creates a new identifier (variable, value, etc.)
 func Identifier(name string) *identifierValue {
 	return &identifierValue{
-		declaration: qualName("", name),
+		declaration: newNameHelper("", name),
 	}
 }
 
 // Identifier creates a new identifier with a package alias (variable, value, etc.)
 func QualIdentifier(alias, name string) *identifierValue {
 	return &identifierValue{
-		declaration: qualName(alias, name),
+		declaration: newNameHelper(alias, name),
 	}
 }
 
