@@ -30,6 +30,10 @@ func newCallValue(val Value, funcName string) *callValue {
 	}
 }
 
+func (c *callValue) getCall() Value {
+	return c
+}
+
 func (c *callValue) writeValue(sb *strings.Builder) {
 	writePointerValueAccess(sb, c.val)
 	sb.WriteByte('.')

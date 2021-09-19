@@ -47,20 +47,24 @@ func newFuncCall(alias, name string) *funcCallValue {
 	}
 }
 
-func (q *funcCallValue) writeStmt(sb *strings.Builder) bool {
-	q.writeValue(sb)
+func (f *funcCallValue) getCall() Value {
+	return f
+}
+
+func (f *funcCallValue) writeStmt(sb *strings.Builder) bool {
+	f.writeValue(sb)
 	return true
 }
 
-func (q *funcCallValue) writeValue(sb *strings.Builder) {
-	if q.isPtr {
+func (f *funcCallValue) writeValue(sb *strings.Builder) {
+	if f.isPtr {
 		sb.WriteByte('*')
 	}
 
-	writeAlias(sb, q.alias)
-	q.callHelper.wr(sb)
+	writeAlias(sb, f.alias)
+	f.callHelper.wr(sb)
 }
 
-func (q *funcCallValue) isPointer() bool {
-	return q.isPtr
+func (f *funcCallValue) isPointer() bool {
+	return f.isPtr
 }
