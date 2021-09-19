@@ -8,12 +8,12 @@ type ReturnTypeDecl struct {
 
 // ReturnType creates a new return type for a function
 func ReturnType(name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{name: qualName("", name)}
+	return &ReturnTypeDecl{name: newNameHelper("", name)}
 }
 
 // QualReturnType creates a new return type with an alias of an imported package
 func QualReturnType(alias, name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{name: qualName(alias, name)}
+	return &ReturnTypeDecl{name: newNameHelper(alias, name)}
 }
 
 // ReturnTypeError create a new return type of type `error`

@@ -11,7 +11,7 @@ type PropertyDecl struct {
 func Property(propertyName, typeName string) *PropertyDecl {
 	return &PropertyDecl{
 		name:     propertyName,
-		typeName: qualName("", typeName),
+		typeName: newNameHelper("", typeName),
 	}
 }
 
@@ -19,7 +19,7 @@ func Property(propertyName, typeName string) *PropertyDecl {
 func QualProperty(propertyName, alias, typeName string) *PropertyDecl {
 	return &PropertyDecl{
 		name:     propertyName,
-		typeName: qualName(alias, typeName),
+		typeName: newNameHelper(alias, typeName),
 	}
 }
 

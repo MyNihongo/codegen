@@ -34,7 +34,7 @@ func (t *typeBlock) Pointer() *typeBlock {
 func newType(name, alias, baseType string) *typeBlock {
 	return &typeBlock{
 		name:     name,
-		baseType: qualName(alias, baseType),
+		baseType: newNameHelper(alias, baseType),
 	}
 }
 

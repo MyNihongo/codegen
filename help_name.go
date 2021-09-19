@@ -8,7 +8,7 @@ type nameHelper struct {
 	isPointer  bool
 }
 
-func qualName(alias, identifier string) *nameHelper {
+func newNameHelper(alias, identifier string) *nameHelper {
 	return &nameHelper{alias: alias, identifier: identifier}
 }
 
