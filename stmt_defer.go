@@ -6,6 +6,7 @@ type deferStmt struct {
 	call Value
 }
 
+// Defer creates a new defer statement
 func Defer(call caller) Stmt {
 	return &deferStmt{
 		call: call.getCall(),
