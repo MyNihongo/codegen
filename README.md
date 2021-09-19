@@ -130,17 +130,27 @@ gen.QualFuncCall("fmt", "Println").Args(
 	gen.String("string value")
 )
 // fmt.Println("string value")
-
-gen.Defer(gen.FuncCall("myFunc"))
-// defer myFunc()
-
-gen.Defer(gen.Identifier("a").Call("MyFunc"))
-// defer a.MyFunc()
 ```
 #### Call go functions
 ```go
 gen.Len(Identifier("str"))
 // len(str)
+```
+#### Defer functions
+```go
+gen.Defer(gen.FuncCall("myFunc"))
+// defer myFunc()
+
+gen.Defer(gen.Identifier("a").Call("MyFunc"))
+// defer a.MyFunc()
+
+gen.Defer(gen.Lambda().Block(
+	gen.Identifier("a").Call("MyFunc"),
+).Call())
+// defer func () {
+//	a.MyFunc()
+// }()
+}
 ```
 #### Access fields, call methods
 ```go

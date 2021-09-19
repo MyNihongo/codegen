@@ -57,3 +57,18 @@ func TestDeferFieldCall(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestDeferLambdaCall(t *testing.T) {
+	const want = `defer func (){
+a.MyFunc()
+}()
+`
+	lambda := Lambda().Block(
+		Identifier("a").Call("MyFunc"),
+	).Call()
+
+	var sb strings.Builder
+	Defer(lambda).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

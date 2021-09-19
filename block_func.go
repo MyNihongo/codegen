@@ -7,6 +7,7 @@ type funcBlock struct {
 	params   []*ParamDecl
 	retTypes []*ReturnTypeDecl
 	stmts    []Stmt
+	newLine  bool
 }
 
 // Func creates a new function code block
@@ -40,6 +41,7 @@ func newFunc(name string) *funcBlock {
 		params:   make([]*ParamDecl, 0),
 		retTypes: make([]*ReturnTypeDecl, 0),
 		stmts:    make([]Stmt, 0),
+		newLine:  true,
 	}
 }
 
@@ -47,5 +49,5 @@ func (f *funcBlock) write(sb *strings.Builder) {
 	writeF(sb, "func %s", f.name)
 	writeParams(sb, f.params)
 	writeReturnTypes(sb, f.retTypes)
-	writeStmts(sb, f.stmts, true)
+	writeStmts(sb, f.stmts, f.newLine)
 }

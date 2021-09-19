@@ -34,9 +34,19 @@ func (c *callValue) getCall() Value {
 	return c
 }
 
+func (c *callValue) writeStmt(sb *strings.Builder) bool {
+	c.writeValue(sb)
+	newLine(sb)
+	return false
+}
+
 func (c *callValue) writeValue(sb *strings.Builder) {
 	writePointerValueAccess(sb, c.val)
-	sb.WriteByte('.')
+
+	if len(c.callHelper.name) != 0 {
+		sb.WriteByte('.')
+	}
+
 	c.callHelper.wr(sb)
 }
 
