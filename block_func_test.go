@@ -60,3 +60,20 @@ func TestFuncWithReturnTypes(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFuncAddNewBlock(t *testing.T) {
+	const want = `func myFunc(){
+a:="string val"
+var b string
+var c int
+}
+`
+	fixture := newFunc("myFunc")
+	fixture.AddStatement(Declare("a").Values(String("string val")))
+	fixture.AddStatement(DeclareVars(Var("b", "string"), Var("c", "int")))
+
+	var sb strings.Builder
+	fixture.write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
