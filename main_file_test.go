@@ -28,7 +28,8 @@ func TestFileImport(t *testing.T) {
 package packageName
 import "strings"
 `
-	f := NewFile(packageName, codeGen).Imports(
+	f := NewFile(packageName, codeGen)
+	f.Imports(
 		Import("strings"),
 	)
 
@@ -41,7 +42,8 @@ func TestFileImportAlias(t *testing.T) {
 package packageName
 import str "strings"
 `
-	f := NewFile(packageName, codeGen).Imports(
+	f := NewFile(packageName, codeGen)
+	f.Imports(
 		ImportAlias("strings", "str"),
 	)
 
@@ -57,7 +59,8 @@ import (
 str "strings"
 )
 `
-	f := NewFile(packageName, codeGen).Imports(
+	f := NewFile(packageName, codeGen)
+	f.Imports(
 		Import("os"),
 		ImportAlias("strings", "str"),
 	)
@@ -71,8 +74,8 @@ func TestFileCommentF(t *testing.T) {
 package packageName
 // this is a file comment
 `
-	f := NewFile(packageName, codeGen).
-		CommentF("this is a file %s", "comment")
+	f := NewFile(packageName, codeGen)
+	f.CommentF("this is a file %s", "comment")
 
 	got := fmt.Sprintf("%#v", f)
 	assert.Equal(t, want, got)

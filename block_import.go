@@ -12,9 +12,19 @@ type importsBlock struct {
 }
 
 // Imports creates a new imports block
-func (f *File) Imports(imports ...*importLine) *File {
+func (f *File) Imports(imports ...*importLine) *importsBlock {
 	f.imports.lines = imports
-	return f
+	return f.imports
+}
+
+// AddImport adds a new import statement to the import block
+func (i *importsBlock) AddImport(path string) {
+	i.lines = append(i.lines, Import(path))
+}
+
+// AddImportAlias adds a new import statement with its package alias to the import block
+func (i *importsBlock) AddImportAlias(path, alias string) {
+	i.lines = append(i.lines, ImportAlias(path, alias))
 }
 
 // Import creates a new import statemet without an alias
