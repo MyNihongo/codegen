@@ -10,7 +10,6 @@ import (
 func TestWritePath(t *testing.T) {
 	const want = `"path"
 `
-
 	var sb strings.Builder
 	Import("path").wr(&sb)
 
@@ -20,7 +19,6 @@ func TestWritePath(t *testing.T) {
 func TestWritePathAlias(t *testing.T) {
 	const want = `alias "path"
 `
-
 	var sb strings.Builder
 	ImportAlias("path", "alias").wr(&sb)
 
@@ -39,7 +37,7 @@ func TestImportGroup(t *testing.T) {
 `
 	var sb strings.Builder
 	fixture := newImportsBlock()
-	fixture.lines = append(fixture.lines, Import("path"))
+	fixture.AddImport("path")
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -50,7 +48,7 @@ func TestImportAliasGroup(t *testing.T) {
 `
 	var sb strings.Builder
 	fixture := newImportsBlock()
-	fixture.lines = append(fixture.lines, ImportAlias("path", "alias"))
+	fixture.AddImportAlias("path", "alias")
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -64,7 +62,8 @@ alias "path"
 `
 	var sb strings.Builder
 	fixture := newImportsBlock()
-	fixture.lines = append(fixture.lines, ImportAlias("path", "alias"), Import("path2"))
+	fixture.AddImportAlias("path", "alias")
+	fixture.AddImport("path2")
 	fixture.write(&sb)
 
 	assert.Equal(t, want, sb.String())
