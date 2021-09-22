@@ -40,6 +40,16 @@ func (f *File) Save(filePath string) error {
 	}
 }
 
+// AddImport adds a new import statement to the import block
+func (f *File) AddImport(path string) {
+	f.imports.lines = append(f.imports.lines, Import(path))
+}
+
+// AddImportAlias adds a new import statement with its package alias to the import block
+func (f *File) AddImportAlias(path, alias string) {
+	f.imports.lines = append(f.imports.lines, ImportAlias(path, alias))
+}
+
 func (f *File) GoString() string {
 	var sb strings.Builder
 
