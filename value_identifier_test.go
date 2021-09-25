@@ -266,3 +266,23 @@ func TestIdentifierIsNotEmpty(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierSetIsPointerTrue(t *testing.T) {
+	const want = `*a`
+
+	var sb strings.Builder
+	Identifier("a").SetIsPointer(true).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierSetIsPointerFalse(t *testing.T) {
+	const want = `a`
+
+	var sb strings.Builder
+	Identifier("a").SetIsPointer(false).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

@@ -198,3 +198,17 @@ var val2 *alias.MyType
 	assert.Equal(t, want, sb.String())
 	assert.False(t, got)
 }
+
+func TestDeclareVarsSetIsPointer(t *testing.T) {
+	const want = `var val1 *myType
+var val2 myType
+`
+	var sb strings.Builder
+	got := DeclareVars(
+		Var("val1", "myType").SetIsPointer(true),
+		Var("val2", "myType").SetIsPointer(false),
+	).writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+	assert.False(t, got)
+}

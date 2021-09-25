@@ -12,8 +12,8 @@ func newNameHelper(alias, identifier string) *nameHelper {
 	return &nameHelper{alias: alias, identifier: identifier}
 }
 
-func (n *nameHelper) pointer() {
-	n.isPointer = true
+func (n *nameHelper) pointer(isPointer bool) {
+	n.isPointer = isPointer
 }
 
 func (n *nameHelper) getTypeName() string {

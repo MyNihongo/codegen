@@ -27,7 +27,13 @@ func (f *File) QualType(typeName, alias, baseType string) *typeBlock {
 
 // Pointer turns the base type to the poiter type
 func (t *typeBlock) Pointer() *typeBlock {
-	t.baseType.pointer()
+	t.SetIsPointer(true)
+	return t
+}
+
+// SetIsPointer sets whether or not a type is a pointer
+func (t *typeBlock) SetIsPointer(isPointer bool) *typeBlock {
+	t.baseType.pointer(isPointer)
 	return t
 }
 

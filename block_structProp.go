@@ -35,7 +35,13 @@ func QualEmbeddedProperty(alias, typeName string) *PropertyDecl {
 
 // Pointer turns the property into a pointer type
 func (p *PropertyDecl) Pointer() *PropertyDecl {
-	p.typeName.pointer()
+	p.SetIsPointer(true)
+	return p
+}
+
+// SetIsPointer sets whether or not a property is a pointer
+func (p *PropertyDecl) SetIsPointer(isPointer bool) *PropertyDecl {
+	p.typeName.pointer(isPointer)
 	return p
 }
 

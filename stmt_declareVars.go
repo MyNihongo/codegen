@@ -42,7 +42,13 @@ func QualVar(varName, typeAlias, typeName string) *VarValue {
 
 // Pointer turns the variable type into a pointer
 func (v *VarValue) Pointer() *VarValue {
-	v.typeName.pointer()
+	v.SetIsPointer(true)
+	return v
+}
+
+// SetIsPointer sets whether or not a variable is a pointer
+func (v *VarValue) SetIsPointer(isPointer bool) *VarValue {
+	v.typeName.pointer(isPointer)
 	return v
 }
 
