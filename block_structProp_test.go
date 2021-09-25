@@ -82,3 +82,23 @@ func TestQualEmbeddedPropPointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestPropSetIsPointerTrue(t *testing.T) {
+	const want = `myProp *myType`
+
+	var sb strings.Builder
+	Property("myProp", "myType").SetIsPointer(true).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestPropSetIsPointerFalse(t *testing.T) {
+	const want = `myProp myType`
+
+	var sb strings.Builder
+	Property("myProp", "myType").SetIsPointer(false).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

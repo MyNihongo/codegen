@@ -123,3 +123,27 @@ func TestFuncParams(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestPuncParamSetIsPointerTrue(t *testing.T) {
+	const want = `(name1 *type)`
+
+	var sb strings.Builder
+	params := []*ParamDecl{
+		Param("name1", "type").SetIsPointer(true),
+	}
+	writeParams(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestPuncParamSetIsPointerFalse(t *testing.T) {
+	const want = `(name1 type)`
+
+	var sb strings.Builder
+	params := []*ParamDecl{
+		Param("name1", "type").SetIsPointer(false),
+	}
+	writeParams(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}

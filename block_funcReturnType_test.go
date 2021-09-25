@@ -88,3 +88,27 @@ func TestFuncReturnTypes(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFuncReturnTypeSetIsPointerTrue(t *testing.T) {
+	const want = `*type1`
+
+	var sb strings.Builder
+	params := []*ReturnTypeDecl{
+		ReturnType("type1").SetIsPointer(true),
+	}
+	writeReturnTypes(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncReturnTypeSetIsPointerFalse(t *testing.T) {
+	const want = `type1`
+
+	var sb strings.Builder
+	params := []*ReturnTypeDecl{
+		ReturnType("type1").SetIsPointer(false),
+	}
+	writeReturnTypes(&sb, params)
+
+	assert.Equal(t, want, sb.String())
+}

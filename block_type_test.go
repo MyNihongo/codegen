@@ -44,3 +44,23 @@ func TestQualTypePointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestTypeSetIsPointerTrue(t *testing.T) {
+	const want = `type myVar *myType
+`
+	var sb strings.Builder
+	newType("myVar", "", "myType").SetIsPointer(true).
+		write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestTypeSetIsPointerFalse(t *testing.T) {
+	const want = `type myVar myType
+`
+	var sb strings.Builder
+	newType("myVar", "", "myType").SetIsPointer(false).
+		write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
