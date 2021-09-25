@@ -26,7 +26,13 @@ func QualIdentifier(alias, name string) *identifierValue {
 
 // Pointer turns the identifier into a pointer type
 func (i *identifierValue) Pointer() *identifierValue {
-	i.declaration.pointer()
+	i.declaration.pointer(true)
+	return i
+}
+
+// SetIsPointer sets whether or not an identifier is a pointer
+func (i *identifierValue) SetIsPointer(isPointer bool) *identifierValue {
+	i.declaration.pointer(true)
 	return i
 }
 

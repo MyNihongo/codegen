@@ -32,7 +32,13 @@ func QualParam(name, alias, typeName string) *ParamDecl {
 
 // Pointer turns the parameter into a pointer type
 func (p *ParamDecl) Pointer() *ParamDecl {
-	p.typeName.pointer()
+	p.SetIsPointer(true)
+	return p
+}
+
+// SetIsPointer sets whether or not a parameter is a pointer
+func (p *ParamDecl) SetIsPointer(isPointer bool) *ParamDecl {
+	p.typeName.pointer(isPointer)
 	return p
 }
 

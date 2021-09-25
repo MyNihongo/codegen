@@ -23,7 +23,13 @@ func ReturnTypeError() *ReturnTypeDecl {
 
 // Pointer turns the return type into a pointer value
 func (r *ReturnTypeDecl) Pointer() *ReturnTypeDecl {
-	r.name.pointer()
+	r.SetIsPointer(true)
+	return r
+}
+
+// SetIsPointer sets whether or not a return type is a pointer
+func (r *ReturnTypeDecl) SetIsPointer(isPointer bool) *ReturnTypeDecl {
+	r.name.pointer(isPointer)
 	return r
 }
 
