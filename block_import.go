@@ -8,23 +8,26 @@ type importLine struct {
 }
 
 type importsBlock struct {
-	lines []*importLine
+	lines map[string]*importLine
 }
 
 // Imports creates a new imports block
 func (f *File) Imports(imports ...*importLine) *importsBlock {
-	f.imports.lines = imports
+	for _, value := range imports {
+		f.imports.addImport(value)
+	}
+
 	return f.imports
 }
 
 // AddImport adds a new import statement to the import block
-func (i *importsBlock) AddImport(path string) {
-	i.lines = append(i.lines, Import(path))
+func (i *importsBlock) AddImport(path string) *importLine {
+	return i.addImport(Import(path))
 }
 
 // AddImportAlias adds a new import statement with its package alias to the import block
-func (i *importsBlock) AddImportAlias(path, alias string) {
-	i.lines = append(i.lines, ImportAlias(path, alias))
+func (i *importsBlock) AddImportAlias(path, alias string) *importLine {
+	return i.addImport(ImportAlias(path, alias))
 }
 
 // Import creates a new import statemet without an alias
@@ -37,26 +40,42 @@ func ImportAlias(path, alias string) *importLine {
 	return &importLine{path: path, alias: alias}
 }
 
+func (i *importsBlock) addImport(line *importLine) *importLine {
+	if existing, ok := i.lines[line.path]; ok {
+		return existing
+	} else {
+		i.lines[line.path] = line
+		return line
+	}
+}
+
 func newImportsBlock() *importsBlock {
 	return &importsBlock{
-		lines: make([]*importLine, 0),
+		lines: make(map[string]*importLine),
 	}
 }
 
 func (i *importsBlock) write(sb *strings.Builder) {
 	if count := len(i.lines); count == 0 {
-		Return()
-	} else if count == 1 {
-		writeF(sb, "import ")
-		i.lines[0].wr(sb)
+		return
 	} else {
-		writeNewLine(sb, "import (")
-
-		for _, l := range i.lines {
-			l.wr(sb)
+		keys := make([]string, 0, count)
+		for k := range i.lines {
+			keys = append(keys, k)
 		}
 
-		writeByteNewLine(sb, ')')
+		if count == 1 {
+			writeF(sb, "import ")
+			i.lines[keys[0]].wr(sb)
+		} else {
+			writeNewLine(sb, "import (")
+
+			for _, key := range keys {
+				i.lines[key].wr(sb)
+			}
+
+			writeByteNewLine(sb, ')')
+		}
 	}
 }
 
