@@ -59,7 +59,7 @@ func (i *importsBlock) write(sb *strings.Builder) {
 	if count := len(i.lines); count == 0 {
 		return
 	} else {
-		keys := make([]string, 0, len(i.lines))
+		keys := make([]string, 0, count)
 		for k := range i.lines {
 			keys = append(keys, k)
 		}
