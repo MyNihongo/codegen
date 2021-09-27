@@ -23,8 +23,11 @@ func formatSb(sb strings.Builder) string {
 }
 
 func formatString(strVal string) string {
-	bytes, _ := format.Source([]byte(strVal))
-	return string(bytes)
+	if bytes, err := format.Source([]byte(strVal)); err != nil {
+		panic(err)
+	} else {
+		return string(bytes)
+	}
 }
 
 func TestFileAddImport(t *testing.T) {
