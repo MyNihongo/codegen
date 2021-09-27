@@ -42,12 +42,12 @@ func (f *File) Save(filePath string) error {
 
 // AddImport adds a new import statement to the import block
 func (f *File) AddImport(path string) {
-	f.imports.lines = append(f.imports.lines, Import(path))
+	f.imports.AddImport(path)
 }
 
 // AddImportAlias adds a new import statement with its package alias to the import block
 func (f *File) AddImportAlias(path, alias string) {
-	f.imports.lines = append(f.imports.lines, ImportAlias(path, alias))
+	f.imports.AddImportAlias(path, alias)
 }
 
 func (f *File) GoString() string {
