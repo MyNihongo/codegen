@@ -24,7 +24,22 @@ func (s *structBlock) Props(properties ...*PropertyDecl) *structBlock {
 }
 
 // AddProp adds a new property declaration to the struct block
-func (s *structBlock) AddProp(property *PropertyDecl) {
+func (s *structBlock) AddProp(propertyName, typeName string) *PropertyDecl {
+	prop := Property(propertyName, typeName)
+	s.addProp(prop)
+
+	return prop
+}
+
+// AddQualProp adds a new property declaration with its alias to the struct block
+func (s *structBlock) AddQualProp(propertyName, alias, typeName string) *PropertyDecl {
+	prop := QualProperty(propertyName, alias, typeName)
+	s.addProp(prop)
+
+	return prop
+}
+
+func (s *structBlock) addProp(property *PropertyDecl) {
 	s.props = append(s.props, property)
 }
 
