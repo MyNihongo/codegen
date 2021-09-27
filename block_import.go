@@ -57,7 +57,7 @@ func newImportsBlock() *importsBlock {
 
 func (i *importsBlock) write(sb *strings.Builder) {
 	if count := len(i.lines); count == 0 {
-		Return()
+		return
 	} else {
 		keys := make([]string, 0, len(i.lines))
 		for k := range i.lines {
