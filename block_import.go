@@ -14,20 +14,20 @@ type importsBlock struct {
 // Imports creates a new imports block
 func (f *File) Imports(imports ...*importLine) *importsBlock {
 	for _, value := range imports {
-		f.imports.lines[value.path] = value
+		f.imports.addImport(value)
 	}
 
 	return f.imports
 }
 
 // AddImport adds a new import statement to the import block
-func (i *importsBlock) AddImport(path string) {
-	i.lines[path] = Import(path)
+func (i *importsBlock) AddImport(path string) *importLine {
+	return i.addImport(Import(path))
 }
 
 // AddImportAlias adds a new import statement with its package alias to the import block
-func (i *importsBlock) AddImportAlias(path, alias string) {
-	i.lines[path] = ImportAlias(path, alias)
+func (i *importsBlock) AddImportAlias(path, alias string) *importLine {
+	return i.addImport(ImportAlias(path, alias))
 }
 
 // Import creates a new import statemet without an alias
@@ -38,6 +38,15 @@ func Import(path string) *importLine {
 // ImportAlias creates a new import statement with an alias
 func ImportAlias(path, alias string) *importLine {
 	return &importLine{path: path, alias: alias}
+}
+
+func (i *importsBlock) addImport(line *importLine) *importLine {
+	if existing, ok := i.lines[line.path]; ok {
+		return existing
+	} else {
+		i.lines[line.path] = line
+		return line
+	}
 }
 
 func newImportsBlock() *importsBlock {

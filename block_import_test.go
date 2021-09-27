@@ -68,3 +68,51 @@ alias "path"
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestNotAddDuplicateImports(t *testing.T) {
+	const want = `import "path"
+`
+	var sb strings.Builder
+	fixture := newImportsBlock()
+	fixture.AddImport("path")
+	fixture.AddImport("path")
+	fixture.write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestNotAddDuplicateImportsAlias(t *testing.T) {
+	const want = `import "path"
+`
+	var sb strings.Builder
+	fixture := newImportsBlock()
+	fixture.AddImport("path")
+	fixture.AddImportAlias("path", "alias")
+	fixture.write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestNotAddDuplicateImportsAliasFirst(t *testing.T) {
+	const want = `import alias "path"
+`
+	var sb strings.Builder
+	fixture := newImportsBlock()
+	fixture.AddImportAlias("path", "alias")
+	fixture.AddImport("path")
+	fixture.write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestNotAddDuplicateImportsAliasFirstAlias(t *testing.T) {
+	const want = `import alias "path"
+`
+	var sb strings.Builder
+	fixture := newImportsBlock()
+	fixture.AddImportAlias("path", "alias")
+	fixture.AddImportAlias("path", "alias")
+	fixture.write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
