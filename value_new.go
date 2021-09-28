@@ -9,12 +9,14 @@ type newValue struct {
 	identifier string
 }
 
+// New creates a new pointer initialisation value
 func New(identifier string) *newValue {
 	return &newValue{
 		identifier: identifier,
 	}
 }
 
+// QualNew creates a new pointer initialisation value with an alias
 func QualNew(alias, identifier string) *newValue {
 	return &newValue{
 		alias:      alias,
