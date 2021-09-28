@@ -31,6 +31,6 @@ func (n *newValue) writeValue(sb *strings.Builder) {
 	sb.WriteByte(')')
 }
 
-func isPointer() bool {
+func (n *newValue) isPointer() bool {
 	return false
 }
