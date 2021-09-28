@@ -1,6 +1,9 @@
 package codegen
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 type importLine struct {
 	alias string
@@ -68,6 +71,7 @@ func (i *importsBlock) write(sb *strings.Builder) {
 			writeF(sb, "import ")
 			i.lines[keys[0]].wr(sb)
 		} else {
+			sort.Strings(keys)
 			writeNewLine(sb, "import (")
 
 			for _, key := range keys {
