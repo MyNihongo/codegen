@@ -33,6 +33,14 @@ func (s *structValue) Address() *structValue {
 	return s
 }
 
+// AddPropValue adds a new property value to the struct initialisation
+func (s *structValue) AddPropValue(propertyName string, propertyValue Value) *StructPropertyValue {
+	prop := PropValue(propertyName, propertyValue)
+	s.props = append(s.props, prop)
+
+	return prop
+}
+
 // PropValue creates a new property with its value
 func PropValue(propertyName string, propertyValue Value) *StructPropertyValue {
 	return &StructPropertyValue{

@@ -27,6 +27,8 @@ func (f *File) Save(filePath string) error {
 	if out, err := os.Create(filePath); err != nil {
 		return err
 	} else {
+		defer out.Close()
+
 		if err = out.Truncate(0); err != nil {
 			return err
 		} else if _, err = out.Seek(0, 0); err != nil {

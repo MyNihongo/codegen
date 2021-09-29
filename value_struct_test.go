@@ -48,3 +48,14 @@ func TestStructMultipleProps(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestStructAddPropValue(t *testing.T) {
+	const want = `myStruct{prop1:val1.MyFunc(),prop2:myFunc(a)}`
+	var sb strings.Builder
+	fixture := InitStruct("myStruct")
+	fixture.AddPropValue("prop1", Identifier("val1").Call("MyFunc"))
+	fixture.AddPropValue("prop2", FuncCall("myFunc").Args(Identifier("a")))
+	fixture.writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
