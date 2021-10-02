@@ -17,6 +17,26 @@ func (f *fieldValue) Call(name string) *callValue {
 	return newCallValue(f, name)
 }
 
+// Cast casts the field to the specified type
+func (f *fieldValue) Cast(typeName string) *castValue {
+	return newCastValue(f, "", typeName, false)
+}
+
+// CastPointer casts the field to a pointer of the specified type
+func (f *fieldValue) CastPointer(typeName string) *castValue {
+	return newCastValue(f, "", typeName, true)
+}
+
+// CastQual casts the field to the specified type with an alias
+func (f *fieldValue) CastQual(alias, typeName string) *castValue {
+	return newCastValue(f, alias, typeName, false)
+}
+
+// CastQualPointer casts the field to a pointer of the specified type with an alias
+func (f *fieldValue) CastQualPointer(alias, typeName string) *castValue {
+	return newCastValue(f, alias, typeName, true)
+}
+
 // Assign assigns a value to the field
 func (f *fieldValue) Assign(val Value) *assignStmt {
 	return newAssignment(f, val)
