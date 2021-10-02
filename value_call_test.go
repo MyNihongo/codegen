@@ -79,3 +79,47 @@ func TestCallAsStmt(t *testing.T) {
 	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
+
+func TestCallCast(t *testing.T) {
+	const want = `a.myFunc().(string)`
+
+	var sb strings.Builder
+	Identifier("a").Call("myFunc").
+		Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestCallCastPointer(t *testing.T) {
+	const want = `a.myFunc().(*string)`
+
+	var sb strings.Builder
+	Identifier("a").Call("myFunc").
+		CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestCallCastQual(t *testing.T) {
+	const want = `a.myFunc().(alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").Call("myFunc").
+		CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestCallCastQualPointer(t *testing.T) {
+	const want = `a.myFunc().(*alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").Call("myFunc").
+		CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
