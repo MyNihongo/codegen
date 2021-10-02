@@ -158,3 +158,93 @@ func TestQualFuncCallCallArgs(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFuncCallCast(t *testing.T) {
+	const want = `myFunc().(string)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallPointerCast(t *testing.T) {
+	const want = `(*myFunc()).(string)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Pointer().Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallCastPointer(t *testing.T) {
+	const want = `myFunc().(*string)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallPointerCastPointer(t *testing.T) {
+	const want = `(*myFunc()).(*string)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Pointer().CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallCastQual(t *testing.T) {
+	const want = `myFunc().(alias.MyType)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallPointerCastQual(t *testing.T) {
+	const want = `(*myFunc()).(alias.MyType)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Pointer().CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallCastQualPointer(t *testing.T) {
+	const want = `myFunc().(*alias.MyType)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncCallPointerCastQualPointer(t *testing.T) {
+	const want = `(*myFunc()).(*alias.MyType)`
+
+	var sb strings.Builder
+	FuncCall("myFunc").Pointer().CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualFuncCallCast(t *testing.T) {
+	const want = `alias.MyFunc(a,b).(string)`
+
+	var sb strings.Builder
+	QualFuncCall("alias", "MyFunc").Args(Identifier("a"), Identifier("b")).
+		Cast("string").writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

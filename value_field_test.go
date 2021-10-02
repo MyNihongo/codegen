@@ -62,3 +62,47 @@ func TestIdentifierFieldCallArgs(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFieldCast(t *testing.T) {
+	const want = `obj.field.(string)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFieldCastPointer(t *testing.T) {
+	const want = `obj.field.(*string)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFieldCastQual(t *testing.T) {
+	const want = `obj.field.(alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFieldCastQualPointer(t *testing.T) {
+	const want = `obj.field.(*alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

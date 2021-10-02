@@ -23,6 +23,26 @@ func (c *callValue) Call(funcName string) *callValue {
 	return newCallValue(c, funcName)
 }
 
+// Cast casts the return value of the call to the specified type
+func (c *callValue) Cast(typeName string) *castValue {
+	return newCastValue(c, "", typeName, false)
+}
+
+// CastPointer casts the return value of the call to a pointer of the specified type
+func (c *callValue) CastPointer(typeName string) *castValue {
+	return newCastValue(c, "", typeName, true)
+}
+
+// CastQual casts the return value of the call to the specified type with an alias
+func (c *callValue) CastQual(alias, typeName string) *castValue {
+	return newCastValue(c, alias, typeName, false)
+}
+
+// CastQualPointer casts the return value of the call to a pointer of the specified type with an alias
+func (c *callValue) CastQualPointer(alias, typeName string) *castValue {
+	return newCastValue(c, alias, typeName, true)
+}
+
 func newCallValue(val Value, funcName string) *callValue {
 	return &callValue{
 		val:        val,

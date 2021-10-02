@@ -286,3 +286,83 @@ func TestIdentifierSetIsPointerFalse(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierCast(t *testing.T) {
+	const want = `a.(string)`
+
+	var sb strings.Builder
+	Identifier("a").Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierPointerCast(t *testing.T) {
+	const want = `(*a).(string)`
+
+	var sb strings.Builder
+	Identifier("a").Pointer().Cast("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCastPointer(t *testing.T) {
+	const want = `a.(*string)`
+
+	var sb strings.Builder
+	Identifier("a").CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierPointerCastPointer(t *testing.T) {
+	const want = `(*a).(*string)`
+
+	var sb strings.Builder
+	Identifier("a").Pointer().CastPointer("string").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCastQual(t *testing.T) {
+	const want = `a.(alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierPointerCastQual(t *testing.T) {
+	const want = `(*a).(alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").Pointer().CastQual("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierCastQualPointer(t *testing.T) {
+	const want = `a.(*alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierPointerCastQualPointer(t *testing.T) {
+	const want = `(*a).(*alias.MyType)`
+
+	var sb strings.Builder
+	Identifier("a").Pointer().CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
