@@ -24,7 +24,7 @@ func QualIdentifier(alias, name string) *identifierValue {
 	}
 }
 
-// Pointer turns the identifier into a pointer type
+// Pointer dereferences the identifier
 func (i *identifierValue) Pointer() *identifierValue {
 	i.SetIsPointer(true)
 	return i
@@ -70,6 +70,26 @@ func (i *identifierValue) Field(fieldName string) *fieldValue {
 // Call appends a new function call after the identifier
 func (i *identifierValue) Call(funcName string) *callValue {
 	return newCallValue(i, funcName)
+}
+
+// Cast casts the identifier to the specified type
+func (i *identifierValue) Cast(typeName string) *castValue {
+	return newCastValue(i, "", typeName, false)
+}
+
+// CastPointer casts the identifier to a pointer of the specified type
+func (i *identifierValue) CastPointer(typeName string) *castValue {
+	return newCastValue(i, "", typeName, true)
+}
+
+// CastQual casts the identifier to the specified type with an alias
+func (i *identifierValue) CastQual(alias, typeName string) *castValue {
+	return newCastValue(i, alias, typeName, false)
+}
+
+// CastPointer casts the identifier to a pointer of the specified type with an alias
+func (i *identifierValue) CastQualPointer(alias, typeName string) *castValue {
+	return newCastValue(i, alias, typeName, true)
 }
 
 // Assign assigns a value to the identifier
