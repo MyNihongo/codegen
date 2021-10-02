@@ -18,26 +18,46 @@ func QualFuncCall(alias, name string) *funcCallValue {
 	return newFuncCall(alias, name)
 }
 
-// Pointer turns the value to a pointer type
-func (q *funcCallValue) Pointer() *funcCallValue {
-	q.isPtr = true
-	return q
+// Pointer dereferences the return value of the function
+func (f *funcCallValue) Pointer() *funcCallValue {
+	f.isPtr = true
+	return f
 }
 
 // Args appeng argument for the function call
-func (q *funcCallValue) Args(args ...Value) *funcCallValue {
-	q.args = args
-	return q
+func (f *funcCallValue) Args(args ...Value) *funcCallValue {
+	f.args = args
+	return f
 }
 
 // Field appends a new field getter after the function call
-func (q *funcCallValue) Field(fieldName string) *fieldValue {
-	return newField(q, fieldName)
+func (f *funcCallValue) Field(fieldName string) *fieldValue {
+	return newField(f, fieldName)
 }
 
 // Call appends a new function call after the function call
-func (q *funcCallValue) Call(funcName string) *callValue {
-	return newCallValue(q, funcName)
+func (f *funcCallValue) Call(funcName string) *callValue {
+	return newCallValue(f, funcName)
+}
+
+// Cast casts the function return value to the specified type
+func (f *funcCallValue) Cast(typeName string) *castValue {
+	return newCastValue(f, "", typeName, false)
+}
+
+// CastPointer casts thefunction return value to a pointer of the specified type
+func (f *funcCallValue) CastPointer(typeName string) *castValue {
+	return newCastValue(f, "", typeName, true)
+}
+
+// CastQual casts the function return value to the specified type with an alias
+func (f *funcCallValue) CastQual(alias, typeName string) *castValue {
+	return newCastValue(f, alias, typeName, false)
+}
+
+// CastQualPointer casts thefunction return value to a pointer of the specified type with an alias
+func (f *funcCallValue) CastQualPointer(alias, typeName string) *castValue {
+	return newCastValue(f, alias, typeName, true)
 }
 
 func newFuncCall(alias, name string) *funcCallValue {
