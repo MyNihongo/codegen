@@ -3,15 +3,8 @@ package codegen
 import "strings"
 
 type castValue struct {
-	val     Value
-	name    *nameHelper
-	pointer bool
-}
-
-// Pointer turns the cast value into a pointer
-func (c *castValue) Pointer() *castValue {
-	c.pointer = true
-	return c
+	val  Value
+	name *nameHelper
 }
 
 func newCastValue(val Value, alias, typeName string, isPointer bool) *castValue {
@@ -35,5 +28,5 @@ func (c *castValue) writeValue(sb *strings.Builder) {
 }
 
 func (c *castValue) isPointer() bool {
-	return c.pointer
+	return false
 }
