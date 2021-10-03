@@ -7,13 +7,23 @@ type ParamDecl struct {
 	typeName *nameHelper
 }
 
-// Name gets the name of the parameter
-func (p *ParamDecl) Name() string {
+// GetName gets the name of the parameter
+func (p *ParamDecl) GetName() string {
 	return p.name
 }
 
-// TypeName gets the type name of the parameter
-func (p *ParamDecl) TypeName() string {
+// GetTypeName gets the type name of the parameter
+func (p *ParamDecl) GetTypeName() string {
+	return p.typeName.identifier
+}
+
+// GetTypeAlias return an alias of the type package (if any) from there the type is imported
+func (p *ParamDecl) GetTypeAlias() string {
+	return p.typeName.alias
+}
+
+// GetFullType gets the full string representation of the type
+func (p *ParamDecl) GetFullType() string {
 	var sb strings.Builder
 	p.typeName.writeValue(&sb)
 

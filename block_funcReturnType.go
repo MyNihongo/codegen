@@ -6,6 +6,16 @@ type ReturnTypeDecl struct {
 	name *nameHelper
 }
 
+// GetTypeName gets a type name of the return declaration
+func (r *ReturnTypeDecl) GetTypeName() string {
+	return r.name.identifier
+}
+
+// GetTypeAlias gets a type alias (if any) of the return declaration
+func (r *ReturnTypeDecl) GetTypeAlias() string {
+	return r.name.alias
+}
+
 // ReturnType creates a new return type for a function
 func ReturnType(name string) *ReturnTypeDecl {
 	return &ReturnTypeDecl{name: newNameHelper("", name)}
