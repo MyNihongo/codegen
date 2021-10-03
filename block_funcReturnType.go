@@ -3,17 +3,27 @@ package codegen
 import "strings"
 
 type ReturnTypeDecl struct {
-	*nameHelper
+	name *nameHelper
+}
+
+// TypeName gets a type name of the return declaration
+func (r *ReturnTypeDecl) TypeName() string {
+	return r.name.identifier
+}
+
+// TypeAlias gets a type alias (if any) of the return declaration
+func (r *ReturnTypeDecl) TypeAlias() string {
+	return r.name.alias
 }
 
 // ReturnType creates a new return type for a function
 func ReturnType(name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{nameHelper: newNameHelper("", name)}
+	return &ReturnTypeDecl{name: newNameHelper("", name)}
 }
 
 // QualReturnType creates a new return type with an alias of an imported package
 func QualReturnType(alias, name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{nameHelper: newNameHelper(alias, name)}
+	return &ReturnTypeDecl{name: newNameHelper(alias, name)}
 }
 
 // ReturnTypeError create a new return type of type `error`
@@ -29,12 +39,12 @@ func (r *ReturnTypeDecl) Pointer() *ReturnTypeDecl {
 
 // SetIsPointer sets whether or not a return type is a pointer
 func (r *ReturnTypeDecl) SetIsPointer(isPointer bool) *ReturnTypeDecl {
-	r.nameHelper.pointer(isPointer)
+	r.name.pointer(isPointer)
 	return r
 }
 
 func (r *ReturnTypeDecl) wr(sb *strings.Builder) {
-	r.nameHelper.writeValue(sb)
+	r.name.writeValue(sb)
 }
 
 func writeReturnTypes(sb *strings.Builder, returnTypes []*ReturnTypeDecl) {

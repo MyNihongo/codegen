@@ -8,16 +8,6 @@ type nameHelper struct {
 	isPointer  bool
 }
 
-// Alias returns an alias of the name
-func (n *nameHelper) Alias() string {
-	return n.alias
-}
-
-// Identifier returns an identifier of the name
-func (n *nameHelper) Identifier() string {
-	return n.identifier
-}
-
 func newNameHelper(alias, identifier string) *nameHelper {
 	return &nameHelper{alias: alias, identifier: identifier}
 }

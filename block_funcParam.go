@@ -14,6 +14,16 @@ func (p *ParamDecl) Name() string {
 
 // TypeName gets the type name of the parameter
 func (p *ParamDecl) TypeName() string {
+	return p.typeName.identifier
+}
+
+// TypeAlias return an alias of the type package (if any) from there the type is imported
+func (p *ParamDecl) TypeAlias() string {
+	return p.typeName.alias
+}
+
+// FullType gets the full string representation of the type
+func (p *ParamDecl) FullType() string {
 	var sb strings.Builder
 	p.typeName.writeValue(&sb)
 
