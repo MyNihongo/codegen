@@ -6,13 +6,13 @@ type ReturnTypeDecl struct {
 	name *nameHelper
 }
 
-// TypeName gets a type name of the return declaration
-func (r *ReturnTypeDecl) TypeName() string {
+// GetTypeName gets a type name of the return declaration
+func (r *ReturnTypeDecl) GetTypeName() string {
 	return r.name.identifier
 }
 
-// TypeAlias gets a type alias (if any) of the return declaration
-func (r *ReturnTypeDecl) TypeAlias() string {
+// GetTypeAlias gets a type alias (if any) of the return declaration
+func (r *ReturnTypeDecl) GetTypeAlias() string {
 	return r.name.alias
 }
 

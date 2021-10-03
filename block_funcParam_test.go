@@ -9,42 +9,42 @@ import (
 
 func TestParamName(t *testing.T) {
 	const want = `name`
-	got := Param("name", "typeName").Name()
+	got := Param("name", "typeName").GetName()
 
 	assert.Equal(t, want, got)
 }
 
 func TestQualParamFullName(t *testing.T) {
 	const want = `name`
-	got := QualParam("name", "alias", "typeName").Name()
+	got := QualParam("name", "alias", "typeName").GetName()
 
 	assert.Equal(t, want, got)
 }
 
 func TestParamFullType(t *testing.T) {
 	const want = `typeName`
-	got := Param("name", "typeName").FullType()
+	got := Param("name", "typeName").GetFullType()
 
 	assert.Equal(t, want, got)
 }
 
 func TestQualParamFullType(t *testing.T) {
 	const want = `alias.typeName`
-	got := QualParam("name", "alias", "typeName").FullType()
+	got := QualParam("name", "alias", "typeName").GetFullType()
 
 	assert.Equal(t, want, got)
 }
 
 func TestParamFullTypePointer(t *testing.T) {
 	const want = `*typeName`
-	got := Param("name", "typeName").Pointer().FullType()
+	got := Param("name", "typeName").Pointer().GetFullType()
 
 	assert.Equal(t, want, got)
 }
 
 func TestQualParamTypePointer(t *testing.T) {
 	const want = `*alias.typeName`
-	got := QualParam("name", "alias", "typeName").Pointer().FullType()
+	got := QualParam("name", "alias", "typeName").Pointer().GetFullType()
 
 	assert.Equal(t, want, got)
 }
@@ -151,7 +151,7 @@ func TestFuncParamSetIsPointerFalse(t *testing.T) {
 func TestFuncGetters(t *testing.T) {
 	fixture := QualParam("param", "alias", "MyType")
 
-	assert.Equal(t, fixture.Name(), "param")
-	assert.Equal(t, fixture.TypeAlias(), "alias")
-	assert.Equal(t, fixture.TypeName(), "MyType")
+	assert.Equal(t, fixture.GetName(), "param")
+	assert.Equal(t, fixture.GetTypeAlias(), "alias")
+	assert.Equal(t, fixture.GetTypeName(), "MyType")
 }
