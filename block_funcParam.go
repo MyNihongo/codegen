@@ -22,6 +22,7 @@ func (p *ParamDecl) GetTypeAlias() string {
 	return p.typeName.alias
 }
 
+// GetIsPointer gets a flag whether or not the parameter type is a pointer
 func (p *ParamDecl) GetIsPointer() bool {
 	return p.typeName.isPointer
 }
