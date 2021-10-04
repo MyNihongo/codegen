@@ -53,3 +53,23 @@ func TestCastNotPointer(t *testing.T) {
 
 	assert.False(t, got)
 }
+
+func TestCastSetIsPointerFalse(t *testing.T) {
+	got := newCastValue(Identifier("a"), "", "string", true)
+	assert.True(t, got.name.isPointer)
+	assert.False(t, got.isPointer())
+
+	got.SetIsPointer(false)
+	assert.False(t, got.name.isPointer)
+	assert.False(t, got.isPointer())
+}
+
+func TestCastSetIsPointerTrue(t *testing.T) {
+	got := newCastValue(Identifier("a"), "", "string", false)
+	assert.False(t, got.name.isPointer)
+	assert.False(t, got.isPointer())
+
+	got.SetIsPointer(true)
+	assert.True(t, got.name.isPointer)
+	assert.False(t, got.isPointer())
+}

@@ -16,6 +16,11 @@ func (r *ReturnTypeDecl) GetTypeAlias() string {
 	return r.name.alias
 }
 
+// GetIsPointer gets a flag whether or not the return type is a pointer
+func (r *ReturnTypeDecl) GetIsPointer() bool {
+	return r.name.isPointer
+}
+
 // ReturnType creates a new return type for a function
 func ReturnType(name string) *ReturnTypeDecl {
 	return &ReturnTypeDecl{name: newNameHelper("", name)}

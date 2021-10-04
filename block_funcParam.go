@@ -22,6 +22,11 @@ func (p *ParamDecl) GetTypeAlias() string {
 	return p.typeName.alias
 }
 
+// GetIsPointer gets a flag whether or not the parameter type is a pointer
+func (p *ParamDecl) GetIsPointer() bool {
+	return p.typeName.isPointer
+}
+
 // GetFullType gets the full string representation of the type
 func (p *ParamDecl) GetFullType() string {
 	var sb strings.Builder
