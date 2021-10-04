@@ -114,8 +114,9 @@ func TestFuncReturnTypeSetIsPointerFalse(t *testing.T) {
 }
 
 func TestReturnParamGetters(t *testing.T) {
-	fixture := QualReturnType("alias", "MyType")
+	fixture := QualReturnType("alias", "MyType").Pointer()
 
 	assert.Equal(t, "alias", fixture.GetTypeAlias())
 	assert.Equal(t, "MyType", fixture.GetTypeName())
+	assert.Equal(t, true, fixture.GetIsPointer())
 }
