@@ -7,6 +7,12 @@ type castValue struct {
 	name *nameHelper
 }
 
+// SetIsPointer sets whether or not the casting type is a pointer or not
+func (c *castValue) SetIsPointer(isPointer bool) *castValue {
+	c.name.pointer(isPointer)
+	return c
+}
+
 func newCastValue(val Value, alias, typeName string, isPointer bool) *castValue {
 	return &castValue{
 		val: val,
