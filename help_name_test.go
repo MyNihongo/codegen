@@ -24,3 +24,31 @@ func TestQualName(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestNameIsValidTrue(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			fixture := newNameHelper(alias, "type")
+			fixture.pointer(pointer)
+
+			got := fixture.isValid()
+			assert.True(t, got)
+		}
+	}
+}
+
+func TestNameIsValidFalse(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			fixture := newNameHelper(alias, "")
+			fixture.pointer(pointer)
+
+			got := fixture.isValid()
+			assert.False(t, got)
+		}
+	}
+}

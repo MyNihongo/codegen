@@ -120,3 +120,25 @@ func TestReturnParamGetters(t *testing.T) {
 	assert.Equal(t, "MyType", fixture.GetTypeName())
 	assert.Equal(t, true, fixture.GetIsPointer())
 }
+
+func TestReturnIsValidTrue(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			got := QualReturnType(alias, "type").SetIsPointer(pointer).isValid()
+			assert.True(t, got)
+		}
+	}
+}
+
+func TestReturnIsValidFalse(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			got := QualReturnType(alias, "").SetIsPointer(pointer).isValid()
+			assert.False(t, got)
+		}
+	}
+}

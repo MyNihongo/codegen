@@ -60,7 +60,9 @@ func writeReturnTypes(sb *strings.Builder, returnTypes []*ReturnTypeDecl) {
 	if count := len(returnTypes); count == 0 {
 		return
 	} else if count == 1 {
-		returnTypes[0].wr(sb)
+		if returnTypes[0].isValid() {
+			returnTypes[0].wr(sb)
+		}
 	} else {
 		sb.WriteByte('(')
 
