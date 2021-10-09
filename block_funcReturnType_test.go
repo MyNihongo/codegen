@@ -142,3 +142,57 @@ func TestReturnIsValidFalse(t *testing.T) {
 		}
 	}
 }
+
+func TestReturnTypeOneNotValid(t *testing.T) {
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Empty(t, sb.String())
+}
+
+func TestReturnTypeMultipleNotValid(t *testing.T) {
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		QualReturnType("alias", ""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Empty(t, sb.String())
+}
+
+func TestReturnTypeMultipleNotValidOneValid(t *testing.T) {
+	const want = `(string)`
+
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		ReturnType("string"),
+		QualReturnType("alias", ""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestReturnTypeMultipleNotValidMultipleValid(t *testing.T) {
+	const want = `(string,alias.MyType)`
+
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		ReturnType("string"),
+		QualReturnType("alias", ""),
+		QualReturnType("alias", "MyType"),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Equal(t, want, sb.String())
+}
