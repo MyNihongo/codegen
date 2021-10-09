@@ -120,3 +120,79 @@ func TestReturnParamGetters(t *testing.T) {
 	assert.Equal(t, "MyType", fixture.GetTypeName())
 	assert.Equal(t, true, fixture.GetIsPointer())
 }
+
+func TestReturnIsValidTrue(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			got := QualReturnType(alias, "type").SetIsPointer(pointer).isValid()
+			assert.True(t, got)
+		}
+	}
+}
+
+func TestReturnIsValidFalse(t *testing.T) {
+	aliases, pointers := []string{"", "alias"}, []bool{true, false}
+
+	for _, alias := range aliases {
+		for _, pointer := range pointers {
+			got := QualReturnType(alias, "").SetIsPointer(pointer).isValid()
+			assert.False(t, got)
+		}
+	}
+}
+
+func TestReturnTypeOneNotValid(t *testing.T) {
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Empty(t, sb.String())
+}
+
+func TestReturnTypeMultipleNotValid(t *testing.T) {
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		QualReturnType("alias", ""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Empty(t, sb.String())
+}
+
+func TestReturnTypeMultipleNotValidOneValid(t *testing.T) {
+	const want = `(string)`
+
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		ReturnType("string"),
+		QualReturnType("alias", ""),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestReturnTypeMultipleNotValidMultipleValid(t *testing.T) {
+	const want = `(string,alias.MyType)`
+
+	fixture := []*ReturnTypeDecl{
+		ReturnType(""),
+		ReturnType("string"),
+		QualReturnType("alias", ""),
+		QualReturnType("alias", "MyType"),
+	}
+
+	var sb strings.Builder
+	writeReturnTypes(&sb, fixture)
+
+	assert.Equal(t, want, sb.String())
+}

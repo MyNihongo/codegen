@@ -52,22 +52,36 @@ func (r *ReturnTypeDecl) wr(sb *strings.Builder) {
 	r.name.writeValue(sb)
 }
 
+func (r *ReturnTypeDecl) isValid() bool {
+	return r.name.isValid()
+}
+
 func writeReturnTypes(sb *strings.Builder, returnTypes []*ReturnTypeDecl) {
 	if count := len(returnTypes); count == 0 {
 		return
 	} else if count == 1 {
-		returnTypes[0].wr(sb)
+		if returnTypes[0].isValid() {
+			returnTypes[0].wr(sb)
+		}
 	} else {
-		sb.WriteByte('(')
+		validCounter := 0
+		for _, r := range returnTypes {
+			if !r.isValid() {
+				continue
+			}
 
-		for i, r := range returnTypes {
-			if i != 0 {
+			if validCounter != 0 {
 				sb.WriteByte(',')
+			} else {
+				sb.WriteByte('(')
 			}
 
 			r.wr(sb)
+			validCounter++
 		}
 
-		sb.WriteByte(')')
+		if validCounter != 0 {
+			sb.WriteByte(')')
+		}
 	}
 }
