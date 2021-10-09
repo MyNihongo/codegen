@@ -23,6 +23,10 @@ func (n *nameHelper) getTypeName() string {
 	return sb.String()
 }
 
+func (n *nameHelper) isValid() bool {
+	return len(n.identifier) > 0
+}
+
 func (n *nameHelper) writeValue(sb *strings.Builder) {
 	if n.isPointer {
 		sb.WriteByte('*')
