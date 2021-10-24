@@ -36,3 +36,42 @@ func TestForInitAndCheck(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestForCheckAndPost(t *testing.T) {
+	const want = `for ;i<len(myStr);i++ {
+}
+`
+	var sb strings.Builder
+	For(nil, Identifier("i").LessThan(Len(Identifier("myStr"))), Identifier("i").Increment()).
+		write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestForAllStatements(t *testing.T) {
+	const want = `for i:=0;i<len(myStr);i++ {
+}
+`
+	var sb strings.Builder
+	For(Declare("i").Values(Int(0)), Identifier("i").LessThan(Len(Identifier("myStr"))), Identifier("i").Increment()).
+		write(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestForWithBlock(t *testing.T) {
+	const want = `for true {
+	if false {
+		return
+	}
+}
+`
+	var sb strings.Builder
+	For(nil, Identifier("true"), nil).Block(
+		If(Identifier("false")).Block(
+			Return(),
+		),
+	).write(&sb)
+
+	assert.Equal(t, want, formatSb(sb))
+}
