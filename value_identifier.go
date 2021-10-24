@@ -122,6 +122,11 @@ func (i *identifierValue) IsNotEmpty() *equalsValue {
 	return Len(i).NotEquals(Int(0))
 }
 
+// Increment increments the identifier (++ syntax)
+func (i *identifierValue) Increment() *incrementStmt {
+	return newIncrement(i)
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	if i.isAddress {
 		sb.WriteString("&(")

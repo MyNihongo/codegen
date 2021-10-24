@@ -366,3 +366,13 @@ func TestIdentifierPointerCastQualPointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierIncrement(t *testing.T) {
+	const want = `j++`
+
+	var sb strings.Builder
+	Identifier("j").Increment().
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
