@@ -132,6 +132,11 @@ func (i *identifierValue) Increment() *incrementStmt {
 	return newIncrement(i)
 }
 
+// AtIndex access a value at the specified index
+func (i *identifierValue) AtIndex(value Value) *squireBracketsValue {
+	return newSquireBrackets(i, value)
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	if i.isAddress {
 		sb.WriteString("&(")

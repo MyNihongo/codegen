@@ -386,3 +386,13 @@ func TestIdentifierIncrement(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierAtIndex(t *testing.T) {
+	const want = `obj[myFunc(obj)]`
+
+	var sb strings.Builder
+	Identifier("obj").AtIndex(FuncCall("myFunc").Args(Identifier("obj"))).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
