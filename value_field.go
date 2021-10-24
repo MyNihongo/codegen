@@ -42,6 +42,16 @@ func (f *fieldValue) Assign(val Value) *assignStmt {
 	return newAssignment(f, val)
 }
 
+// Equals compares a value of the identifier for equality
+func (f *fieldValue) Equals(value Value) *equalsValue {
+	return newEquals(f, value, true)
+}
+
+// Equals compares a value of the identifier for not being equal
+func (f *fieldValue) NotEquals(value Value) *equalsValue {
+	return newEquals(f, value, false)
+}
+
 func newField(val Value, name string) *fieldValue {
 	return &fieldValue{
 		val:  val,

@@ -12,7 +12,7 @@ type forBlock struct {
 }
 
 // For creates a new for-loop block
-func For(decl *declarationStmt, check Value, post Stmt) *forBlock {
+func For(decl *declarationStmt, check Value, postStatement Stmt) *forBlock {
 	if check == nil {
 		panic("check cannot be null")
 	}
@@ -20,7 +20,7 @@ func For(decl *declarationStmt, check Value, post Stmt) *forBlock {
 	return &forBlock{
 		decl:  decl,
 		check: check,
-		post:  post,
+		post:  postStatement,
 		stmts: make([]Stmt, 0),
 	}
 }
@@ -32,5 +32,19 @@ func (f *forBlock) Block(statements ...Stmt) *forBlock {
 }
 
 func (f *forBlock) write(sb *strings.Builder) {
+	sb.WriteString("for ")
+	if f.decl != nil {
+		f.decl.writeStmt(sb)
+	}
 
+	sb.WriteByte(';')
+	f.check.writeValue(sb)
+	sb.WriteByte(';')
+
+	if f.post != nil {
+		f.post.writeStmt(sb)
+	}
+
+	sb.WriteByte(' ')
+	writeStmts(sb, f.stmts, true)
 }
