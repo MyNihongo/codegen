@@ -35,6 +35,16 @@ func TestNotEqualsIdentifierIdentifier(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestLessThanIdentifierIdentifier(t *testing.T) {
+	const want = `a<b.field`
+
+	var sb strings.Builder
+	newEquals(Identifier("a"), Identifier("b").Field("field"), cmpType_LessThan).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestEqualsIdentifierFunc(t *testing.T) {
 	const want = `a==myFunc()`
 
@@ -50,6 +60,16 @@ func TestNotEqualsIdentifierFunc(t *testing.T) {
 
 	var sb strings.Builder
 	newEquals(Identifier("a"), FuncCall("myFunc"), cmpType_NotEquals).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestLessThanIdentifierFunc(t *testing.T) {
+	const want = `a<myFunc()`
+
+	var sb strings.Builder
+	newEquals(Identifier("a"), FuncCall("myFunc"), cmpType_LessThan).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -75,6 +95,16 @@ func TestNotEqualsFuncIdentifier(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestLessThanFuncIdentifier(t *testing.T) {
+	const want = `myFunc()<b.field`
+
+	var sb strings.Builder
+	newEquals(FuncCall("myFunc"), Identifier("b").Field("field"), cmpType_LessThan).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestEqualsFuncFunc(t *testing.T) {
 	const want = `alias.MyFunc()==myFunc()`
 
@@ -90,6 +120,16 @@ func TestNotEqualsFuncFunc(t *testing.T) {
 
 	var sb strings.Builder
 	newEquals(QualFuncCall("alias", "MyFunc"), FuncCall("myFunc"), cmpType_NotEquals).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestLessThanFuncFunc(t *testing.T) {
+	const want = `alias.MyFunc()<myFunc()`
+
+	var sb strings.Builder
+	newEquals(QualFuncCall("alias", "MyFunc"), FuncCall("myFunc"), cmpType_LessThan).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())

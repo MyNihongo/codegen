@@ -102,9 +102,14 @@ func (i *identifierValue) Equals(value Value) *comparisonValue {
 	return newEquals(i, value, cmpType_Equals)
 }
 
-// Equals compares a value of the identifier for not being equal
+// NotEquals compares a value of the identifier for not being equal
 func (i *identifierValue) NotEquals(value Value) *comparisonValue {
 	return newEquals(i, value, cmpType_NotEquals)
+}
+
+// LessThan compares a value of the identifier for being less
+func (i *identifierValue) LessThan(value Value) *comparisonValue {
+	return newEquals(i, value, cmpType_LessThan)
 }
 
 // IsNil checks whether or not the identifier is nil

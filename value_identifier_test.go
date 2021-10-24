@@ -237,6 +237,16 @@ func TestIdentifierNotEquals(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestIdentifierNotLessThan(t *testing.T) {
+	const want = `a<myFunc()`
+
+	var sb strings.Builder
+	Identifier("a").LessThan(FuncCall("myFunc")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestIdentifierIsNil(t *testing.T) {
 	const want = `a==nil`
 

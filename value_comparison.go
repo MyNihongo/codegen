@@ -7,6 +7,7 @@ type cmpType byte
 const (
 	cmpType_Equals    cmpType = 1
 	cmpType_NotEquals cmpType = 2
+	cmpType_LessThan  cmpType = 3
 )
 
 type comparisonValue struct {
@@ -31,6 +32,8 @@ func (e *comparisonValue) writeValue(sb *strings.Builder) {
 		sb.WriteString("==")
 	case cmpType_NotEquals:
 		sb.WriteString("!=")
+	case cmpType_LessThan:
+		sb.WriteByte('<')
 	default:
 		panic("unknown comparison type")
 	}
