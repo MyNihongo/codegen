@@ -43,13 +43,13 @@ func (f *fieldValue) Assign(val Value) *assignStmt {
 }
 
 // Equals compares a value of the identifier for equality
-func (f *fieldValue) Equals(value Value) *equalsValue {
-	return newEquals(f, value, true)
+func (f *fieldValue) Equals(value Value) *comparisonValue {
+	return newEquals(f, value, cmpType_Equals)
 }
 
 // Equals compares a value of the identifier for not being equal
-func (f *fieldValue) NotEquals(value Value) *equalsValue {
-	return newEquals(f, value, false)
+func (f *fieldValue) NotEquals(value Value) *comparisonValue {
+	return newEquals(f, value, cmpType_NotEquals)
 }
 
 func newField(val Value, name string) *fieldValue {

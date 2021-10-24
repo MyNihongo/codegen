@@ -13,13 +13,13 @@ func Len(val Value) *goFuncValue {
 }
 
 // Equals compares a value of the go function for equality
-func (g *goFuncValue) Equals(val Value) *equalsValue {
-	return newEquals(g, val, true)
+func (g *goFuncValue) Equals(val Value) *comparisonValue {
+	return newEquals(g, val, cmpType_Equals)
 }
 
 // Equals compares a value of the go function for not being equal
-func (g *goFuncValue) NotEquals(val Value) *equalsValue {
-	return newEquals(g, val, false)
+func (g *goFuncValue) NotEquals(val Value) *comparisonValue {
+	return newEquals(g, val, cmpType_NotEquals)
 }
 
 func newGoFunc(name string, args ...Value) *goFuncValue {

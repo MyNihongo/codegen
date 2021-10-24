@@ -98,27 +98,27 @@ func (i *identifierValue) Assign(val Value) *assignStmt {
 }
 
 // Equals compares a value of the identifier for equality
-func (i *identifierValue) Equals(value Value) *equalsValue {
-	return newEquals(i, value, true)
+func (i *identifierValue) Equals(value Value) *comparisonValue {
+	return newEquals(i, value, cmpType_Equals)
 }
 
 // Equals compares a value of the identifier for not being equal
-func (i *identifierValue) NotEquals(value Value) *equalsValue {
-	return newEquals(i, value, false)
+func (i *identifierValue) NotEquals(value Value) *comparisonValue {
+	return newEquals(i, value, cmpType_NotEquals)
 }
 
 // IsNil checks whether or not the identifier is nil
-func (i *identifierValue) IsNil() *equalsValue {
-	return newEquals(i, Nil(), true)
+func (i *identifierValue) IsNil() *comparisonValue {
+	return newEquals(i, Nil(), cmpType_Equals)
 }
 
 // IsNil checks whether or not the identifier is not nil
-func (i *identifierValue) IsNotNil() *equalsValue {
-	return newEquals(i, Nil(), false)
+func (i *identifierValue) IsNotNil() *comparisonValue {
+	return newEquals(i, Nil(), cmpType_NotEquals)
 }
 
 // IsNotEmpty checks whether or not the identifier's length is empty
-func (i *identifierValue) IsNotEmpty() *equalsValue {
+func (i *identifierValue) IsNotEmpty() *comparisonValue {
 	return Len(i).NotEquals(Int(0))
 }
 
