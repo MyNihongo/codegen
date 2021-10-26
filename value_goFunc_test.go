@@ -132,3 +132,33 @@ func TestGoFuncMakeCountQualPointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFoFuncAppendEmpty(t *testing.T) {
+	const want = `append(arr)`
+
+	var sb strings.Builder
+	Append(Identifier("arr")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFoFuncAppendSingle(t *testing.T) {
+	const want = `append(arr,createElement())`
+
+	var sb strings.Builder
+	Append(Identifier("arr"), FuncCall("createElement")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFoFuncAppendMultiple(t *testing.T) {
+	const want = `append(arr,createElement(),obj.field)`
+
+	var sb strings.Builder
+	Append(Identifier("arr"), FuncCall("createElement"), Identifier("obj").Field("field")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

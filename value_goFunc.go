@@ -7,21 +7,33 @@ type goFuncValue struct {
 	args []Value
 }
 
-// Len creates a new function call of the Go build-in function `len()`
+// Len creates a new function call of the Go built-in function `len()`
 func Len(val Value) *goFuncValue {
 	return newGoFunc("len", val)
 }
 
-// Make creates a new function call of the Go build-in function `make()` for an empty slice
+// Make creates a new function call of the Go built-in function `make()` for an empty slice
 func Make(sliceType *TypeDecl) *goFuncValue {
 	return MakeWithCount(sliceType, 0)
 }
 
-// Make creates a new function call of the Go build-in function `make()` for a slice with count
+// Make creates a new function call of the Go built-in function `make()` for a slice with count
 func MakeWithCount(sliceType *TypeDecl, count int) *goFuncValue {
 	sliceType.Array()
 	typeString := Identifier(sliceType.name.String())
 	return newGoFunc("make", typeString, Int(count))
+}
+
+// Append creates a new function call of the built-in function `append`
+func Append(sliceValue Value, elementValues ...Value) *goFuncValue {
+	vals := make([]Value, len(elementValues)+1)
+	vals[0] = sliceValue
+
+	for i, v := range elementValues {
+		vals[i+1] = v
+	}
+
+	return newGoFunc("append", vals...)
 }
 
 // Equals compares a value of the go function for equality
