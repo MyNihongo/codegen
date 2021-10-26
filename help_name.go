@@ -32,6 +32,13 @@ func (n *nameHelper) isValid() bool {
 	return len(n.identifier) > 0
 }
 
+func (n *nameHelper) String() string {
+	var sb strings.Builder
+	n.writeValue(&sb)
+
+	return sb.String()
+}
+
 func (n *nameHelper) writeValue(sb *strings.Builder) {
 	if n.isArray {
 		sb.WriteString("[]")
