@@ -52,3 +52,53 @@ func TestNameIsValidFalse(t *testing.T) {
 		}
 	}
 }
+
+func TestNameIsArray(t *testing.T) {
+	const want = `[]a`
+
+	fixture := newNameHelper("", "a")
+	fixture.setIsArray(true)
+
+	var sb strings.Builder
+	fixture.writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualNameIsArray(t *testing.T) {
+	const want = `[]alias.MyType`
+
+	fixture := newNameHelper("alias", "MyType")
+	fixture.setIsArray(true)
+
+	var sb strings.Builder
+	fixture.writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestNamePointerIsArray(t *testing.T) {
+	const want = `[]*a`
+
+	fixture := newNameHelper("", "a")
+	fixture.pointer(true)
+	fixture.setIsArray(true)
+
+	var sb strings.Builder
+	fixture.writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualNamePointerIsArray(t *testing.T) {
+	const want = `[]*alias.MyType`
+
+	fixture := newNameHelper("alias", "MyType")
+	fixture.pointer(true)
+	fixture.setIsArray(true)
+
+	var sb strings.Builder
+	fixture.writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

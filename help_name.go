@@ -6,6 +6,7 @@ type nameHelper struct {
 	alias      string
 	identifier string
 	isPointer  bool
+	isArray    bool
 }
 
 func newNameHelper(alias, identifier string) *nameHelper {
@@ -14,6 +15,10 @@ func newNameHelper(alias, identifier string) *nameHelper {
 
 func (n *nameHelper) pointer(isPointer bool) {
 	n.isPointer = isPointer
+}
+
+func (n *nameHelper) setIsArray(isArray bool) {
+	n.isArray = isArray
 }
 
 func (n *nameHelper) getTypeName() string {
@@ -28,6 +33,10 @@ func (n *nameHelper) isValid() bool {
 }
 
 func (n *nameHelper) writeValue(sb *strings.Builder) {
+	if n.isArray {
+		sb.WriteString("[]")
+	}
+
 	if n.isPointer {
 		sb.WriteByte('*')
 	}
