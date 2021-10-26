@@ -25,7 +25,7 @@ myFunc(param string)string
 `
 	var sb strings.Builder
 	newInterface("myInterface").Funcs(
-		FuncDecl("myFunc").Params(Param("param", "string")).ReturnTypes(ReturnType("string")),
+		FuncDecl("myFunc").Params(Param("param", "string")).ReturnTypes(Type("string")),
 	).write(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -39,8 +39,8 @@ anotherFunc(param int64)alias.MyType
 `
 	var sb strings.Builder
 	newInterface("myInterface").Funcs(
-		FuncDecl("myFunc").Params(Param("param", "string")).ReturnTypes(ReturnType("string")),
-		FuncDecl("anotherFunc").Params(Param("param", "int64")).ReturnTypes(QualReturnType("alias", "MyType")),
+		FuncDecl("myFunc").Params(Param("param", "string")).ReturnTypes(Type("string")),
+		FuncDecl("anotherFunc").Params(Param("param", "int64")).ReturnTypes(QualType("alias", "MyType")),
 	).write(&sb)
 
 	assert.Equal(t, want, sb.String())

@@ -11,7 +11,7 @@ func TestFuncReturnType(t *testing.T) {
 	const want = `type`
 
 	var sb strings.Builder
-	ReturnType("type").wr(&sb)
+	Type("type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -29,7 +29,7 @@ func TestFuncReturnTypePointer(t *testing.T) {
 	const want = `*type`
 
 	var sb strings.Builder
-	ReturnType("type").Pointer().
+	Type("type").Pointer().
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -39,7 +39,7 @@ func TestFuncQualReturnType(t *testing.T) {
 	const want = `alias.type`
 
 	var sb strings.Builder
-	QualReturnType("alias", "type").wr(&sb)
+	QualType("alias", "type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -48,7 +48,7 @@ func TestFuncQualReturnTypePointer(t *testing.T) {
 	const want = `*alias.type`
 
 	var sb strings.Builder
-	QualReturnType("alias", "type").Pointer().
+	QualType("alias", "type").Pointer().
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -67,7 +67,7 @@ func TestFuncReturnTypesOne(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*TypeDecl{
-		ReturnType("type1"),
+		Type("type1"),
 	}
 	writeReturnTypes(&sb, params)
 
@@ -79,10 +79,10 @@ func TestFuncReturnTypes(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*TypeDecl{
-		ReturnType("type1"),
-		QualReturnType("alias", "type2"),
-		ReturnType("type3").Pointer(),
-		QualReturnType("alias", "type4").Pointer(),
+		Type("type1"),
+		QualType("alias", "type2"),
+		Type("type3").Pointer(),
+		QualType("alias", "type4").Pointer(),
 	}
 	writeReturnTypes(&sb, params)
 
@@ -94,7 +94,7 @@ func TestFuncReturnTypeSetIsPointerTrue(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*TypeDecl{
-		ReturnType("type1").SetIsPointer(true),
+		Type("type1").SetIsPointer(true),
 	}
 	writeReturnTypes(&sb, params)
 
@@ -106,7 +106,7 @@ func TestFuncReturnTypeSetIsPointerFalse(t *testing.T) {
 
 	var sb strings.Builder
 	params := []*TypeDecl{
-		ReturnType("type1").SetIsPointer(false),
+		Type("type1").SetIsPointer(false),
 	}
 	writeReturnTypes(&sb, params)
 
@@ -114,7 +114,7 @@ func TestFuncReturnTypeSetIsPointerFalse(t *testing.T) {
 }
 
 func TestReturnParamGetters(t *testing.T) {
-	fixture := QualReturnType("alias", "MyType").Pointer()
+	fixture := QualType("alias", "MyType").Pointer()
 
 	assert.Equal(t, "alias", fixture.GetTypeAlias())
 	assert.Equal(t, "MyType", fixture.GetTypeName())
@@ -126,7 +126,7 @@ func TestReturnIsValidTrue(t *testing.T) {
 
 	for _, alias := range aliases {
 		for _, pointer := range pointers {
-			got := QualReturnType(alias, "type").SetIsPointer(pointer).isValid()
+			got := QualType(alias, "type").SetIsPointer(pointer).isValid()
 			assert.True(t, got)
 		}
 	}
@@ -137,7 +137,7 @@ func TestReturnIsValidFalse(t *testing.T) {
 
 	for _, alias := range aliases {
 		for _, pointer := range pointers {
-			got := QualReturnType(alias, "").SetIsPointer(pointer).isValid()
+			got := QualType(alias, "").SetIsPointer(pointer).isValid()
 			assert.False(t, got)
 		}
 	}
@@ -145,7 +145,7 @@ func TestReturnIsValidFalse(t *testing.T) {
 
 func TestReturnTypeOneNotValid(t *testing.T) {
 	fixture := []*TypeDecl{
-		ReturnType(""),
+		Type(""),
 	}
 
 	var sb strings.Builder
@@ -156,8 +156,8 @@ func TestReturnTypeOneNotValid(t *testing.T) {
 
 func TestReturnTypeMultipleNotValid(t *testing.T) {
 	fixture := []*TypeDecl{
-		ReturnType(""),
-		QualReturnType("alias", ""),
+		Type(""),
+		QualType("alias", ""),
 	}
 
 	var sb strings.Builder
@@ -170,9 +170,9 @@ func TestReturnTypeMultipleNotValidOneValid(t *testing.T) {
 	const want = `(string)`
 
 	fixture := []*TypeDecl{
-		ReturnType(""),
-		ReturnType("string"),
-		QualReturnType("alias", ""),
+		Type(""),
+		Type("string"),
+		QualType("alias", ""),
 	}
 
 	var sb strings.Builder
@@ -185,14 +185,54 @@ func TestReturnTypeMultipleNotValidMultipleValid(t *testing.T) {
 	const want = `(string,alias.MyType)`
 
 	fixture := []*TypeDecl{
-		ReturnType(""),
-		ReturnType("string"),
-		QualReturnType("alias", ""),
-		QualReturnType("alias", "MyType"),
+		Type(""),
+		Type("string"),
+		QualType("alias", ""),
+		QualType("alias", "MyType"),
 	}
 
 	var sb strings.Builder
 	writeReturnTypes(&sb, fixture)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestReturnTypeArray(t *testing.T) {
+	const want = `[]string`
+
+	var sb strings.Builder
+	Type("string").Array().
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestReturnTypePointerArray(t *testing.T) {
+	const want = `[]*string`
+
+	var sb strings.Builder
+	Type("string").Array().Pointer().
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualReturnTypeArray(t *testing.T) {
+	const want = `[]alias.MyType`
+
+	var sb strings.Builder
+	QualType("alias", "MyType").Array().
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestQualReturnTypePointerArray(t *testing.T) {
+	const want = `[]*alias.MyType`
+
+	var sb strings.Builder
+	QualType("alias", "MyType").Array().Pointer().
+		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
