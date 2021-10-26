@@ -23,7 +23,7 @@ func (l *lambdaValue) Params(params ...*ParamDecl) *lambdaValue {
 }
 
 // ReturnTypes appends return parameters to the lambda definition
-func (l *lambdaValue) ReturnTypes(returnTypes ...*ReturnTypeDecl) *lambdaValue {
+func (l *lambdaValue) ReturnTypes(returnTypes ...*TypeDecl) *lambdaValue {
 	l.block.ReturnTypes(returnTypes...)
 	return l
 }

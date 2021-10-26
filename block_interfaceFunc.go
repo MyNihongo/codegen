@@ -5,7 +5,7 @@ import "strings"
 type FuncDeclaration struct {
 	name        string
 	params      []*ParamDecl
-	returnTypes []*ReturnTypeDecl
+	returnTypes []*TypeDecl
 }
 
 // FuncDecl creates a new function declaration
@@ -13,7 +13,7 @@ func FuncDecl(funcName string) *FuncDeclaration {
 	return &FuncDeclaration{
 		name:        funcName,
 		params:      make([]*ParamDecl, 0),
-		returnTypes: make([]*ReturnTypeDecl, 0),
+		returnTypes: make([]*TypeDecl, 0),
 	}
 }
 
@@ -24,7 +24,7 @@ func (f *FuncDeclaration) Params(params ...*ParamDecl) *FuncDeclaration {
 }
 
 // ReturnTypes adds return types to the function declaration
-func (f *FuncDeclaration) ReturnTypes(returnTypes ...*ReturnTypeDecl) *FuncDeclaration {
+func (f *FuncDeclaration) ReturnTypes(returnTypes ...*TypeDecl) *FuncDeclaration {
 	f.returnTypes = returnTypes
 	return f
 }

@@ -2,61 +2,61 @@ package codegen
 
 import "strings"
 
-type ReturnTypeDecl struct {
+type TypeDecl struct {
 	name *nameHelper
 }
 
 // GetTypeName gets a type name of the return declaration
-func (r *ReturnTypeDecl) GetTypeName() string {
+func (r *TypeDecl) GetTypeName() string {
 	return r.name.identifier
 }
 
 // GetTypeAlias gets a type alias (if any) of the return declaration
-func (r *ReturnTypeDecl) GetTypeAlias() string {
+func (r *TypeDecl) GetTypeAlias() string {
 	return r.name.alias
 }
 
 // GetIsPointer gets a flag whether or not the return type is a pointer
-func (r *ReturnTypeDecl) GetIsPointer() bool {
+func (r *TypeDecl) GetIsPointer() bool {
 	return r.name.isPointer
 }
 
 // ReturnType creates a new return type for a function
-func ReturnType(name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{name: newNameHelper("", name)}
+func ReturnType(name string) *TypeDecl {
+	return &TypeDecl{name: newNameHelper("", name)}
 }
 
 // QualReturnType creates a new return type with an alias of an imported package
-func QualReturnType(alias, name string) *ReturnTypeDecl {
-	return &ReturnTypeDecl{name: newNameHelper(alias, name)}
+func QualReturnType(alias, name string) *TypeDecl {
+	return &TypeDecl{name: newNameHelper(alias, name)}
 }
 
 // ReturnTypeError create a new return type of type `error`
-func ReturnTypeError() *ReturnTypeDecl {
+func ReturnTypeError() *TypeDecl {
 	return ReturnType("error")
 }
 
 // Pointer turns the return type into a pointer value
-func (r *ReturnTypeDecl) Pointer() *ReturnTypeDecl {
+func (r *TypeDecl) Pointer() *TypeDecl {
 	r.SetIsPointer(true)
 	return r
 }
 
 // SetIsPointer sets whether or not a return type is a pointer
-func (r *ReturnTypeDecl) SetIsPointer(isPointer bool) *ReturnTypeDecl {
+func (r *TypeDecl) SetIsPointer(isPointer bool) *TypeDecl {
 	r.name.setIsPointer(isPointer)
 	return r
 }
 
-func (r *ReturnTypeDecl) wr(sb *strings.Builder) {
+func (r *TypeDecl) wr(sb *strings.Builder) {
 	r.name.writeValue(sb)
 }
 
-func (r *ReturnTypeDecl) isValid() bool {
+func (r *TypeDecl) isValid() bool {
 	return r.name.isValid()
 }
 
-func writeReturnTypes(sb *strings.Builder, returnTypes []*ReturnTypeDecl) {
+func writeReturnTypes(sb *strings.Builder, returnTypes []*TypeDecl) {
 	if count := len(returnTypes); count == 0 {
 		return
 	} else if count == 1 {

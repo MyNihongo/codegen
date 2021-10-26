@@ -5,7 +5,7 @@ import "strings"
 type funcBlock struct {
 	name     string
 	params   []*ParamDecl
-	retTypes []*ReturnTypeDecl
+	retTypes []*TypeDecl
 	stmts    []Stmt
 	newLine  bool
 }
@@ -25,7 +25,7 @@ func (f *funcBlock) Params(params ...*ParamDecl) *funcBlock {
 }
 
 // ReturnTypes appends function return parameters
-func (f *funcBlock) ReturnTypes(returnTypes ...*ReturnTypeDecl) *funcBlock {
+func (f *funcBlock) ReturnTypes(returnTypes ...*TypeDecl) *funcBlock {
 	f.retTypes = returnTypes
 	return f
 }
@@ -45,7 +45,7 @@ func newFunc(name string) *funcBlock {
 	return &funcBlock{
 		name:     name,
 		params:   make([]*ParamDecl, 0),
-		retTypes: make([]*ReturnTypeDecl, 0),
+		retTypes: make([]*TypeDecl, 0),
 		stmts:    make([]Stmt, 0),
 		newLine:  true,
 	}
