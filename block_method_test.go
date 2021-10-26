@@ -72,7 +72,7 @@ func TestMethodWithReturnType(t *testing.T) {
 	const want = `func (t type) funcName()type{
 }
 `
-	this, retType := This("type"), ReturnType("type")
+	this, retType := This("type"), Type("type")
 
 	var sb strings.Builder
 	newMethod(this, "funcName").
@@ -87,8 +87,8 @@ func TestMethodWithReturnTypes(t *testing.T) {
 }
 `
 	this := This("type")
-	retType1, retType2 := ReturnType("type"),
-		QualReturnType("alias", "type").Pointer()
+	retType1, retType2 := Type("type"),
+		QualType("alias", "type").Pointer()
 
 	var sb strings.Builder
 	newMethod(this, "funcName").

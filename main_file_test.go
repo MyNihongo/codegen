@@ -197,7 +197,7 @@ func funcName(param1 *alias.typeName, param2 string) (string, error) {
 	f := NewFile(packageName, codeGen)
 
 	param1, param2 := QualParam("param1", "alias", "typeName").Pointer(), Param("param2", "string")
-	f.Func("funcName").Params(param1, param2).ReturnTypes(ReturnType("string"), ReturnTypeError()).Block(
+	f.Func("funcName").Params(param1, param2).ReturnTypes(Type("string"), ReturnTypeError()).Block(
 		IfDecl(
 			Declare("val", "err").Values(QualFuncCall("os", "Getenv").Args(String("env_var"))),
 			Err().IsNotNil(),
@@ -224,7 +224,7 @@ func (m *MyType) funcName() int {
 	return m.field
 }
 `
-	this, retType := This("MyType").Pointer(), ReturnType("int")
+	this, retType := This("MyType").Pointer(), Type("int")
 
 	f := NewFile(packageName, codeGen)
 	f.Method(this, "funcName").
@@ -249,7 +249,7 @@ type myInterface interface {
 `
 	f := NewFile(packageName, codeGen)
 	f.Interface("myInterface").Funcs(
-		FuncDecl("myFunc").ReturnTypes(ReturnType("string")),
+		FuncDecl("myFunc").ReturnTypes(Type("string")),
 	)
 
 	got := formatFile(f)

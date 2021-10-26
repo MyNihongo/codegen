@@ -15,7 +15,7 @@ return t.myField
 }
 `
 	f := NewFile(packageName, codeGen)
-	f.GenerateGetter(This("TypeName").Pointer(), "myField", ReturnType("int"))
+	f.GenerateGetter(This("TypeName").Pointer(), "myField", Type("int"))
 	got := fmt.Sprintf("%#v", f)
 
 	assert.Equal(t, want, got)

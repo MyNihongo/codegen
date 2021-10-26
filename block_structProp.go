@@ -41,7 +41,7 @@ func (p *PropertyDecl) Pointer() *PropertyDecl {
 
 // SetIsPointer sets whether or not a property is a pointer
 func (p *PropertyDecl) SetIsPointer(isPointer bool) *PropertyDecl {
-	p.typeName.pointer(isPointer)
+	p.typeName.setIsPointer(isPointer)
 	return p
 }
 

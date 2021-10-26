@@ -237,6 +237,16 @@ func TestIdentifierNotEquals(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestIdentifierNotLessThan(t *testing.T) {
+	const want = `a<myFunc()`
+
+	var sb strings.Builder
+	Identifier("a").LessThan(FuncCall("myFunc")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestIdentifierIsNil(t *testing.T) {
 	const want = `a==nil`
 
@@ -362,6 +372,26 @@ func TestIdentifierPointerCastQualPointer(t *testing.T) {
 
 	var sb strings.Builder
 	Identifier("a").Pointer().CastQualPointer("alias", "MyType").
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierIncrement(t *testing.T) {
+	const want = `j++`
+
+	var sb strings.Builder
+	Identifier("j").Increment().
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestIdentifierAtIndex(t *testing.T) {
+	const want = `obj[myFunc(obj)]`
+
+	var sb strings.Builder
+	Identifier("obj").AtIndex(FuncCall("myFunc").Args(Identifier("obj"))).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())

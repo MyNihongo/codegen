@@ -60,7 +60,7 @@ func TestInterfaceFuncReturnTypeOne(t *testing.T) {
 	const want = `myFunc()myType`
 
 	var sb strings.Builder
-	FuncDecl("myFunc").ReturnTypes(ReturnType("myType")).
+	FuncDecl("myFunc").ReturnTypes(Type("myType")).
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -70,7 +70,7 @@ func TestInterfaceFuncQualReturnTypeOne(t *testing.T) {
 	const want = `myFunc()alias.MyType`
 
 	var sb strings.Builder
-	FuncDecl("myFunc").ReturnTypes(QualReturnType("alias", "MyType")).
+	FuncDecl("myFunc").ReturnTypes(QualType("alias", "MyType")).
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -80,7 +80,7 @@ func TestInterfaceFuncReturnTypeMultiple(t *testing.T) {
 	const want = `myFunc()(myType,anotherType)`
 
 	var sb strings.Builder
-	FuncDecl("myFunc").ReturnTypes(ReturnType("myType"), ReturnType("anotherType")).
+	FuncDecl("myFunc").ReturnTypes(Type("myType"), Type("anotherType")).
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())
@@ -90,7 +90,7 @@ func TestInterfaceFuncQualReturnTypeMultiple(t *testing.T) {
 	const want = `myFunc()(alias.MyType,alias.AnotherType)`
 
 	var sb strings.Builder
-	FuncDecl("myFunc").ReturnTypes(QualReturnType("alias", "MyType"), QualReturnType("alias", "AnotherType")).
+	FuncDecl("myFunc").ReturnTypes(QualType("alias", "MyType"), QualType("alias", "AnotherType")).
 		wr(&sb)
 
 	assert.Equal(t, want, sb.String())

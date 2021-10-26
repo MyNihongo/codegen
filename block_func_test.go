@@ -36,7 +36,7 @@ func TestFuncWithReturnType(t *testing.T) {
 	const want = `func funcName()type{
 }
 `
-	retType := ReturnType("type")
+	retType := Type("type")
 
 	var sb strings.Builder
 	newFunc("funcName").
@@ -50,8 +50,8 @@ func TestFuncWithReturnTypes(t *testing.T) {
 	const want = `func funcName()(type,*alias.type){
 }
 `
-	retType1, retType2 := ReturnType("type"),
-		QualReturnType("alias", "type").Pointer()
+	retType1, retType2 := Type("type"),
+		QualType("alias", "type").Pointer()
 
 	var sb strings.Builder
 	newFunc("funcName").

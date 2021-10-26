@@ -53,7 +53,7 @@ return "str value"
 
 	var sb strings.Builder
 	Lambda().ReturnTypes(
-		ReturnType("string"),
+		Type("string"),
 	).Block(
 		Return(String("str value")),
 	).writeValue(&sb)
@@ -68,7 +68,7 @@ return "str value",nil
 
 	var sb strings.Builder
 	Lambda().ReturnTypes(
-		ReturnType("string"),
+		Type("string"),
 		ReturnTypeError(),
 	).Block(
 		Return(String("str value"), Nil()),

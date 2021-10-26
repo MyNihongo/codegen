@@ -106,3 +106,25 @@ func TestFieldCastQualPointer(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFieldEquals(t *testing.T) {
+	const want = `obj.field==field`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Equals(Identifier("field")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFieldNotEquals(t *testing.T) {
+	const want = `obj.field!=field`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").NotEquals(Identifier("field")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
