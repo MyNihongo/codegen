@@ -31,7 +31,7 @@ func TestNameIsValidTrue(t *testing.T) {
 	for _, alias := range aliases {
 		for _, pointer := range pointers {
 			fixture := newNameHelper(alias, "type")
-			fixture.pointer(pointer)
+			fixture.setIsPointer(pointer)
 
 			got := fixture.isValid()
 			assert.True(t, got)
@@ -45,7 +45,7 @@ func TestNameIsValidFalse(t *testing.T) {
 	for _, alias := range aliases {
 		for _, pointer := range pointers {
 			fixture := newNameHelper(alias, "")
-			fixture.pointer(pointer)
+			fixture.setIsPointer(pointer)
 
 			got := fixture.isValid()
 			assert.False(t, got)
@@ -81,7 +81,7 @@ func TestNamePointerIsArray(t *testing.T) {
 	const want = `[]*a`
 
 	fixture := newNameHelper("", "a")
-	fixture.pointer(true)
+	fixture.setIsPointer(true)
 	fixture.setIsArray(true)
 
 	var sb strings.Builder
@@ -94,7 +94,7 @@ func TestQualNamePointerIsArray(t *testing.T) {
 	const want = `[]*alias.MyType`
 
 	fixture := newNameHelper("alias", "MyType")
-	fixture.pointer(true)
+	fixture.setIsPointer(true)
 	fixture.setIsArray(true)
 
 	var sb strings.Builder

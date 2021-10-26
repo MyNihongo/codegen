@@ -13,7 +13,7 @@ func newNameHelper(alias, identifier string) *nameHelper {
 	return &nameHelper{alias: alias, identifier: identifier}
 }
 
-func (n *nameHelper) pointer(isPointer bool) {
+func (n *nameHelper) setIsPointer(isPointer bool) {
 	n.isPointer = isPointer
 }
 

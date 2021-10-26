@@ -48,7 +48,7 @@ func (v *VarValue) Pointer() *VarValue {
 
 // SetIsPointer sets whether or not a variable is a pointer
 func (v *VarValue) SetIsPointer(isPointer bool) *VarValue {
-	v.typeName.pointer(isPointer)
+	v.typeName.setIsPointer(isPointer)
 	return v
 }
 

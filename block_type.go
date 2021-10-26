@@ -33,7 +33,7 @@ func (t *typeBlock) Pointer() *typeBlock {
 
 // SetIsPointer sets whether or not a type is a pointer
 func (t *typeBlock) SetIsPointer(isPointer bool) *typeBlock {
-	t.baseType.pointer(isPointer)
+	t.baseType.setIsPointer(isPointer)
 	return t
 }
 

@@ -44,7 +44,7 @@ func (r *ReturnTypeDecl) Pointer() *ReturnTypeDecl {
 
 // SetIsPointer sets whether or not a return type is a pointer
 func (r *ReturnTypeDecl) SetIsPointer(isPointer bool) *ReturnTypeDecl {
-	r.name.pointer(isPointer)
+	r.name.setIsPointer(isPointer)
 	return r
 }
 

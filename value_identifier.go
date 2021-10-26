@@ -32,7 +32,7 @@ func (i *identifierValue) Pointer() *identifierValue {
 
 // SetIsPointer sets whether or not an identifier is a pointer
 func (i *identifierValue) SetIsPointer(isPointer bool) *identifierValue {
-	i.declaration.pointer(isPointer)
+	i.declaration.setIsPointer(isPointer)
 	return i
 }
 

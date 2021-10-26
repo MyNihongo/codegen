@@ -53,7 +53,7 @@ func (p *ParamDecl) Pointer() *ParamDecl {
 
 // SetIsPointer sets whether or not a parameter is a pointer
 func (p *ParamDecl) SetIsPointer(isPointer bool) *ParamDecl {
-	p.typeName.pointer(isPointer)
+	p.typeName.setIsPointer(isPointer)
 	return p
 }
 
