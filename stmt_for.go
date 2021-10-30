@@ -31,7 +31,7 @@ func (f *forBlock) Block(statements ...Stmt) *forBlock {
 	return f
 }
 
-func (f *forBlock) write(sb *strings.Builder) {
+func (f *forBlock) writeStmt(sb *strings.Builder) bool {
 	sb.WriteString("for ")
 	if f.decl != nil {
 		f.decl.writeStmt(sb)
@@ -47,4 +47,5 @@ func (f *forBlock) write(sb *strings.Builder) {
 
 	sb.WriteByte(' ')
 	writeStmts(sb, f.stmts, true)
+	return true
 }
