@@ -47,5 +47,5 @@ func (f *forBlock) writeStmt(sb *strings.Builder) bool {
 
 	sb.WriteByte(' ')
 	writeStmts(sb, f.stmts, true)
-	return true
+	return false
 }
