@@ -236,3 +236,23 @@ func TestQualReturnTypePointerArray(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestTypeSetIsArrayTrue(t *testing.T) {
+	const want = `[]string`
+
+	var sb strings.Builder
+	Type("string").SetIsArray(true).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestTypeSetIsArrayFalse(t *testing.T) {
+	const want = `string`
+
+	var sb strings.Builder
+	Type("string").Array().SetIsArray(false).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
