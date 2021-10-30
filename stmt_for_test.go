@@ -23,7 +23,7 @@ func TestForOnlyCheck(t *testing.T) {
 	got := For(nil, Identifier("obj1").Field("uid").NotEquals(Identifier("obj2").Field("uid")), nil).
 		writeStmt(&sb)
 
-	assert.True(t, got)
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
 
@@ -35,7 +35,7 @@ func TestForInitAndCheck(t *testing.T) {
 	got := For(Declare("i").Values(Int(0)), Identifier("i").LessThan(Len(Identifier("myStr"))), nil).
 		writeStmt(&sb)
 
-	assert.True(t, got)
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
 
@@ -47,7 +47,7 @@ func TestForCheckAndPost(t *testing.T) {
 	got := For(nil, Identifier("i").LessThan(Len(Identifier("myStr"))), Identifier("i").Increment()).
 		writeStmt(&sb)
 
-	assert.True(t, got)
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
 
@@ -59,7 +59,7 @@ func TestForAllStatements(t *testing.T) {
 	got := For(Declare("i").Values(Int(0)), Identifier("i").LessThan(Len(Identifier("myStr"))), Identifier("i").Increment()).
 		writeStmt(&sb)
 
-	assert.True(t, got)
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
 
@@ -77,6 +77,6 @@ func TestForWithBlock(t *testing.T) {
 		),
 	).writeStmt(&sb)
 
-	assert.True(t, got)
+	assert.False(t, got)
 	assert.Equal(t, want, formatSb(sb))
 }
