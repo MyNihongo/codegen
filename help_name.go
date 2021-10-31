@@ -23,7 +23,7 @@ func (n *nameHelper) setIsArray(isArray bool) {
 
 func (n *nameHelper) getTypeName() string {
 	var sb strings.Builder
-	n.writeValue(&sb)
+	n.wr(&sb)
 
 	return sb.String()
 }
@@ -34,12 +34,12 @@ func (n *nameHelper) isValid() bool {
 
 func (n *nameHelper) String() string {
 	var sb strings.Builder
-	n.writeValue(&sb)
+	n.wr(&sb)
 
 	return sb.String()
 }
 
-func (n *nameHelper) writeValue(sb *strings.Builder) {
+func (n *nameHelper) wr(sb *strings.Builder) {
 	if n.isArray {
 		sb.WriteString("[]")
 	}

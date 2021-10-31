@@ -60,7 +60,7 @@ func (t *TypeDecl) SetIsArray(isArray bool) *TypeDecl {
 }
 
 func (r *TypeDecl) wr(sb *strings.Builder) {
-	r.name.writeValue(sb)
+	r.name.wr(sb)
 }
 
 func (r *TypeDecl) isValid() bool {

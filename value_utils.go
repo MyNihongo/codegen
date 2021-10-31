@@ -25,6 +25,18 @@ func writePointerValueAccess(sb *strings.Builder, val Value) {
 	}
 }
 
+func writeAddressValueAccess(sb *strings.Builder, wr func(*strings.Builder), isAddress bool) {
+	if isAddress {
+		sb.WriteString("&(")
+	}
+
+	wr(sb)
+
+	if isAddress {
+		sb.WriteByte(')')
+	}
+}
+
 func writeAlias(sb *strings.Builder, alias string) {
 	if len(alias) != 0 {
 		writeF(sb, "%s.", alias)

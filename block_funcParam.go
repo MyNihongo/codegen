@@ -30,7 +30,7 @@ func (p *ParamDecl) GetIsPointer() bool {
 // GetFullType gets the full string representation of the type
 func (p *ParamDecl) GetFullType() string {
 	var sb strings.Builder
-	p.typeName.writeValue(&sb)
+	p.typeName.wr(&sb)
 
 	return sb.String()
 }
@@ -59,7 +59,7 @@ func (p *ParamDecl) SetIsPointer(isPointer bool) *ParamDecl {
 
 func (p *ParamDecl) wr(sb *strings.Builder) {
 	writeF(sb, "%s ", p.name)
-	p.typeName.writeValue(sb)
+	p.typeName.wr(sb)
 }
 
 func writeParams(sb *strings.Builder, params []*ParamDecl) {

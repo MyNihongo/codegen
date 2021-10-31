@@ -11,7 +11,7 @@ func TestQualNameFull(t *testing.T) {
 	const want = `alias.type`
 
 	var sb strings.Builder
-	newNameHelper("alias", "type").writeValue(&sb)
+	newNameHelper("alias", "type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -20,7 +20,7 @@ func TestQualName(t *testing.T) {
 	const want = `type`
 
 	var sb strings.Builder
-	newNameHelper("", "type").writeValue(&sb)
+	newNameHelper("", "type").wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -60,7 +60,7 @@ func TestNameIsArray(t *testing.T) {
 	fixture.setIsArray(true)
 
 	var sb strings.Builder
-	fixture.writeValue(&sb)
+	fixture.wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -72,7 +72,7 @@ func TestQualNameIsArray(t *testing.T) {
 	fixture.setIsArray(true)
 
 	var sb strings.Builder
-	fixture.writeValue(&sb)
+	fixture.wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -85,7 +85,7 @@ func TestNamePointerIsArray(t *testing.T) {
 	fixture.setIsArray(true)
 
 	var sb strings.Builder
-	fixture.writeValue(&sb)
+	fixture.wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -98,7 +98,7 @@ func TestQualNamePointerIsArray(t *testing.T) {
 	fixture.setIsArray(true)
 
 	var sb strings.Builder
-	fixture.writeValue(&sb)
+	fixture.wr(&sb)
 
 	assert.Equal(t, want, sb.String())
 }

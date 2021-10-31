@@ -50,5 +50,5 @@ func (p *PropertyDecl) wr(sb *strings.Builder) {
 		writeF(sb, "%s ", p.name)
 	}
 
-	p.typeName.writeValue(sb)
+	p.typeName.wr(sb)
 }

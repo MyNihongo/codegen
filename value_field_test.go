@@ -128,3 +128,14 @@ func TestFieldNotEquals(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFieldAddress(t *testing.T) {
+	const want = `&(obj.field)`
+
+	var sb strings.Builder
+	Identifier("obj").
+		Field("field").Address().
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
