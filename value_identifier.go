@@ -138,15 +138,7 @@ func (i *identifierValue) AtIndex(value Value) *squireBracketsValue {
 }
 
 func (i *identifierValue) writeValue(sb *strings.Builder) {
-	if i.isAddress {
-		sb.WriteString("&(")
-	}
-
-	i.declaration.writeValue(sb)
-
-	if i.isAddress {
-		sb.WriteByte(')')
-	}
+	writeAddressValueAccess(sb, i.declaration.wr, i.isAddress)
 }
 
 func (i *identifierValue) isPointer() bool {

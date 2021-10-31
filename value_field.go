@@ -3,8 +3,9 @@ package codegen
 import "strings"
 
 type fieldValue struct {
-	val  Value
-	name string
+	val       Value
+	name      string
+	isAddress bool
 }
 
 // Field appends a new field getter after the field
@@ -50,6 +51,12 @@ func (f *fieldValue) Equals(value Value) *comparisonValue {
 // Equals compares a value of the identifier for not being equal
 func (f *fieldValue) NotEquals(value Value) *comparisonValue {
 	return newEquals(f, value, cmpType_NotEquals)
+}
+
+// Address turns the field into an address type (pointer to the field)
+func (f *fieldValue) Address() *fieldValue {
+	f.isAddress = true
+	return f
 }
 
 func newField(val Value, name string) *fieldValue {

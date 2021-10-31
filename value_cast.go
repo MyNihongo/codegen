@@ -28,7 +28,7 @@ func (c *castValue) writeValue(sb *strings.Builder) {
 	writePointerValueAccess(sb, c.val)
 	sb.WriteString(".(")
 
-	c.name.writeValue(sb)
+	c.name.wr(sb)
 
 	sb.WriteByte(')')
 }

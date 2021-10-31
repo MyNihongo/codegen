@@ -46,6 +46,6 @@ func newType(name, alias, baseType string) *typeBlock {
 
 func (t *typeBlock) write(sb *strings.Builder) {
 	writeF(sb, "type %s ", t.name)
-	t.baseType.writeValue(sb)
+	t.baseType.wr(sb)
 	newLine(sb)
 }
