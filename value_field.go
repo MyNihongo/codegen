@@ -67,8 +67,12 @@ func newField(val Value, name string) *fieldValue {
 }
 
 func (f *fieldValue) writeValue(sb *strings.Builder) {
-	writePointerValueAccess(sb, f.val)
-	writeF(sb, ".%s", f.name)
+	write := func(b *strings.Builder) {
+		writePointerValueAccess(b, f.val)
+		writeF(b, ".%s", f.name)
+	}
+
+	writeAddressValueAccess(sb, write, f.isAddress)
 }
 
 func (f *fieldValue) isPointer() bool {
