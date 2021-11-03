@@ -139,3 +139,13 @@ func TestFieldAddress(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestFieldAppend(t *testing.T) {
+	const want = `obj.field=append(obj.field,newItem)`
+
+	var sb strings.Builder
+	Identifier("obj").Field("field").Append(Identifier("newItem")).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

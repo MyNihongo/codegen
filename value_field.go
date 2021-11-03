@@ -59,6 +59,11 @@ func (f *fieldValue) Address() *fieldValue {
 	return f
 }
 
+// Append creates an append block for the field
+func (f *fieldValue) Append(value Value) *assignStmt {
+	return f.Assign(Append(f, value))
+}
+
 func newField(val Value, name string) *fieldValue {
 	return &fieldValue{
 		val:  val,
