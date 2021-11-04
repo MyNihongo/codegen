@@ -12,15 +12,27 @@ func Len(val Value) *goFuncValue {
 	return newGoFunc("len", val)
 }
 
-// Make creates a new function call of the Go built-in function `make()` for an empty slice
-func Make(sliceType *TypeDecl) *goFuncValue {
-	return MakeWithCount(sliceType, 0)
+// MakeSlice creates a new function call of the Go built-in function `make()` for an empty slice
+func MakeSlice(sliceType *TypeDecl) *goFuncValue {
+	return MakeSliceWithCount(sliceType, 0)
 }
 
-// Make creates a new function call of the Go built-in function `make()` for a slice with count
-func MakeWithCount(sliceType *TypeDecl, count int) *goFuncValue {
+// MakeSliceWithCount creates a new function call of the Go built-in function `make()` for a slice with count
+func MakeSliceWithCount(sliceType *TypeDecl, count int) *goFuncValue {
 	sliceType.Array()
 	typeString := Identifier(sliceType.name.String())
+	return newGoFunc("make", typeString, Int(count))
+}
+
+// MakeMap creates a new function call of the Go built-in function `make()` for an empty map
+func MakeMap(mapType *MapTypeDecl) *goFuncValue {
+	typeString := Identifier(mapType.String())
+	return newGoFunc("make", typeString)
+}
+
+// MakeMapWithCount creates a new function call of the Go built-in function `make()` for a map with count
+func MakeMapWithCount(mapType *MapTypeDecl, count int) *goFuncValue {
+	typeString := Identifier(mapType.String())
 	return newGoFunc("make", typeString, Int(count))
 }
 

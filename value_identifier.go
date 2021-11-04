@@ -137,6 +137,11 @@ func (i *identifierValue) AtIndex(value Value) *squireBracketsValue {
 	return newSquireBrackets(i, value)
 }
 
+// Append creates an append block for the identifier
+func (i *identifierValue) Append(value Value) *assignStmt {
+	return i.Assign(Append(i, value))
+}
+
 func (i *identifierValue) writeValue(sb *strings.Builder) {
 	writeAddressValueAccess(sb, i.declaration.wr, i.isAddress)
 }

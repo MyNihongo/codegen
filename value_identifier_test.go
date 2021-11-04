@@ -396,3 +396,13 @@ func TestIdentifierAtIndex(t *testing.T) {
 
 	assert.Equal(t, want, sb.String())
 }
+
+func TestIdentifierAppend(t *testing.T) {
+	const want = `obj=append(obj,newItem)`
+
+	var sb strings.Builder
+	Identifier("obj").Append(Identifier("newItem")).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
+}

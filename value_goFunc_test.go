@@ -53,87 +53,87 @@ func TestGoFuncNoPointer(t *testing.T) {
 	assert.False(t, got)
 }
 
-func TestGoFuncMake(t *testing.T) {
+func TestGoFuncMakeSlice(t *testing.T) {
 	const want = `make([]string,0)`
 
 	var sb strings.Builder
-	Make(Type("string")).
+	MakeSlice(Type("string")).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeCount(t *testing.T) {
+func TestGoFuncMakeSliceCount(t *testing.T) {
 	const want = `make([]string,12)`
 
 	var sb strings.Builder
-	MakeWithCount(Type("string"), 12).
+	MakeSliceWithCount(Type("string"), 12).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakePointer(t *testing.T) {
+func TestGoFuncMakeSlicePointer(t *testing.T) {
 	const want = `make([]*string,0)`
 
 	var sb strings.Builder
-	Make(Type("string").Pointer()).
+	MakeSlice(Type("string").Pointer()).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeCountPointer(t *testing.T) {
+func TestGoFuncMakeSliceCountPointer(t *testing.T) {
 	const want = `make([]*string,12)`
 
 	var sb strings.Builder
-	MakeWithCount(Type("string").Pointer(), 12).
+	MakeSliceWithCount(Type("string").Pointer(), 12).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeQual(t *testing.T) {
+func TestGoFuncMakeSliceQual(t *testing.T) {
 	const want = `make([]alias.MyType,0)`
 
 	var sb strings.Builder
-	Make(QualType("alias", "MyType")).
+	MakeSlice(QualType("alias", "MyType")).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeCountQual(t *testing.T) {
+func TestGoFuncMakeSliceCountQual(t *testing.T) {
 	const want = `make([]alias.MyType,12)`
 
 	var sb strings.Builder
-	MakeWithCount(QualType("alias", "MyType"), 12).
+	MakeSliceWithCount(QualType("alias", "MyType"), 12).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeQualPointer(t *testing.T) {
+func TestGoFuncMakeSliceQualPointer(t *testing.T) {
 	const want = `make([]*alias.MyType,0)`
 
 	var sb strings.Builder
-	Make(QualType("alias", "MyType").Pointer()).
+	MakeSlice(QualType("alias", "MyType").Pointer()).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestGoFuncMakeCountQualPointer(t *testing.T) {
+func TestGoFuncMakeSliceCountQualPointer(t *testing.T) {
 	const want = `make([]*alias.MyType,12)`
 
 	var sb strings.Builder
-	MakeWithCount(QualType("alias", "MyType").Pointer(), 12).
+	MakeSliceWithCount(QualType("alias", "MyType").Pointer(), 12).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendEmpty(t *testing.T) {
+func TestGoFuncAppendEmpty(t *testing.T) {
 	const want = `append(arr)`
 
 	var sb strings.Builder
@@ -143,7 +143,7 @@ func TestFoFuncAppendEmpty(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendSingle(t *testing.T) {
+func TestGoFuncAppendSingle(t *testing.T) {
 	const want = `append(arr,createElement())`
 
 	var sb strings.Builder
@@ -153,11 +153,31 @@ func TestFoFuncAppendSingle(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendMultiple(t *testing.T) {
+func TestGoFuncAppendMultiple(t *testing.T) {
 	const want = `append(arr,createElement(),obj.field)`
 
 	var sb strings.Builder
 	Append(Identifier("arr"), FuncCall("createElement"), Identifier("obj").Field("field")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestGoFuncMakeMap(t *testing.T) {
+	const want = `make(map[string]alias.myType)`
+
+	var sb strings.Builder
+	MakeMap(MapType(Type("string"), QualType("alias", "myType"))).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestGoFuncMakeMapWithCount(t *testing.T) {
+	const want = `make(map[string]alias.myType,100)`
+
+	var sb strings.Builder
+	MakeMapWithCount(MapType(Type("string"), QualType("alias", "myType")), 100).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
