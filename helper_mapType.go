@@ -18,6 +18,13 @@ func MapType(keyType *TypeDecl, valueType *TypeDecl) *MapTypeDecl {
 	}
 }
 
+func (m *MapTypeDecl) String() string {
+	var sb strings.Builder
+	m.wr(&sb)
+
+	return sb.String()
+}
+
 func (m *MapTypeDecl) wr(sb *strings.Builder) {
 	sb.WriteString("map[")
 	m.keyType.wr(sb)

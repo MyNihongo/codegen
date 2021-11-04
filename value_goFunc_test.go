@@ -133,7 +133,7 @@ func TestGoFuncMakeSliceCountQualPointer(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendEmpty(t *testing.T) {
+func TestGoFuncAppendEmpty(t *testing.T) {
 	const want = `append(arr)`
 
 	var sb strings.Builder
@@ -143,7 +143,7 @@ func TestFoFuncAppendEmpty(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendSingle(t *testing.T) {
+func TestGoFuncAppendSingle(t *testing.T) {
 	const want = `append(arr,createElement())`
 
 	var sb strings.Builder
@@ -153,11 +153,31 @@ func TestFoFuncAppendSingle(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
-func TestFoFuncAppendMultiple(t *testing.T) {
+func TestGoFuncAppendMultiple(t *testing.T) {
 	const want = `append(arr,createElement(),obj.field)`
 
 	var sb strings.Builder
 	Append(Identifier("arr"), FuncCall("createElement"), Identifier("obj").Field("field")).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestGoFuncMakeMap(t *testing.T) {
+	const want = `make(map[string]alias.myType)`
+
+	var sb strings.Builder
+	MakeMap(MapType(Type("string"), QualType("alias", "myType"))).
+		writeValue(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestGoFuncMakeMapWithCount(t *testing.T) {
+	const want = `make(map[string]alias.myType,100)`
+
+	var sb strings.Builder
+	MakeMapWithCount(MapType(Type("string"), QualType("alias", "myType")), 100).
 		writeValue(&sb)
 
 	assert.Equal(t, want, sb.String())
