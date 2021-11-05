@@ -9,6 +9,7 @@ import (
 
 func TestSquireBrackets(t *testing.T) {
 	const want = `arr[0]`
+
 	var sb strings.Builder
 	newSquireBrackets(Identifier("arr"), Int(0)).
 		writeValue(&sb)
@@ -21,4 +22,15 @@ func TestSquireBracketsPointer(t *testing.T) {
 		isPointer()
 
 	assert.False(t, got)
+}
+
+func TestSquireBracketsAssign(t *testing.T) {
+	const want = `myMap["key"]=myFunc()`
+
+	var sb strings.Builder
+	newSquireBrackets(Identifier("myMap"), String("key")).
+		Assign(FuncCall("myFunc")).
+		writeStmt(&sb)
+
+	assert.Equal(t, want, sb.String())
 }

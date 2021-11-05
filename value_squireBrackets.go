@@ -7,6 +7,11 @@ type squireBracketsValue struct {
 	valInBrackets Value
 }
 
+// Assign assigns a value to the squire bracket notation
+func (s *squireBracketsValue) Assign(value Value) *assignStmt {
+	return newAssignment(s, value)
+}
+
 func newSquireBrackets(val Value, valueInBrackets Value) *squireBracketsValue {
 	return &squireBracketsValue{
 		val:           val,
