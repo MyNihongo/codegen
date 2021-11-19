@@ -148,11 +148,52 @@ func TestFuncParamSetIsPointerFalse(t *testing.T) {
 	assert.Equal(t, want, sb.String())
 }
 
+func TestFuncParamArray(t *testing.T) {
+	const want = `param []string`
+
+	var sb strings.Builder
+	Param("param", "string").Array().
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncQualParamArray(t *testing.T) {
+	const want = `param []alias.MyType`
+
+	var sb strings.Builder
+	QualParam("param", "alias", "MyType").Array().
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncParamSetIsArrayTrue(t *testing.T) {
+	const want = `param []string`
+
+	var sb strings.Builder
+	Param("param", "string").SetIsArray(true).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
+func TestFuncParamSetIsArrayFalse(t *testing.T) {
+	const want = `param string`
+
+	var sb strings.Builder
+	Param("param", "string").SetIsArray(false).
+		wr(&sb)
+
+	assert.Equal(t, want, sb.String())
+}
+
 func TestFuncGetters(t *testing.T) {
-	fixture := QualParam("param", "alias", "MyType").Pointer()
+	fixture := QualParam("param", "alias", "MyType").Pointer().Array()
 
 	assert.Equal(t, "param", fixture.GetName())
 	assert.Equal(t, "alias", fixture.GetTypeAlias())
 	assert.Equal(t, "MyType", fixture.GetTypeName())
-	assert.Equal(t, true, fixture.GetIsPointer())
+	assert.True(t, fixture.GetIsPointer())
+	assert.True(t, fixture.GetIsArray())
 }
