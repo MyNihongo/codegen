@@ -7,6 +7,16 @@ type ParamDecl struct {
 	typeName *nameHelper
 }
 
+// Param creates a new function parameter
+func Param(name, typeName string) *ParamDecl {
+	return &ParamDecl{name: name, typeName: newNameHelper("", typeName)}
+}
+
+// QualParam creates a new function parameter with a package alias
+func QualParam(name, alias, typeName string) *ParamDecl {
+	return &ParamDecl{name: name, typeName: newNameHelper(alias, typeName)}
+}
+
 // GetName gets the name of the parameter
 func (p *ParamDecl) GetName() string {
 	return p.name
@@ -27,6 +37,11 @@ func (p *ParamDecl) GetIsPointer() bool {
 	return p.typeName.isPointer
 }
 
+// GetIsArray gets a flag whether or not the parameter is an array or not
+func (p *ParamDecl) GetIsArray() bool {
+	return p.typeName.isArray
+}
+
 // GetFullType gets the full string representation of the type
 func (p *ParamDecl) GetFullType() string {
 	var sb strings.Builder
@@ -35,25 +50,26 @@ func (p *ParamDecl) GetFullType() string {
 	return sb.String()
 }
 
-// Param creates a new function parameter
-func Param(name, typeName string) *ParamDecl {
-	return &ParamDecl{name: name, typeName: newNameHelper("", typeName)}
-}
-
-// QualParam creates a new function parameter with a package alias
-func QualParam(name, alias, typeName string) *ParamDecl {
-	return &ParamDecl{name: name, typeName: newNameHelper(alias, typeName)}
-}
-
 // Pointer turns the parameter into a pointer type
 func (p *ParamDecl) Pointer() *ParamDecl {
 	p.SetIsPointer(true)
 	return p
 }
 
-// SetIsPointer sets whether or not a parameter is a pointer
+// SetIsPointer sets whether or not the parameter is a pointer
 func (p *ParamDecl) SetIsPointer(isPointer bool) *ParamDecl {
 	p.typeName.setIsPointer(isPointer)
+	return p
+}
+
+// Array sets the parameter to an array type
+func (p *ParamDecl) Array() *ParamDecl {
+	return p.SetIsArray(true)
+}
+
+// SetIsArray sets whether or not the parameter is an array
+func (p *ParamDecl) SetIsArray(isArray bool) *ParamDecl {
+	p.typeName.setIsArray(isArray)
 	return p
 }
 
