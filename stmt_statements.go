@@ -14,9 +14,6 @@ func Stmts(stmts []Stmt) Stmt {
 }
 
 func (s *statementsStmt) writeStmt(sb *strings.Builder) bool {
-	if len(s.stmts) != 0 {
-		writeStmts(sb, s.stmts)
-	}
-
+	writeStmts(sb, s.stmts)
 	return false
 }
