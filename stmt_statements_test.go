@@ -19,7 +19,6 @@ func TestStmtsEmpty(t *testing.T) {
 func TestStmtsSingle(t *testing.T) {
 	const want = `var val string
 `
-
 	inputs := []Stmt{
 		DeclareVars(Var("val", "string")),
 	}
@@ -36,7 +35,6 @@ if myVar{
 return
 }
 `
-
 	inputs := []Stmt{
 		DeclareVars(Var("val", "string")),
 		If(Identifier("myVar")).Block(
