@@ -16,7 +16,7 @@ return val
 	}
 
 	var sb strings.Builder
-	writeStmts(&sb, stmts, false)
+	writeStmtsBlock(&sb, stmts, false)
 
 	assert.Equal(t, want, sb.String())
 }
@@ -31,7 +31,7 @@ return val
 	}
 
 	var sb strings.Builder
-	writeStmts(&sb, stmts, true)
+	writeStmtsBlock(&sb, stmts, true)
 
 	assert.Equal(t, want, sb.String())
 }

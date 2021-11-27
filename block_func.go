@@ -55,5 +55,5 @@ func (f *funcBlock) write(sb *strings.Builder) {
 	writeF(sb, "func %s", f.name)
 	writeParams(sb, f.params)
 	writeReturnTypes(sb, f.retTypes)
-	writeStmts(sb, f.stmts, f.newLine)
+	writeStmtsBlock(sb, f.stmts, f.newLine)
 }

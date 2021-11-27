@@ -41,5 +41,5 @@ func (m *methodBlock) write(sb *strings.Builder) {
 
 	writeParams(sb, m.params)
 	writeReturnTypes(sb, m.retTypes)
-	writeStmts(sb, m.stmts, true)
+	writeStmtsBlock(sb, m.stmts, true)
 }
