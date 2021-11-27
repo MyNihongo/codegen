@@ -74,6 +74,6 @@ func (i *ifStmt) writeStmt(sb *strings.Builder) bool {
 		i.value.writeValue(sb)
 	}
 
-	writeStmts(sb, i.stmts, i.isFinal)
+	writeStmtsBlock(sb, i.stmts, i.isFinal)
 	return !i.isFinal
 }
