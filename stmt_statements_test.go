@@ -11,8 +11,9 @@ func TestStmtsEmpty(t *testing.T) {
 	inputs := []Stmt{}
 
 	var sb strings.Builder
-	Stmts(inputs).writeStmt(&sb)
+	got := Stmts(inputs).writeStmt(&sb)
 
+	assert.False(t, got)
 	assert.Empty(t, sb.String())
 }
 
@@ -24,8 +25,9 @@ func TestStmtsSingle(t *testing.T) {
 	}
 
 	var sb strings.Builder
-	Stmts(inputs).writeStmt(&sb)
+	got := Stmts(inputs).writeStmt(&sb)
 
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
 
@@ -43,7 +45,8 @@ return
 	}
 
 	var sb strings.Builder
-	Stmts(inputs).writeStmt(&sb)
+	got := Stmts(inputs).writeStmt(&sb)
 
+	assert.False(t, got)
 	assert.Equal(t, want, sb.String())
 }
